@@ -27,10 +27,13 @@ namespace TESTAPP10
 
             var userid = txtuname.Text;
             var password = txtpass.Text;
-
+            frmfaild.IsVisible = false;
+            frmsuccess.IsVisible = false;
+            errorframe.IsVisible = false;
+           
             if ((string.IsNullOrEmpty(userid)) || (string.IsNullOrEmpty(password)))
             {
-                lblmsg.Text = "Please fill all the fields.";
+                lblmsg.Text = "All fields are required for registration.";
                 errorframe.IsVisible = true;
                 lblmsg.IsVisible = true;
                 return;
@@ -43,7 +46,7 @@ namespace TESTAPP10
 
             if ((SecurityCheck.isTampered((Convert.ToString(password) == null ? "" : password)))|| (Convert.ToString(password).Length < 7))
             {
-                lblmsg.Text = "Username or Password provided is invalid OR Password did not pass our security criteria. Hint: Needs to be minimum 6 chars long, No Spaces, certain special characters are not allowed.";
+                lblmsg.Text = "Password did not pass our security criteria. Hint: Needs to be minimum 6 chars long, No Spaces, certain special characters are not allowed.";
                 errorframe.IsVisible = true;
                 lblmsg.IsVisible = true;
                 return;
@@ -56,18 +59,15 @@ namespace TESTAPP10
 
             var rsds = App.SOAP_Request.ForgotPassword(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim());
 
-            if(rsds.ToLower().Contains("success"))
+            if (rsds.ToLower().Contains("success"))
             {
-                login.IsVisible = false;
-                frmfaild.IsVisible = false;
                 frmsuccess.IsVisible = true;
+                login.IsVisible = false;
             }
             else
             {
-                login.IsVisible = false;
                 frmfaild.IsVisible = true;
-                frmsuccess.IsVisible = false;
-                
+                login.IsVisible = false;
             }
         }
         private async void BackTosignIn_Tapped(object sender, EventArgs e)

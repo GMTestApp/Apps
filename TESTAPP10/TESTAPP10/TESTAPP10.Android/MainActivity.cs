@@ -19,6 +19,7 @@ namespace TESTAPP10.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            App.SOAP_Request = new SOAP_Request(new SoapService());
             LoadApplication(new App());
         }
     }

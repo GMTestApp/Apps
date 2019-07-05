@@ -13,10 +13,10 @@ namespace TESTAPP10
             ISoapService = service;
         }
 
-        public string ValidateLogins(string uid, string pass, string invitecode)
-        {
-            return ISoapService.validate(uid, pass, invitecode);
-        }
+        //public string ValidateLogins(string uid, string pass, string invitecode)
+        //{
+        //    return ISoapService.validate(uid, pass, invitecode);
+        //}
         public string NewRegistration(string uid, string pass, string invitecode)
         {
             return ISoapService.NewRegistration(uid, pass, invitecode);

@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using Foundation;
-using UIKit;
-using TESTAPP10.iOS.DriverTrak_WebReference;
+using TESTAPP10.Droid.DriverTrak_WebReference;
 
 
 
-namespace TESTAPP10.iOS
+namespace TESTAPP10.Droid
 {
     public class SoapService: ISoapService
     {
         //public string validate(string uid, string pass, string invitecode)
         //{
         //    ValidateLogin ValidateLogin = new ValidateLogin();
-        //    var res = ValidateLogin.isLoginValid(uid, pass, invitecode);
-        //    return res;
+        //    // var res = ValidateLogin.(uid, pass, invitecode);
+        //    //return res;
+        //    return "";
         //}
         public string NewRegistration(string uid, string pass, string invitecode)
         {

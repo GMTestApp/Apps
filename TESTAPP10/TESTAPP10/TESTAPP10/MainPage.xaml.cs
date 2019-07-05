@@ -106,7 +106,6 @@ namespace TESTAPP10
 
                 if (response.Valid.ToString().ToLower() == "y")
                 {
-
                     Customer custom = new Customer();
                     custom.UserId = userid;
                     custom.Password = password;
@@ -157,29 +156,17 @@ namespace TESTAPP10
                     lblmsg2.IsVisible = true;
                     return;
                 }
-                if ((SecurityCheck.isTampered((Convert.ToString(password) == null ? "" : password)))|| (Convert.ToString(password).Length < 7))
-                {
-                    lblmsg2.Text = "Password did not pass our security criteria. Please try another password. Hint: No space, Certain special characters are not allowed.";
-                    errorframe.IsVisible = true;
-                    lblmsg2.IsVisible = true;
-                    return;
-                }
+                //if ((SecurityCheck.isTampered((Convert.ToString(password) == null ? "" : password)))|| (Convert.ToString(password).Length < 7))
+                //{
+                //    lblmsg2.Text = "Password did not pass our security criteria. Please try another password. Hint: No space, Certain special characters are not allowed.";
+                //    errorframe.IsVisible = true;
+                //    lblmsg2.IsVisible = true;
+                //    return;
+                //}
 
-                var InviteCode = App.SqlLiteCon().Query<Customer>("SELECT * FROM Customer WHERE UserId = ?", userid).Count > 0 ? App.SqlLiteCon().Query<Customer>("SELECT * FROM Customer WHERE UserId = ?", userid)[0].XCode : "";
+                var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s=>s.UserId == userid).Where(s=>s.Password==password)select s;
 
-                var res = App.SOAP_Request.ValidateLogins(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim());
-
-                if (!res.Contains("\"CompanyID\":"))
-                {
-                    lblmsg2.Text = res;
-                    errorframe.IsVisible = true;
-                    lblmsg2.IsVisible = true;
-                    return;
-                }
-
-                Re_Type response = JsonConvert.DeserializeObject<Re_Type>(res);
-
-                if (response.Valid.ToLower() == "n")
+                if(customer.Count()==0)
                 {
                     lblmsg2.Text = "Username or Password provided is invalid. Please try again.";
                     lblmsg2.IsVisible = true;
@@ -187,9 +174,30 @@ namespace TESTAPP10
                     return;
                 }
 
-                await Navigation.PushAsync(new SuccessPage((!string.IsNullOrEmpty(Convert.ToString(response.Type)) ? response.Type : "D")));
+                await Navigation.PushAsync(new SuccessPage("D"));
+
+                //var InviteCode = App.SqlLiteCon().Query<Customer>("SELECT * FROM Customer WHERE UserId = ?", userid).Count > 0 ? App.SqlLiteCon().Query<Customer>("SELECT * FROM Customer WHERE UserId = ?", userid)[0].XCode : "";
+                //var res = App.SOAP_Request.ValidateLogins(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim());
+                //if (!res.Contains("\"CompanyID\":"))
+                //{
+                //    lblmsg2.Text = res;
+                //    errorframe.IsVisible = true;
+                //    lblmsg2.IsVisible = true;
+                //    return;
+                //}
+                //Re_Type response = JsonConvert.DeserializeObject<Re_Type>(res);
+
+                //if (response.Valid.ToLower() == "n")
+                //{
+                //    lblmsg2.Text = "Username or Password provided is invalid. Please try again.";
+                //    lblmsg2.IsVisible = true;
+                //    errorframe.IsVisible = true;
+                //    return;
+                //}
+
+                //await Navigation.PushAsync(new SuccessPage((!string.IsNullOrEmpty(Convert.ToString(response.Type)) ? response.Type : "D")));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblmsg2.Text = ex.Message.ToString();
                 lblmsg2.IsVisible = true;

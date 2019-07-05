@@ -18,7 +18,7 @@
         <BoxView HeightRequest="5"></BoxView>
 
         <StackLayout>
-            <Frame HasShadow="False" IsVisible="False"  Padding="10,10,10,10" BackgroundColor="White" x:Name="errorframe"  BorderColor="Black" Margin="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                <Frame x:Name="errorframe" HasShadow="False" IsVisible="False"  Padding="10,10,10,10" BackgroundColor="White"   BorderColor="Black" Margin="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />

@@ -69,6 +69,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoapService.cs" />
     <Compile Include="Web References\DriverTrak_WebReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,6 +129,9 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\transaprentwarningtest.png" />
+  </ItemGroup>
+  <ItemGroup>
     <WebReferenceUrl Include="http://204.93.158.163/CentralPool/ValidateLogin.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\DriverTrak_WebReference\</RelPath>
@@ -144,9 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\DriverTrak_WebReference\ValidateLogin.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\transaprentwarningtest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
