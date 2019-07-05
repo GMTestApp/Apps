@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="isLoginValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isLoginValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="isLoginValidResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewRegistrationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForgotPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForgotPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ForgotPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewDriverEntry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DriverID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewDriverEntryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NewDriverEntryResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CodeExist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DriverID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CodeExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CodeExistResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="isLoginValidSoapIn">
+    <wsdl:part name="parameters" element="tns:isLoginValid" />
+  </wsdl:message>
+  <wsdl:message name="isLoginValidSoapOut">
+    <wsdl:part name="parameters" element="tns:isLoginValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:NewRegistration" />
+  </wsdl:message>
+  <wsdl:message name="NewRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:NewRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ForgotPassword" />
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ForgotPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewDriverEntrySoapIn">
+    <wsdl:part name="parameters" element="tns:NewDriverEntry" />
+  </wsdl:message>
+  <wsdl:message name="NewDriverEntrySoapOut">
+    <wsdl:part name="parameters" element="tns:NewDriverEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="CodeExistSoapIn">
+    <wsdl:part name="parameters" element="tns:CodeExist" />
+  </wsdl:message>
+  <wsdl:message name="CodeExistSoapOut">
+    <wsdl:part name="parameters" element="tns:CodeExistResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ValidateLoginSoap">
+    <wsdl:operation name="isLoginValid">
+      <wsdl:input message="tns:isLoginValidSoapIn" />
+      <wsdl:output message="tns:isLoginValidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewRegistration">
+      <wsdl:input message="tns:NewRegistrationSoapIn" />
+      <wsdl:output message="tns:NewRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <wsdl:input message="tns:ForgotPasswordSoapIn" />
+      <wsdl:output message="tns:ForgotPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewDriverEntry">
+      <wsdl:input message="tns:NewDriverEntrySoapIn" />
+      <wsdl:output message="tns:NewDriverEntrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CodeExist">
+      <wsdl:input message="tns:CodeExistSoapIn" />
+      <wsdl:output message="tns:CodeExistSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ValidateLoginSoap" type="tns:ValidateLoginSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="isLoginValid">
+      <soap:operation soapAction="http://tempuri.org/isLoginValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewRegistration">
+      <soap:operation soapAction="http://tempuri.org/NewRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <soap:operation soapAction="http://tempuri.org/ForgotPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewDriverEntry">
+      <soap:operation soapAction="http://tempuri.org/NewDriverEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CodeExist">
+      <soap:operation soapAction="http://tempuri.org/CodeExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ValidateLoginSoap12" type="tns:ValidateLoginSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="isLoginValid">
+      <soap12:operation soapAction="http://tempuri.org/isLoginValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewRegistration">
+      <soap12:operation soapAction="http://tempuri.org/NewRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <soap12:operation soapAction="http://tempuri.org/ForgotPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewDriverEntry">
+      <soap12:operation soapAction="http://tempuri.org/NewDriverEntry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CodeExist">
+      <soap12:operation soapAction="http://tempuri.org/CodeExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ValidateLogin">
+    <wsdl:port name="ValidateLoginSoap" binding="tns:ValidateLoginSoap">
+      <soap:address location="http://204.93.158.163/CentralPool/ValidateLogin.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ValidateLoginSoap12" binding="tns:ValidateLoginSoap12">
+      <soap12:address location="http://204.93.158.163/CentralPool/ValidateLogin.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
