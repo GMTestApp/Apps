@@ -12,11 +12,6 @@ namespace TESTAPP10
         {
             ISoapService = service;
         }
-
-        //public string ValidateLogins(string uid, string pass, string invitecode)
-        //{
-        //    return ISoapService.validate(uid, pass, invitecode);
-        //}
         public string NewRegistration(string uid, string pass, string invitecode)
         {
             return ISoapService.NewRegistration(uid, pass, invitecode);
@@ -24,6 +19,10 @@ namespace TESTAPP10
         public string ForgotPassword(string uid, string pass, string invitecode)
         {
             return ISoapService.ForgotPassword(uid, pass, invitecode);
+        }
+        public string MBoardData(string uid, string invite, string Type, string CompanyId)
+        {
+            return ISoapService.MBoardData(uid, invite, Type, CompanyId);
         }
     }
 }

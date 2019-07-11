@@ -20,7 +20,7 @@ namespace TESTAPP10
         {
             InitializeComponent();
 
-            lblmsg.Text="Welcome to "+ str + " Board.";
+            lblmsg.Text= str;
         }
     }
 }

@@ -33,5 +33,11 @@ namespace TESTAPP10.Droid
             return res;
 
         }
+        public string MBoardData(string uid, string invite, string Type, string CompanyId)
+        {
+            ValidateLogin ValidateLogin = new ValidateLogin();
+            var res = ValidateLogin.MBoardData(uid, invite, Type, CompanyId);
+            return res;
+        }
     }
 }

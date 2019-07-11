@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,7 @@ namespace TESTAPP10
         public MainPage()
         {
             InitializeComponent();
-            //try
-            //{
-            //    App.SqlLiteCon().Execute("drop table Customer;");
-            //}
-            //catch
-            //{ }
+
             loginvisibility();
         }
 
@@ -47,6 +43,7 @@ namespace TESTAPP10
                 }
                 else
                 {
+                   
                     login.IsVisible = false;
                     registration.IsVisible = true;
                     loginscreen.Text = "New User Registration";
@@ -70,30 +67,16 @@ namespace TESTAPP10
                     lblmsg2.Text = "All fields are required for registration.";
                     lblmsg2.IsVisible = true;
                     errorframe.IsVisible = true;
-                   
                     return;
                 }
-                //if (Convert.ToString(txtpass.Text).Length < 7)
-                //{
-                //    lblmsg2.Text = "Password did not pass our security criteria. Please try another password. Hint: Enter Minimum 6 Charactes.";
-                //    lblmsg2.IsVisible = true;
-                //    errorframe.IsVisible = true;
-                //    return;
-                //}
-
                 if ((SecurityCheck.isTampered((Convert.ToString(txtpass.Text) == null ? "" : txtpass.Text))) || (Convert.ToString(txtpass.Text).Length < 7))
                 {
                     lblmsg2.Text = "Password did not pass our security criteria. Hint: Needs to be minimum 6 chars long, No Spaces, certain special characters are not allowed.";
                     lblmsg2.IsVisible = true;
                     errorframe.IsVisible = true;
-                   
                     return;
                 }
-
                 var rsds = App.SOAP_Request.NewRegistration(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim());
-
-                rsds = !rsds.EndsWith("}}") ? rsds + "}" : rsds;
-
                 if (!rsds.Contains("\"CompanyID\":"))
                 {
                     lblmsg2.Text = rsds;
@@ -101,17 +84,29 @@ namespace TESTAPP10
                     errorframe.IsVisible = true;
                     return;
                 }
-
-                SOAPResponse response = JsonConvert.DeserializeObject<SOAPResponse>(rsds);
+                Re_Type response = null;
+                try
+                {
+                    response = JsonConvert.DeserializeObject<Re_Type>(rsds);
+                }
+                catch(Exception f)
+                {
+                    lblmsg2.Text = f.Message;
+                    lblmsg2.IsVisible = true;
+                    errorframe.IsVisible = true;
+                    return;
+                }
 
                 if (response.Valid.ToString().ToLower() == "y")
                 {
+
                     Customer custom = new Customer();
                     custom.UserId = userid;
                     custom.Password = password;
                     custom.XCode = InviteCode;
-                    custom.CompanyID = response.Type != null ? response.Type.CompanyID : "";
-                    custom.TransactURL = response.Type != null ? response.Type.URL : "";
+                    custom.Type = response.Type != null ? response.Type : "";
+                    custom.CompanyID = response.Type != null ? response.CompanyID : "";
+                    custom.TransactURL = response.Type != null ? response.URL : "";
 
                     App.SqlLiteCon().CreateTable<Customer>();
 
@@ -125,11 +120,12 @@ namespace TESTAPP10
                         return;
                     }
 
-                    await Navigation.PushAsync(new SuccessPage((!string.IsNullOrEmpty(Convert.ToString(response.Type.Type)) ? response.Type.Type : "D")));
+                    await DisplayAlert("", "Registered Successfully.", "OK");
+                    await Navigation.PushAsync(new MainPage());
                 }
                 else
                 {
-                    lblmsg2.Text = "Registration Faild.";
+                    lblmsg2.Text = "Invalid Credentials";
                     lblmsg2.IsVisible = true;
                     errorframe.IsVisible = true;
                     return;
@@ -151,54 +147,25 @@ namespace TESTAPP10
 
                 if ((string.IsNullOrEmpty(userid)) || (string.IsNullOrEmpty(password)) )
                 {
-                    lblmsg2.Text = "Username or Password provided is invalid. Please try again.";
+                    lblmsg2.Text = "Please fill all the fields.";
                     errorframe.IsVisible = true;
                     lblmsg2.IsVisible = true;
                     return;
                 }
-                //if ((SecurityCheck.isTampered((Convert.ToString(password) == null ? "" : password)))|| (Convert.ToString(password).Length < 7))
-                //{
-                //    lblmsg2.Text = "Password did not pass our security criteria. Please try another password. Hint: No space, Certain special characters are not allowed.";
-                //    errorframe.IsVisible = true;
-                //    lblmsg2.IsVisible = true;
-                //    return;
-                //}
+                var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s => s.UserId == userid).Where(s => s.Password == password) select s;
 
-                var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s=>s.UserId == userid).Where(s=>s.Password==password)select s;
-
-                if(customer.Count()==0)
+                if (customer.Count() == 0)
                 {
-                    lblmsg2.Text = "Username or Password provided is invalid. Please try again.";
-                    lblmsg2.IsVisible = true;
+                    lblmsg3.IsVisible = true;
                     errorframe.IsVisible = true;
+                    lblmsg2.IsVisible = false;
                     return;
                 }
-
-                await Navigation.PushAsync(new SuccessPage("D"));
-
-                //var InviteCode = App.SqlLiteCon().Query<Customer>("SELECT * FROM Customer WHERE UserId = ?", userid).Count > 0 ? App.SqlLiteCon().Query<Customer>("SELECT * FROM Customer WHERE UserId = ?", userid)[0].XCode : "";
-                //var res = App.SOAP_Request.ValidateLogins(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim());
-                //if (!res.Contains("\"CompanyID\":"))
-                //{
-                //    lblmsg2.Text = res;
-                //    errorframe.IsVisible = true;
-                //    lblmsg2.IsVisible = true;
-                //    return;
-                //}
-                //Re_Type response = JsonConvert.DeserializeObject<Re_Type>(res);
-
-                //if (response.Valid.ToLower() == "n")
-                //{
-                //    lblmsg2.Text = "Username or Password provided is invalid. Please try again.";
-                //    lblmsg2.IsVisible = true;
-                //    errorframe.IsVisible = true;
-                //    return;
-                //}
-
-                //await Navigation.PushAsync(new SuccessPage((!string.IsNullOrEmpty(Convert.ToString(response.Type)) ? response.Type : "D")));
+                await Navigation.PushAsync(new MBoard( userid,password));
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
+
                 lblmsg2.Text = ex.Message.ToString();
                 lblmsg2.IsVisible = true;
                 errorframe.IsVisible = true;
@@ -207,20 +174,56 @@ namespace TESTAPP10
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Login());
+            if (!string.IsNullOrEmpty(Convert.ToString(UsernameEntrylogin.Text)))
+                await Navigation.PushAsync(new ResetPassword());
+            else
+                await Navigation.PushAsync(new ResetPassword());
         }
 
         private async void Forgotpwd_Tapped(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(Convert.ToString(UsernameEntrylogin.Text)))
-                await Navigation.PushAsync(new Login(Convert.ToString(UsernameEntrylogin.Text)));
+                await Navigation.PushAsync(new ResetPassword());
             else
-                await Navigation.PushAsync(new Login());
+                await Navigation.PushAsync(new ResetPassword());
         }
 
         private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
         {
             txtpass.IsPassword = true;
+           
+        }
+
+        private async void Forgotpwd_Tapped_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Convert.ToString(UsernameEntrylogin.Text)))
+                await Navigation.PushAsync(new ResetPassword());
+            else
+                await Navigation.PushAsync(new ResetPassword());
+        }
+
+        private async void Resetuser_Tapped(object sender, EventArgs e)
+        {
+            try
+            {
+                var action = await DisplayAlert("", "Are you sure, you want to delete the existing profile?", "Yes", "No");
+                if (action)
+                {
+                    App.SqlLiteCon().Execute("drop table Customer;");
+                    await DisplayAlert("", "Profile successful removed.", "OK");
+                    await Navigation.PushAsync(new MainPage());
+                }
+                else
+                {
+                    await DisplayAlert("", "No changes made to existing profile.", "OK");
+                }
+            }
+            catch(Exception f)
+            {
+                await DisplayAlert("",f.Message, "OK");
+            }
+           
         }
     }
+   
 }

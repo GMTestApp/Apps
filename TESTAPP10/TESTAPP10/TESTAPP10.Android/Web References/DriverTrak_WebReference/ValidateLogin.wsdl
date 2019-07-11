@@ -2,6 +2,23 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="MBoardDataDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MBoardDataDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MBoardDataDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="MBoardData">
         <s:complexType>
           <s:sequence>
@@ -86,6 +103,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="MBoardDataDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:MBoardDataDetails" />
+  </wsdl:message>
+  <wsdl:message name="MBoardDataDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:MBoardDataDetailsResponse" />
+  </wsdl:message>
   <wsdl:message name="MBoardDataSoapIn">
     <wsdl:part name="parameters" element="tns:MBoardData" />
   </wsdl:message>
@@ -117,6 +140,10 @@
     <wsdl:part name="parameters" element="tns:CodeExistResponse" />
   </wsdl:message>
   <wsdl:portType name="ValidateLoginSoap">
+    <wsdl:operation name="MBoardDataDetails">
+      <wsdl:input message="tns:MBoardDataDetailsSoapIn" />
+      <wsdl:output message="tns:MBoardDataDetailsSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="MBoardData">
       <wsdl:input message="tns:MBoardDataSoapIn" />
       <wsdl:output message="tns:MBoardDataSoapOut" />
@@ -140,6 +167,15 @@
   </wsdl:portType>
   <wsdl:binding name="ValidateLoginSoap" type="tns:ValidateLoginSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="MBoardDataDetails">
+      <soap:operation soapAction="http://tempuri.org/MBoardDataDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="MBoardData">
       <soap:operation soapAction="http://tempuri.org/MBoardData" style="document" />
       <wsdl:input>
@@ -188,6 +224,15 @@
   </wsdl:binding>
   <wsdl:binding name="ValidateLoginSoap12" type="tns:ValidateLoginSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="MBoardDataDetails">
+      <soap12:operation soapAction="http://tempuri.org/MBoardDataDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="MBoardData">
       <soap12:operation soapAction="http://tempuri.org/MBoardData" style="document" />
       <wsdl:input>

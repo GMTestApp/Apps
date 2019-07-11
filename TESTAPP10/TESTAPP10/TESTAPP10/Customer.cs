@@ -11,6 +11,7 @@ namespace TESTAPP10
         public int ID { get; set; }
         public string UserId { get; set; }
         public string Password { get; set; }
+        public string Type { get; set; }
         public string XCode { get; set; }
         public string CompanyID { get; set; }
         public string TransactURL { get; set; }

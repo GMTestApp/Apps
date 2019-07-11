@@ -23,11 +23,13 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ValidateLoginSoap", Namespace="http://tempuri.org/")]
     public partial class ValidateLogin : System.Web.Services.Protocols.SoapHttpClientProtocol {
+        
+        private System.Threading.SendOrPostCallback MBoardDataDetailsOperationCompleted;
         
         private System.Threading.SendOrPostCallback MBoardDataOperationCompleted;
         
@@ -78,6 +80,9 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
         }
         
         /// <remarks/>
+        public event MBoardDataDetailsCompletedEventHandler MBoardDataDetailsCompleted;
+        
+        /// <remarks/>
         public event MBoardDataCompletedEventHandler MBoardDataCompleted;
         
         /// <remarks/>
@@ -91,6 +96,41 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
         
         /// <remarks/>
         public event CodeExistCompletedEventHandler CodeExistCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/MBoardDataDetails", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string MBoardDataDetails(string UserId, string InviteCode, string MNo, string CompanyId) {
+            object[] results = this.Invoke("MBoardDataDetails", new object[] {
+                        UserId,
+                        InviteCode,
+                        MNo,
+                        CompanyId});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MBoardDataDetailsAsync(string UserId, string InviteCode, string MNo, string CompanyId) {
+            this.MBoardDataDetailsAsync(UserId, InviteCode, MNo, CompanyId, null);
+        }
+        
+        /// <remarks/>
+        public void MBoardDataDetailsAsync(string UserId, string InviteCode, string MNo, string CompanyId, object userState) {
+            if ((this.MBoardDataDetailsOperationCompleted == null)) {
+                this.MBoardDataDetailsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMBoardDataDetailsOperationCompleted);
+            }
+            this.InvokeAsync("MBoardDataDetails", new object[] {
+                        UserId,
+                        InviteCode,
+                        MNo,
+                        CompanyId}, this.MBoardDataDetailsOperationCompleted, userState);
+        }
+        
+        private void OnMBoardDataDetailsOperationCompleted(object arg) {
+            if ((this.MBoardDataDetailsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MBoardDataDetailsCompleted(this, new MBoardDataDetailsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/MBoardData", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -281,11 +321,37 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    public delegate void MBoardDataDetailsCompletedEventHandler(object sender, MBoardDataDetailsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MBoardDataDetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MBoardDataDetailsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void MBoardDataCompletedEventHandler(object sender, MBoardDataCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class MBoardDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -307,11 +373,11 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void NewRegistrationCompletedEventHandler(object sender, NewRegistrationCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class NewRegistrationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -333,11 +399,11 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void ForgotPasswordCompletedEventHandler(object sender, ForgotPasswordCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ForgotPasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -359,11 +425,11 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void NewDriverEntryCompletedEventHandler(object sender, NewDriverEntryCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class NewDriverEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -385,11 +451,11 @@ namespace TESTAPP10.iOS.DriverTrak_WebReference {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void CodeExistCompletedEventHandler(object sender, CodeExistCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CodeExistCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
