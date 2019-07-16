@@ -1,0 +1,144 @@
+﻿contentpage {
+    background-color: #8eadc1;
+}
+
+stacklayout {
+    background-color: #8eadc1;
+}
+
+label {
+    color: black;
+    font-family: Tahoma;
+    
+}
+
+Entry {
+    color: black;
+    font-family: Tahoma;
+    height:40;
+   
+}
+
+button {
+    color: black;
+    background-color: #8eadc1;
+    font-family: Tahoma;
+   
+}
+
+frame {
+    background-color: white;
+    
+}
+
+boxview {
+    background-color: #8eadc1;
+}
+
+.initial {
+    background-color: #8eadc1;
+}
+.Logo {
+    vertical-align: central;
+    align-items: center;
+    align-self: center;
+    height:50;
+    width:50;
+}
+.title {
+    font-size: medium;
+    font-style: bold;
+    text-align: center;
+ 
+}
+.header {
+    font-style: bold;
+    text-align: center;
+}
+.UserFrme {
+    padding: 10 10 10 10;
+    margin-left:20;
+    margin-top:-10;
+    margin-right:20;
+    margin-bottom:20;
+   border-color:black;
+   
+}
+.warningimg
+{
+    height:28;
+}
+.font{
+    font-size: 13;
+}
+.reggrid {
+    margin-left: 0;
+    margin-top: -20;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.Regfrme {
+    margin-left: 20;
+    margin-top: 10;
+    margin-right: 20;
+    margin-bottom: 0;
+    padding:20;
+    border-color:black;
+}
+.boxview{
+    background-color:white;
+}
+.AccButton {
+    height: 50;
+    font-style: bold;
+}
+.forgotpwd {
+    font-size: 14;
+    text-decoration:underline;
+}
+
+.pwd {
+    margin-left: 20;
+    margin-top: 20;
+    margin-right: 20;
+    margin-bottom: 20;
+    border-color: black;
+}
+.fontsize{
+    font-size: 14;
+}
+.tick{
+    height:50;
+}
+.grid {
+    padding-left: 10;
+    padding-top: 30;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+.ticklbl {
+    margin-left: 100;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: underline;
+    font-size: 14;
+}
+.red{
+    border-color:red;
+}
+.resett {
+    Background-Color: #8eadc1;
+    margin-left: 0;
+    margin-top: 15;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.resetimg{
+    height:25;
+}
+.resettapped {
+    font-size: 15;
+    text-decoration: underline;
+}

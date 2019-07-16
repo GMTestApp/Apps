@@ -14,7 +14,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
-                    <Image x:Name="imglogo" StyleClass="Logo" Source="TestAppLogo.png" Grid.Row="0" />
+                    <Image x:Name="imglogo" StyleClass="Logo"  Source="TestAppLogo.png" Grid.Row="0" />
                     <Label StyleClass="title" Text="TEST APP"  Grid.Row="1"/>
             </Grid>
         </StackLayout>
@@ -141,7 +141,7 @@
                             <Label x:Name="Usernamelogin" Text="Username"   Grid.Row="0"  />
                             <Entry x:Name="UsernameEntrylogin"   Grid.Row="1" />
                             <Label x:Name="pwdlogin" Text="Password"   Grid.Row="2"  />
-                            <Entry  x:Name="PasswordEntrylogin"  IsPassword="True"  Grid.Row="3"  />
+                            <Entry  x:Name="PasswordEntrylogin"   IsPassword="True"  Grid.Row="3"  />
                             <BoxView HeightRequest="2"  StyleClass="boxview" Grid.Row="4"/>
                             <Button x:Name="signinlogin" Text="Sign-In" Grid.Row="5" StyleClass="AccButton"  Clicked="Signin_Clicked"  CornerRadius="10"></Button>
                             <BoxView HeightRequest="2"  StyleClass="boxview" Grid.Row="6"/>

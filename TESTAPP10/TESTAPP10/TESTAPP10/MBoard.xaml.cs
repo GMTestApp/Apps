@@ -76,7 +76,7 @@ namespace TESTAPP10
                 }
                 var resp = App.SOAP_Request.MBoardData(username.Trim(), InviteCode, Type, CompanyId);
 
-               //resp= "{ \"Manifest\": [{ \"ID\": \"12345685\", \"SeqNo\": \"1\", \"Count\": \"10\" }, { \"ID\": \"12552185\", \"SeqNo\": \"2\", \"Count\": \"5\" }, { \"ID\": \"122225\", \"SeqNo\": \"3\", \"Count\": \"3\" } ] }";
+               //var resp= "{ \"Manifest\": [{ \"ID\": \"12345685\", \"SeqNo\": \"1\", \"Count\": \"10\" }, { \"ID\": \"12552185\", \"SeqNo\": \"2\", \"Count\": \"5\" }, { \"ID\": \"122225\", \"SeqNo\": \"3\", \"Count\": \"3\" } ] }";
 
                 if (resp.Contains("\"Manifest\":"))
                 {

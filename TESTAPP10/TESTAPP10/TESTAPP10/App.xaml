@@ -3,24 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TESTAPP10.App">
     <Application.Resources>
-        <Style ApplyToDerivedTypes="True" TargetType="StackLayout">
-            <Setter Property="BackgroundColor" Value="#8eadc1"/>
-        </Style>
-        <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
-            <Setter Property="BackgroundColor" Value="#8eadc1" />
-        </Style>
-        <Style TargetType="Label" ApplyToDerivedTypes="True">
-            <Setter Property="FontFamily" Value="Tahoma" />
-            <Setter Property="TextColor" Value="Black" />
-        </Style>
-        <Style TargetType="Entry" ApplyToDerivedTypes="True">
-            <Setter Property="FontFamily" Value="Tahoma" />
-            <Setter Property="TextColor" Value="Black" />
-        </Style>
-        <Style TargetType="Button" ApplyToDerivedTypes="True">
-            <Setter Property="FontFamily" Value="Tahoma" />
-            <Setter Property="TextColor" Value="Black" />
-            <Setter Property="BackgroundColor" Value="#8eadc1" />
-        </Style>
+        <StyleSheet Source="UserStyles.css"/>
     </Application.Resources>
 </Application>
