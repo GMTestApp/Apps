@@ -14,12 +14,12 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
-                    <Image x:Name="imglogo" StyleClass="Logo"  Source="TestAppLogo.png" Grid.Row="0" />
+                    <Image x:Name="imglogo" StyleClass="Logo" Source="TestAppLogo.png" Grid.Row="0" />
                     <Label StyleClass="title" Text="TEST APP"  Grid.Row="1"/>
             </Grid>
         </StackLayout>
 
-                <Label x:Name="loginscreen" Text="Log-In Screen" StyleClass="header"   />
+                <Label x:Name="loginscreen" Text="Log-In Screen" StyleClass="header" />
             <BoxView HeightRequest="8"></BoxView>
             <StackLayout >
                 <Frame HasShadow="False" IsVisible="False" StyleClass="UserFrme" x:Name="errorframe">

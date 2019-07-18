@@ -41,5 +41,11 @@ namespace TESTAPP10.iOS
             var res = ValidateLogin.MBoardData(uid, invite, Type, CompanyId);
             return res;
         }
+        public string MBoardDataDetails(string uid, string invite, string ManifestNo, string CompanyId)
+        {
+            ValidateLogin ValidateLogin = new ValidateLogin();
+            var res = ValidateLogin.MBoardDataDetails(uid, invite, ManifestNo, CompanyId);
+            return res;
+        }
     }
 }

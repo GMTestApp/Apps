@@ -16,22 +16,21 @@ namespace TESTAPP10
 		public MBoard ()
 		{
 			InitializeComponent ();
-            date.Text = DateTime.Now.ToString("MMMM dd yyyy");
+            contentload();
             Nextpage();
 
         }
-        public MBoard(string str)
-        {
-            InitializeComponent();
-            date.Text = DateTime.Now.ToString("MMMM dd yyyy");
-            Nextpage();
-        }
+        //public MBoard(string str)
+        //{
+        //    InitializeComponent();
+        //    date.Text = DateTime.Now.ToString("MMMM dd yyyy");
+        //    Nextpage();
+        //}
         public MBoard(string username, string password)
         {
             InitializeComponent();
-            date.Text = DateTime.Now.ToString("MMMM dd yyyy");
-            lblwlcm.Text = "Welcome " + username;
-            contentload(username, password);
+            
+            contentload();
             Nextpage();
         }
 
@@ -44,7 +43,7 @@ namespace TESTAPP10
 
                 MB_Manifest details = e.Item as MB_Manifest;
                 string values = details.ID.ToString();
-                await Navigation.PushAsync(new SuccessPage(values));
+                await Navigation.PushAsync(new MBoardItemDetails(values));
 
             };
 
@@ -56,34 +55,38 @@ namespace TESTAPP10
             }
         }
 
-        public async void contentload(string username, string password)
+        public async void contentload()
         {
             try
             {
-
-                var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s => s.UserId == username).Where(s => s.Password == password) select s;
-
+                var customer = from s in App.SqlLiteCon().Table<Customer>()select s;
+                var username = "";
+                var password = "";
                 var InviteCode = "";
                 var Type = "";
                 var CompanyId = "";
 
                 foreach (var c in customer)
                 {
+                    username = c.UserId;
+                    password = c.Password;
                     Type = c.Type;
                     InviteCode = c.XCode;
                     CompanyId = c.CompanyID;
                     break;
                 }
+
+                date.Text = DateTime.Now.ToString("MMMM dd yyyy");
+                lblwlcm.Text = "Welcome " + username;
+
                 var resp = App.SOAP_Request.MBoardData(username.Trim(), InviteCode, Type, CompanyId);
 
-               //var resp= "{ \"Manifest\": [{ \"ID\": \"12345685\", \"SeqNo\": \"1\", \"Count\": \"10\" }, { \"ID\": \"12552185\", \"SeqNo\": \"2\", \"Count\": \"5\" }, { \"ID\": \"122225\", \"SeqNo\": \"3\", \"Count\": \"3\" } ] }";
+                //var resp= "{ \"Manifest\": [{ \"ID\": \"12345685\", \"SeqNo\": \"1\", \"Count\": \"10\" }, { \"ID\": \"12552185\", \"SeqNo\": \"2\", \"Count\": \"5\" }, { \"ID\": \"122225\", \"SeqNo\": \"3\", \"Count\": \"3\" } ] }";
 
                 if (resp.Contains("\"Manifest\":"))
                 {
-
                     MB_RootObject response = JsonConvert.DeserializeObject<MB_RootObject>(resp);
                     ListMBoard.ItemsSource = response.Manifest;
-
                 }
                 else
                 {

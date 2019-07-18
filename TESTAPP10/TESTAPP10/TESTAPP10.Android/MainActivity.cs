@@ -16,11 +16,11 @@ namespace TESTAPP10.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             App.SOAP_Request = new SOAP_Request(new SoapService());
             LoadApplication(new App());
         }
+      
     }
 }

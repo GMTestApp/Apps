@@ -24,5 +24,11 @@ namespace TESTAPP10
         {
             return ISoapService.MBoardData(uid, invite, Type, CompanyId);
         }
+        public string MBoardDataDetails(string uid, string invite, string ManifestNo, string CompanyId)
+        {
+            
+            return ISoapService.MBoardDataDetails(uid, invite, ManifestNo, CompanyId);
+            
+        }
     }
 }
