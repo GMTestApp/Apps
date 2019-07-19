@@ -10,5 +10,6 @@ namespace TESTAPP10
         string NewRegistration(string uid, string pass, string invitecode);
         string ForgotPassword(string uid, string pass, string invitecode);
         string MBoardData(string uid, string invite, string Type, string CompanyId);
+        string MBoardDataDetails(string uid, string invite, string ManifestNo, string CompanyId);
     }
 }

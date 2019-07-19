@@ -23,7 +23,7 @@ namespace TESTAPP10.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
+       
             App.SOAP_Request = new SOAP_Request(new SoapService());
 
             LoadApplication(new App());

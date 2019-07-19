@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage NavigationPage.HasNavigationBar="false"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TESTAPP10.MBoardItemDetails">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout StyleClass="stack">
+                <Frame HasShadow="False" StyleClass="mboardframe">
+                <Grid>
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid HorizontalOptions="Start" VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                            <Image Source="TestAppLogo.png" StyleClass="mboardlogo" Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="mboardtest" HorizontalOptions="Start" Text="TESTAPP"  Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="lblwlcm"  HorizontalOptions="Start" StyleClass="mboardlbl"   Grid.Row="0" Grid.Column="1" />
+                    </Grid>
+                        <Grid HorizontalOptions="End" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="sigout" Source="signoutimg.png" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </Grid>
+            </Frame>
+
+                <Label Font="13" x:Name="resetlbl"  StyleClass="lbl">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Home" TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="Home" Tapped="Home_Tapped" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text=" -" FontAttributes="Bold" />
+                            <Span Text=" Manifest" TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="manifest" Tapped="Manifest_Tapped"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text=" -" FontAttributes="Bold" />
+                            <Span Text=" Shipments"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label x:Name="date" StyleClass="date" IsEnabled="False" HorizontalOptions="End"/>
+                <Label x:Name="manifestno" StyleClass="manifestlbl" HorizontalOptions="Center" />
+                <Label Text="These are shipments on this market. Click on the shipments to start working on it." StyleClass="txtfont"  />
+                <ListView x:Name="MboardData" StyleClass="listview"  ItemsSource="{Binding response.Manifest}" RowHeight="175" SeparatorVisibility="None" ItemSelected="MboardData_ItemSelected">
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout StyleClass="liststack">
+                                    <BoxView StyleClass="listboxview" HorizontalOptions="FillAndExpand" />
+                            <Grid RowSpacing="10">
+                                <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" StyleClass="gridData" HorizontalOptions="FillAndExpand">
+                                        <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="235" />
+                                            <ColumnDefinition Width="100" />
+                                           
+                                        </Grid.ColumnDefinitions>
+                                            <Label x:Name="Hawb" Grid.Row="0" StyleClass="hawb" Grid.Column="0" FontAttributes="Bold" Text="{Binding ID,StringFormat='HAWB #{0}'}"/>
+                                            <Label x:Name="serDate" Grid.Row="1" Grid.ColumnSpan="2"  Grid.Column="0" StyleClass="font"  Text="{Binding Date,StringFormat='Service Date : {0}'}" />
+                                            <Label x:Name="status" Grid.Row="2"  Grid.Column="0" StyleClass="font" Text="{Binding Status,StringFormat='Status : {0}'}"/>
+                                            <Frame HasShadow="False" Grid.RowSpan="2" StyleClass="framelbl"  BackgroundColor="{Binding MtypeColor}"  HorizontalOptions="End" Grid.Column="1">
+                                                <Label x:Name="pdd" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Mtype}"/>
+                                            </Frame>
+
+                                           
+                                        </Grid>
+                                        <Grid Grid.Row="1" StyleClass="gridData" HorizontalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label x:Name="sline" Grid.Row="0" HorizontalOptions="Start"  Grid.Column="0"  StyleClass="hawb" Text="{Binding SLine1}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer x:Name="sline1" Tapped="Sline1_Tapped"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+
+                                            <Label x:Name="lbl"  Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Start"  Grid.Column="0" StyleClass="font"  Text="{Binding SLine2}" />
+                                            <Label x:Name="cline" Grid.Row="2" HorizontalOptions="Start"  Grid.Column="0" StyleClass="hawb" Text="{Binding CLine1}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer x:Name="cline1" Tapped="Cline1_Tapped" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Label  Grid.Row="3" HorizontalOptions="Start"  Grid.Column="0" StyleClass="font" Text="{Binding CLine2}"/>
+                                        </Grid>
+                                </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
