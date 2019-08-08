@@ -67,11 +67,8 @@
                         </Grid.RowDefinitions>
                         <Label  Text="Username"  VerticalOptions="Center" HorizontalOptions="StartAndExpand" Grid.Row="0"  />
                         <Entry  x:Name="txtuname"  HeightRequest="40"  BackgroundColor="White" VerticalOptions="Center"  HorizontalOptions="FillAndExpand"  Grid.Row="1" />
-                        <!--<BoxView HeightRequest="1" Grid.Row="2"  HorizontalOptions="Fill" BackgroundColor="Black" VerticalOptions="End"/>-->
                         <Label  Text="(New) Password"  VerticalOptions="Center" Grid.Row="2"  HorizontalOptions="StartAndExpand" />
                         <Entry x:Name="txtpass"  HeightRequest="40" BackgroundColor="White"   VerticalOptions="Center" IsPassword="True" HorizontalOptions="FillAndExpand"  Grid.Row="3"  />
-
-                        <!--<BoxView HeightRequest="1" Grid.Row="5"  HorizontalOptions="Fill" BackgroundColor="Black" VerticalOptions="End"/>-->
                     </Grid>
                     <Grid Grid.Row="3" HorizontalOptions="Fill">
                         <Grid.RowDefinitions>
@@ -95,7 +92,6 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <!--<Button x:Name="forgotpwdlogin"  Text="Forgot password" BackgroundColor="SkyBlue" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"  FontSize="Small" HeightRequest="40"  Clicked="Forgotpwd_Clicked" Margin="4"  />-->
                     </Grid>
 
                 </Grid>

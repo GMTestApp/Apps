@@ -122,7 +122,7 @@ boxview {
     padding-bottom: 0;
 }
 .ticklbl {
-    margin-left: 100;
+    margin-left: 90;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -176,24 +176,24 @@ boxview {
 }
 .mboardlbl {
     margin-left: 0;
-    margin-top: 20;
+    margin-top: 25;
     margin-right: 0;
     margin-bottom: 0;
-    font-size:10;
+    font-size:12;
     vertical-align:central;
 }
 .signout{
     vertical-align:central;
-    height:28;
-    width:50;
+    height:34;
+    width:56;
 }
 .signoutlbl {
     font-style: bold;
     margin-left: 0;
-    margin-top: -5;
+    margin-top: -8;
     margin-right: 0;
     margin-bottom: 0;
-    font-size:10;
+    font-size:13;
 }
 .lbl {
     margin-left: 10;
@@ -206,12 +206,19 @@ boxview {
     font-size: 14;
     margin-left: 10;
     margin-top: -25;
-    margin-right: 10;
+    margin-right: 9;
+    margin-bottom: 0;
+}
+.sdate {
+    font-size: 14;
+    margin-left: 10;
+    margin-top: -55;
+    margin-right: 9;
     margin-bottom: 0;
 }
 
-.listview{
-    background-color:transparent;
+.listview {
+    background-color: transparent;
 }
 .liststack {
     background-color: #EEE;
@@ -224,19 +231,16 @@ boxview {
     color: black;
     height: 1;
     margin-left: -30;
-    margin-top: 0;
+    margin-top: -3;
     margin-right: -10;
     margin-bottom: 0;
 }
 .listgrid {
     margin-left: 10;
-    margin-top: 0;
+    margin-top: 5;
     margin-right: 0;
     margin-bottom: 0;
-    padding-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
+    
 }
 .manifestlbl {
     margin-left: 0;
@@ -268,7 +272,7 @@ boxview {
     font-size:13;
 }
 .framelbl {
-    width: 110;
+    width: 90;
     padding: 5;
     border-color:black;
     margin-left: -20;
@@ -278,9 +282,25 @@ boxview {
 }
 .manifesttxt {
     margin-left: 0;
-    margin-top: 10;
+    margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
-    text-decoration:underline;
-    font-size:15;
+    text-decoration: underline;
+    font-size: 14;
+    font-style: bold;
+}
+.ItemDetailmargin {
+    margin-left: 0;
+    margin-top: -3;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.address {
+    text-decoration: underline;
+    font-size: 13;
+    margin-left: 0;
+    margin-top: -3;
+    margin-right: 0;
+    margin-bottom: 0;
 }

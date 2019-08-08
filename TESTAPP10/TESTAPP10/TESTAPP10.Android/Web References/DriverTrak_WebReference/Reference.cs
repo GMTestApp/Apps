@@ -134,22 +134,23 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/MBoardData", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string MBoardData(string UserId, string InviteCode, string Type, string CompanyId) {
+        public string MBoardData(string UserId, string InviteCode, string Type, string CompanyId, string url) {
             object[] results = this.Invoke("MBoardData", new object[] {
                         UserId,
                         InviteCode,
                         Type,
-                        CompanyId});
+                        CompanyId,
+                        url});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void MBoardDataAsync(string UserId, string InviteCode, string Type, string CompanyId) {
-            this.MBoardDataAsync(UserId, InviteCode, Type, CompanyId, null);
+        public void MBoardDataAsync(string UserId, string InviteCode, string Type, string CompanyId, string url) {
+            this.MBoardDataAsync(UserId, InviteCode, Type, CompanyId, url, null);
         }
         
         /// <remarks/>
-        public void MBoardDataAsync(string UserId, string InviteCode, string Type, string CompanyId, object userState) {
+        public void MBoardDataAsync(string UserId, string InviteCode, string Type, string CompanyId, string url, object userState) {
             if ((this.MBoardDataOperationCompleted == null)) {
                 this.MBoardDataOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMBoardDataOperationCompleted);
             }
@@ -157,7 +158,8 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
                         UserId,
                         InviteCode,
                         Type,
-                        CompanyId}, this.MBoardDataOperationCompleted, userState);
+                        CompanyId,
+                        url}, this.MBoardDataOperationCompleted, userState);
         }
         
         private void OnMBoardDataOperationCompleted(object arg) {

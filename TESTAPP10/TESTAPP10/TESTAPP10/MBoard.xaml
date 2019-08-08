@@ -2,7 +2,7 @@
 <ContentPage NavigationPage.HasNavigationBar="false"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             
              x:Class="TESTAPP10.MBoard">
     <ScrollView>
     <StackLayout StyleClass="stack">
@@ -21,8 +21,8 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                     <Image Source="TestAppLogo.png" StyleClass="mboardlogo"  Grid.Row="0" Grid.Column="0"/>
-                        <Label StyleClass="mboardtest" HorizontalOptions="Start" Text="TESTAPP"  Grid.Row="0" Grid.Column="1" />
-                        <Label x:Name="lblwlcm" HorizontalOptions="Start" StyleClass="mboardlbl"  Grid.Row="0" Grid.Column="1" />
+                    <Label StyleClass="mboardtest" HorizontalOptions="Start" Text="TESTAPP"  Grid.Row="0" Grid.Column="1" />
+                    <Label x:Name="lblwlcm" HorizontalOptions="Start" StyleClass="mboardlbl"  Grid.Row="0" Grid.Column="1" />
             </Grid>
              <Grid HorizontalOptions="End" VerticalOptions="Center">
                 <Grid.RowDefinitions>
@@ -32,29 +32,14 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                        <Image x:Name="sigout" Source="signoutimg.png" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
-                        <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
+                        <ImageButton BackgroundColor="#8eadc1" x:Name="sigout" Source="signoutimg.png" Clicked="Sigout_Clicked" HorizontalOptions="Center" VerticalOptions="Center" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
+                        <Label StyleClass="signoutlbl" HorizontalOptions="Center" VerticalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Grid>
-                <!--<Grid HorizontalOptions="End" VerticalOptions="Center" RowSpacing="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <ImageButton x:Name="sigout" Source="signoutimg.png" Clicked="Sigout_Clicked" StyleClass="signout" Grid.Row="0" Grid.Column="0"/>
-                    <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-
-                </Grid>-->
+               
             </Grid>
     </Frame>
         <Label x:Name="resetlbl" StyleClass="lbl">
@@ -73,13 +58,14 @@
         <Label x:Name="date" StyleClass="date" IsEnabled="False" HorizontalOptions="End"/>
         <Label Text="Manifests" StyleClass="manifesttxt" HorizontalOptions="CenterAndExpand" />
         <Label Text="Click on the manifest for more details" StyleClass="txtfont"></Label>
-        <ListView x:Name="ListMBoard" StyleClass="listview" ItemsSource="{Binding response.Manifest}" RowHeight="50" SeparatorVisibility="None" ItemSelected="ListMBoard_ItemSelected">
+           
+                <ListView x:Name="ListMBoard" StyleClass="listview"  ItemsSource="{Binding response.Manifest}" RowHeight="40" SeparatorVisibility="None" ItemSelected="ListMBoard_ItemSelected">
             <ListView.ItemTemplate >
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout StyleClass="liststack">
-                                <BoxView StyleClass="listboxview" HorizontalOptions="FillAndExpand"  />
-                                <Grid  StyleClass="listgrid" HorizontalOptions="FillAndExpand">
+                                <BoxView StyleClass="listboxview"  HorizontalOptions="FillAndExpand"  />
+                                <Grid  StyleClass="listgrid" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
@@ -87,16 +73,15 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <!--<Label  Grid.Row="0"   Grid.Column="0" StyleClass="fontsize">Manifest</Label>-->
-                                    <Label Grid.Row="0"  Grid.Column="1" HorizontalOptions="Start" StyleClass="fontsize" x:Name="ITDS" Text="{Binding ID,StringFormat='Manifest #{0}'}"/>
-                                    <!--<Label Grid.Row="0"  Grid.Column="3" StyleClass="fontsize">No. of Shipments</Label>-->
-                                    <Label Grid.Row="0" Grid.Column="2"  StyleClass="fontsize" x:Name="DLQT" Text="{Binding Count,StringFormat='No. of Shipments {0}'}"/>
+                                    <Label Grid.Row="0"  Grid.Column="1"   StyleClass="fontsize" x:Name="ITDS" Text="{Binding ID,StringFormat='Manifest #{0}'}"/>
+                                        <Label Grid.Row="0" Grid.Column="2"   StyleClass="fontsize" x:Name="DLQT" Text="{Binding Count,StringFormat='No. of Shipments {0}'}"/>
                                 </Grid>
                         </StackLayout>
                         </ViewCell>
                     </DataTemplate>
             </ListView.ItemTemplate>
             </ListView>
-    </StackLayout>
+            
+        </StackLayout>
     </ScrollView>
 </ContentPage>

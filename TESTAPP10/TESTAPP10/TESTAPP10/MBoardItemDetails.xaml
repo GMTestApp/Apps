@@ -31,7 +31,7 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Image x:Name="sigout" Source="signoutimg.png" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
+                            <ImageButton BackgroundColor="#8eadc1" x:Name="sigout" Source="signoutimg.png" Clicked="Sigout_Clicked" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
                             <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
@@ -44,13 +44,13 @@
                 <Label Font="13" x:Name="resetlbl"  StyleClass="lbl">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Home" TextDecorations="Underline">
+                            <Span Text="Sign In" TextDecorations="Underline">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer x:Name="Home" Tapped="Home_Tapped" />
                                 </Span.GestureRecognizers>
                             </Span>
-                            <Span Text=" -" FontAttributes="Bold" />
-                            <Span Text=" Manifest" TextDecorations="Underline">
+                            <Span Text=" - " FontAttributes="Bold" />
+                            <Span Text="Manifest" TextDecorations="Underline">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer x:Name="manifest" Tapped="Manifest_Tapped"/>
                                 </Span.GestureRecognizers>
@@ -62,14 +62,15 @@
                 </Label>
                 <Label x:Name="date" StyleClass="date" IsEnabled="False" HorizontalOptions="End"/>
                 <Label x:Name="manifestno" StyleClass="manifestlbl" HorizontalOptions="Center" />
-                <Label Text="These are shipments on this market. Click on the shipments to start working on it." StyleClass="txtfont"  />
-                <ListView x:Name="MboardData" StyleClass="listview"  ItemsSource="{Binding response.Manifest}" RowHeight="175" SeparatorVisibility="None" ItemSelected="MboardData_ItemSelected">
+                <Label Text="List of shipments under this manifest. Click on the shipment to start working on it." StyleClass="txtfont"  />
+
+                <ListView x:Name="MboardData" SelectionMode="None" StyleClass="listview"  ItemsSource="{Binding response.Manifest}" RowHeight="195" SeparatorVisibility="None">
                     <ListView.ItemTemplate >
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout StyleClass="liststack">
                                     <BoxView StyleClass="listboxview" HorizontalOptions="FillAndExpand" />
-                            <Grid RowSpacing="10">
+                            <Grid >
                                 <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
@@ -86,15 +87,18 @@
                                            
                                         </Grid.ColumnDefinitions>
                                             <Label x:Name="Hawb" Grid.Row="0" StyleClass="hawb" Grid.Column="0" FontAttributes="Bold" Text="{Binding ID,StringFormat='HAWB #{0}'}"/>
-                                            <Label x:Name="serDate" Grid.Row="1" Grid.ColumnSpan="2"  Grid.Column="0" StyleClass="font"  Text="{Binding Date,StringFormat='Service Date : {0}'}" />
-                                            <Label x:Name="status" Grid.Row="2"  Grid.Column="0" StyleClass="font" Text="{Binding Status,StringFormat='Status : {0}'}"/>
-                                            <Frame HasShadow="False" Grid.RowSpan="2" StyleClass="framelbl"  BackgroundColor="{Binding MtypeColor}"  HorizontalOptions="End" Grid.Column="1">
+                                            <Label x:Name="serDate"  Grid.Row="1"  Grid.ColumnSpan="2"  Grid.Column="0" StyleClass="ItemDetailmargin"  Text="{Binding Date,StringFormat='Service Date : {0}'}" />
+                                            <Label x:Name="status" Grid.Row="2"  Grid.Column="0" StyleClass="ItemDetailmargin" Text="{Binding Status,StringFormat='Status : {0}'}"/>
+                                           
+                                            <Frame  HasShadow="False" Grid.RowSpan="2" StyleClass="framelbl"  BackgroundColor="{Binding MtypeColor}"  HorizontalOptions="End" Grid.Column="1">
                                                 <Label x:Name="pdd" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Mtype}"/>
                                             </Frame>
-
-                                           
+                                          
                                         </Grid>
-                                        <Grid Grid.Row="1" StyleClass="gridData" HorizontalOptions="FillAndExpand">
+                                
+                                
+                                
+                                        <Grid Grid.Row="1"  StyleClass="gridData"  HorizontalOptions="FillAndExpand">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
@@ -104,19 +108,39 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <Label x:Name="sline" Grid.Row="0" HorizontalOptions="Start"  Grid.Column="0"  StyleClass="hawb" Text="{Binding SLine1}">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer x:Name="sline1" Tapped="Sline1_Tapped"/>
-                                                </Label.GestureRecognizers>
-                                            </Label>
+                                            
+                                            <Label x:Name="sline" Grid.Row="0" HorizontalOptions="Start"  Grid.Column="0" StyleClass="font" FontAttributes="Bold"  Text="{Binding SLine1}"/>
+                                            
+                                            
+                                            
+                                            <Grid BackgroundColor="#D3D3D3" Padding="5,5,5,5" Grid.Row="1" Grid.ColumnSpan="2" StyleClass="address" Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer x:Name="grid" Tapped="Grid_Tapped"/>
+                                                </Grid.GestureRecognizers>
+                                                <Label x:Name="lbl" TextColor="#186ac1" Grid.Row="0" StyleClass="address" Text="{Binding SLine2}" />
 
-                                            <Label x:Name="lbl"  Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Start"  Grid.Column="0" StyleClass="font"  Text="{Binding SLine2}" />
-                                            <Label x:Name="cline" Grid.Row="2" HorizontalOptions="Start"  Grid.Column="0" StyleClass="hawb" Text="{Binding CLine1}">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer x:Name="cline1" Tapped="Cline1_Tapped" />
-                                                </Label.GestureRecognizers>
-                                            </Label>
-                                            <Label  Grid.Row="3" HorizontalOptions="Start"  Grid.Column="0" StyleClass="font" Text="{Binding CLine2}"/>
+                                            </Grid>
+                                            
+                                            
+                                            
+                                            <Label x:Name="cline" Grid.Row="2" HorizontalOptions="Start"  Grid.Column="0" FontAttributes="Bold" StyleClass="font" Text="{Binding CLine1}"/>
+                                            
+                                            
+                                            
+                                            <Grid BackgroundColor="#D3D3D3" Padding="5,5,5,5" Grid.Row="3" Grid.ColumnSpan="2"   StyleClass="address" Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer x:Name="grid1" Tapped="Grid1_Tapped"/>
+                                                </Grid.GestureRecognizers>
+                                                <Label    TextColor="#186ac1"  Grid.Row="0" StyleClass="address"  Text="{Binding CLine2}"/>
+                                            </Grid>
+                                            
+                                            
                                         </Grid>
                                 </Grid>
                                 </StackLayout>

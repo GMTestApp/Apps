@@ -17,6 +17,8 @@ namespace TESTAPP10
         public MainPage()
         {
             InitializeComponent();
+            UsernameEntrylogin.Text = "Benog";
+            PasswordEntrylogin.Text = "1234567";
 
             loginvisibility();
         }
@@ -126,7 +128,7 @@ namespace TESTAPP10
                 }
                 else
                 {
-                    lblmsg2.Text = "Invalid Credentials";
+                    lblmsg2.Text = "User's registration is not accepted, please contact admin.";
                     lblmsg2.IsVisible = true;
                     errorframe.IsVisible = true;
                     return;
@@ -162,7 +164,16 @@ namespace TESTAPP10
                     lblmsg2.IsVisible = false;
                     return;
                 }
-                await Navigation.PushAsync(new MBoard( userid,password));
+
+                var type = "";
+                foreach (var v in customer)
+                {
+                    type = v.Type;
+                }
+                if(type.ToLower()=="m")
+                    await Navigation.PushAsync(new MBoard( userid,password));
+                else
+                    await Navigation.PushAsync(new SBoardDataDetails());
             }
             catch(Exception ex)
             {

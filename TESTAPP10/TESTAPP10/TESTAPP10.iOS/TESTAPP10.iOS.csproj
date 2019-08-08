@@ -90,11 +90,17 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomAllViewCellRendereriOS.cs" />
     <Compile Include="CustomEntryRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="SoapService.cs" />
     <Compile Include="Web References\DriverTrak_WebReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WTDriverTrak_WebReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -107,6 +113,11 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\DriverTrak_WebReference\ValidateLogin.wsdl" />
+    <None Include="Web References\WTDriverTrak_WebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WTDriverTrak_WebReference\WTDriverTrak.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -207,6 +218,19 @@
       <CachedSettingsPropName>
       </CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://204.93.158.163/CustomerSolution/WTDriverTrak.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WTDriverTrak_WebReference\</RelPath>
+      <UpdateFromURL>http://204.93.158.163/CustomerSolution/WTDriverTrak.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\DriverTrak_WebReference\ValidateLogin.disco" />
@@ -219,5 +243,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\signoutimg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WTDriverTrak_WebReference\WTDriverTrak.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car.png" />
   </ItemGroup>
 </Project>

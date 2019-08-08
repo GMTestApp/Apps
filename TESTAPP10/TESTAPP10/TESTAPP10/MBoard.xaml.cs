@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,12 +19,7 @@ namespace TESTAPP10
             Nextpage();
 
         }
-        //public MBoard(string str)
-        //{
-        //    InitializeComponent();
-        //    date.Text = DateTime.Now.ToString("MMMM dd yyyy");
-        //    Nextpage();
-        //}
+        
         public MBoard(string username, string password)
         {
             InitializeComponent();
@@ -65,6 +59,7 @@ namespace TESTAPP10
                 var InviteCode = "";
                 var Type = "";
                 var CompanyId = "";
+                var Url = "";
 
                 foreach (var c in customer)
                 {
@@ -73,13 +68,14 @@ namespace TESTAPP10
                     Type = c.Type;
                     InviteCode = c.XCode;
                     CompanyId = c.CompanyID;
+                    Url = c.TransactURL;
                     break;
                 }
 
-                date.Text = DateTime.Now.ToString("MMMM dd yyyy");
+                date.Text = DateTime.Now.ToString("MMM dd yyyy");
                 lblwlcm.Text = "Welcome " + username;
 
-                var resp = App.SOAP_Request.MBoardData(username.Trim(), InviteCode, Type, CompanyId);
+                var resp = App.SOAP_Request.MBoardData(username.Trim(), InviteCode, Type, CompanyId, Url);
 
                 //var resp= "{ \"Manifest\": [{ \"ID\": \"12345685\", \"SeqNo\": \"1\", \"Count\": \"10\" }, { \"ID\": \"12552185\", \"SeqNo\": \"2\", \"Count\": \"5\" }, { \"ID\": \"122225\", \"SeqNo\": \"3\", \"Count\": \"3\" } ] }";
 
