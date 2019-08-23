@@ -17,7 +17,7 @@ namespace TESTAPP10
         public MainPage()
         {
             InitializeComponent();
-            UsernameEntrylogin.Text = "Benog";
+            UsernameEntrylogin.Text = "David";
             PasswordEntrylogin.Text = "1234567";
 
             loginvisibility();
@@ -61,9 +61,9 @@ namespace TESTAPP10
         {
             try
             {
-                var userid = txtuname.Text;
-                var password = txtpass.Text;
-                var InviteCode = txtinvitecode.Text;
+                var userid = txtuname.Text.Trim();
+                var password = txtpass.Text.Trim();
+                var InviteCode = txtinvitecode.Text.Trim();
 
                 if ((string.IsNullOrEmpty(txtuname.Text)) || (string.IsNullOrEmpty(txtpass.Text)) || (string.IsNullOrEmpty(txtinvitecode.Text)))
                 {

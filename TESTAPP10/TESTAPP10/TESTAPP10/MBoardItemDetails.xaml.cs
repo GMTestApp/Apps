@@ -24,71 +24,100 @@ namespace TESTAPP10
         {
             InitializeComponent();
             LoadDetails(values);
-            MboardData.ItemTapped += async (sender, e) =>
-            {
-                MD_Manifest details = e.Item as MD_Manifest;
-                string value = details.ID.ToString();
-                string Mtype = details.Mtype.ToString();
-                string Date = details.Date.ToString();
-                await Navigation.PushAsync(new ShipmentDetails(value, Mtype, Date));
+           
 
-            };
+
         }
 
         public async void LoadDetails(string ManifestNo)
         {
-            Application.Current.Properties["ManifestNo"] = ManifestNo;
-            date.Text = DateTime.Now.ToString("MMM dd yyyy");
-            manifestno.Text = "Manifest # " + ManifestNo;
-            var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
-            var username = "";
-            var CompanyId = "";
-            var InviteCode = "";
-            var Url = "";
-
-            foreach (var c in customer)
+            try
             {
-                username = c.UserId;
-                //Type = c.Type;
-                lblwlcm.Text = "Welcome " + username;
-                InviteCode = c.XCode;
-                CompanyId = c.CompanyID;
-                Url = c.TransactURL;
-                break;
-            }
-           var resp = App.SOAP_Request.MBoardDataDetails(username.Trim(), InviteCode, ManifestNo, CompanyId, Url);
-
-            //var resp = "{ \"Manifest\": [{ \"Message\": \"OK\", \"ID\": \"1253001\", \"MNo\": \"1\", \"Date\": \"01 / 01 / 2017\", \"Mtype\": \"pickup\", \"Status\": \"Out For Delivery\", \"SLine1\": \"2020 EXHIBITS\", \"SLine2\": \"10550 S.SAM HOUSTON PKWY W HOUSTON TX,77071\", \"CLine1\": \"36 CS MSG COMM - F1C344\", \"CLine2\": \"ARACELI PATAGUE APO,AP GUAM,96543\" }, { \"Message\": \"OK\", \"ID\": \"1253001\", \"MNo\": \"2\", \"Date\": \"02 / 10 / 2017\", \"Mtype\": \"delivery\", \"Status\": \"Out For Delivery\", \"SLine1\": \"2020 EXHIBITS\", \"SLine2\": \"10550 S.SAM HOUSTON PKWY W HOUSTON TX,77071\", \"CLine1\": \"36 CS MSG COMM - F1C344\", \"CLine2\": \"ARACELI PATAGUE APO,AP GUAM,96543\" }] }";
-
-
-            if (resp.Contains("\"Manifest\":"))
-            {
-
-                MD_RootObject response = JsonConvert.DeserializeObject<MD_RootObject>(resp);
-                bool isdataexist = true;
-                foreach (var a in response.Manifest)
+                MboardData.ItemTapped += async (sender, e) =>
                 {
-                    if (a.Message.ToLower() != "ok")
-                    {
-                        isdataexist = false;
-                        break;
-                    }
-                    if (a.Mtype.Trim().ToLower() == "pickup")
-                        a.MtypeColor = "#B5D6A7";
-                    else if (a.Mtype.Trim().ToLower() == "delivery")
-                        a.MtypeColor = "#71A6D8";
-                    else if (a.Mtype.Trim().ToLower() == "direct")
-                        a.MtypeColor = "#FFFFFD";
-                    else
-                        a.MtypeColor = "#FFFFFD";
-                    a.Date = !string.IsNullOrEmpty(Convert.ToString(a.Date)) ? Convert.ToDateTime(a.Date).Date.ToString("MM/dd/yyyy") : "";
+                    MD_Manifest details = e.Item as MD_Manifest;
+                    string value = details.ID.ToString();
+                    string Mtype = details.Mtype.ToString();
+                    string Date = details.Date.ToString();
+                    await Navigation.PushAsync(new ShipmentDetails(value, Mtype, Date));
+
+                };
+
+                Application.Current.Properties["ManifestNo"] = ManifestNo;
+                date.Text = DateTime.Now.ToString("MMM dd yyyy");
+                manifestno.Text = "Manifest # " + ManifestNo;
+                var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
+                var username = "";
+                var CompanyId = "";
+                var InviteCode = "";
+                var Url = "";
+
+                foreach (var c in customer)
+                {
+                    username = c.UserId;
+                    //Type = c.Type;
+                    lblwlcm.Text = "Welcome " + username;
+                    InviteCode = c.XCode;
+                    CompanyId = c.CompanyID;
+                    Url = c.TransactURL;
+                    break;
                 }
-                if (isdataexist)
-                    MboardData.ItemsSource = response.Manifest;
+                var resp = App.SOAP_Request.MBoardDataDetails(username.Trim(), InviteCode, ManifestNo, CompanyId, Url);
+
+                //var resp = "{ \"Manifest\": [{ \"Message\": \"OK\", \"ID\": \"1253001\", \"MNo\": \"1\", \"Date\": \"01 / 01 / 2017\", \"Mtype\": \"pickup\", \"Status\": \"Out For Delivery\", \"SLine1\": \"2020 EXHIBITS\", \"SLine2\": \"10550 S.SAM HOUSTON PKWY W HOUSTON TX,77071\", \"CLine1\": \"36 CS MSG COMM - F1C344\", \"CLine2\": \"ARACELI PATAGUE APO,AP GUAM,96543\" }, { \"Message\": \"OK\", \"ID\": \"1253001\", \"MNo\": \"2\", \"Date\": \"02 / 10 / 2017\", \"Mtype\": \"delivery\", \"Status\": \"Out For Delivery\", \"SLine1\": \"2020 EXHIBITS\", \"SLine2\": \"10550 S.SAM HOUSTON PKWY W HOUSTON TX,77071\", \"CLine1\": \"36 CS MSG COMM - F1C344\", \"CLine2\": \"ARACELI PATAGUE APO,AP GUAM,96543\" }] }";
+
+
+                if (resp.Contains("\"Manifest\":"))
+                {
+
+                    MD_RootObject response = JsonConvert.DeserializeObject<MD_RootObject>(resp);
+                    bool isdataexist = true;
+                    foreach (var a in response.Manifest)
+                    {
+                        if (a.Message.ToLower() != "ok")
+                        {
+                            isdataexist = false;
+                            break;
+                        }
+                        //if (a.Mtype.Trim().ToLower() == "pickup")
+                        //    a.MtypeColor = "#B5D6A7";
+                        //else if (a.Mtype.Trim().ToLower() == "delivery")
+                        //    a.MtypeColor = "#71A6D8";
+                        //else if (a.Mtype.Trim().ToLower() == "direct")
+                        //    a.MtypeColor = "#FFFFFD";
+                        //else
+                        //    a.MtypeColor = "#FFFFFD";
+                        if (a.Mtype.Trim().ToLower() == "pickup")
+                            a.MtypeColor = "#B5D6A7";
+                        else if (a.Mtype.Trim().ToLower() == "delivery")
+                            a.MtypeColor = "#71A6D8";
+                        else if (a.Mtype.Trim().ToLower() == "recovery")
+                            a.MtypeColor = "#B5D6A7";
+                        else if (a.Mtype.Trim().ToLower() == "drop")
+                            a.MtypeColor = "#71A6D8";
+                        else if (a.Mtype.Trim().ToLower() == "direct")
+                            a.MtypeColor = "#EEE";
+                        else
+                            a.MtypeColor = "#EEE";
+
+                        if (!string.IsNullOrEmpty(Convert.ToString(a.Date)))
+                            a.Date = a.Date.Split(' ')[0];
+
+                        a.CLine2 = a.CLine2.Trim().Trim(',').Trim(' ');
+                        a.SLine2 = a.SLine2.Trim().Trim(',').Trim(' ');
+                    }
+                    if (isdataexist)
+                        MboardData.ItemsSource = response.Manifest;
+                }
+                else
+                {
+                    await DisplayAlert("", resp, "OK");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                await DisplayAlert("", resp, "OK");
+                await DisplayAlert("", ex.Message, "OK");
+
             }
         }
 

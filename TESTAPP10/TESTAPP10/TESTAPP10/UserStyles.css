@@ -244,7 +244,7 @@ boxview {
 }
 .manifestlbl {
     margin-left: 0;
-    margin-top: 17;
+    margin-top: 5;
     margin-right: 0;
     margin-bottom: 0;
     text-decoration: underline;
@@ -275,9 +275,9 @@ boxview {
     width: 90;
     padding: 5;
     border-color:black;
-    margin-left: -20;
+    margin-left: 0;
     margin-top: 0;
-    margin-right: -15;
+    margin-right: 10;
     margin-bottom: 0;
 }
 .manifesttxt {
@@ -303,4 +303,483 @@ boxview {
     margin-top: -3;
     margin-right: 0;
     margin-bottom: 0;
+}
+.addresslink {
+    font-size: 13;
+    margin-left: 0;
+    margin-top: -3;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.servicedate {
+    margin-left: 0;
+    margin-top: -2;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.slineclass {
+    margin-left: 0;
+    margin-top: -5;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.shipmentgrid {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.shipsignout {
+    font-size: 14;
+    height:50;
+    text-decoration:underline;
+}
+.subsign {
+    margin-left: -2;
+    margin-top: -2;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-style: bold;
+}
+.shipmanifest {
+    margin-left: -3;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+    height: 50;
+    text-decoration: underline;
+}
+#lblship {
+    margin-left: -3;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.shipdetails {
+    margin-left: -3;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+}
+.shipdate {
+    font-size: 14;
+    margin-left: 10;
+    margin-top: -56;
+    margin-right: 9;
+    margin-bottom: 0;
+}
+#lblhawb {
+    margin-left: 0;
+    margin-top: 15;
+    margin-right: 0;
+    margin-bottom: 10;
+    color: #2B78E4;
+    font-size: 15;
+    font-style: bold;
+}
+#btnship {
+    border-color: black;
+    color: black;
+    border-width: 2;
+    margin-left: 65;
+    margin-top: -5;
+    margin-right: 65;
+    margin-bottom: 10;
+    font-style: bold;   
+    height:30;
+}
+#lblmovetype {
+    margin-left: 10;
+    margin-top: 5;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+    font-style: bold;
+}
+#lblservicedate {
+    margin-left: 0;
+    margin-top: 5;
+    margin-right: 10;
+    margin-bottom: 0;
+    font-size: 14;
+    font-style: bold;
+}
+#shipdetails {
+    margin-left: 2;
+    margin-top: 0;
+    margin-right: 2;
+    margin-bottom: 0;
+}
+.listcolor {
+    background-color: #DDDDDD;
+}
+.leftalign {
+    margin-left: 10;
+    margin-top: 10;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.rightalign {
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 10;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.gridalign {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.mapcolor {
+    background-color: #999999;
+    height:40;
+}
+.directions {
+    margin-left: 10;
+    margin-top: 10;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+    font-style: bold;
+    text-decoration: underline;
+}
+.carimg {
+    margin-left: 10;
+    margin-top: 10;
+    margin-right: 10;
+    margin-bottom: 0;
+    height:20;
+    width:20;
+}
+.address1 {
+    margin-left: 10;
+    margin-top: 3;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.address2 {
+    margin-left: 10;
+    margin-top: -5;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+}
+.border {
+    margin-left: -10;
+    margin-top: -10;
+    margin-right: -10;
+    margin-bottom: 0;
+    border-color: #FFF;
+}
+#grdsplins{
+    height:10;
+}
+#lblSPI {
+    margin-left: 0;
+    margin-top: -10;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size:13;
+    color:black;
+}
+#arrow {
+    height: 20;
+    width:20;
+    margin-left: 0;
+    margin-top: -3;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.Bcolor {
+    height: 35;
+    background-color: #DDDDDD;
+}
+.lblDcargo {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+    color:black;
+}
+.lblNo {
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 10;
+    margin-bottom: 0;
+}
+.shipline {
+    background-color: #FFF;
+    height:1;
+}
+.shipnotesgrid {
+    height: 40;
+    margin-left: 0;
+    margin-top: -10;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.shiplblnotes {
+    margin-left: 10;
+    margin-top: 8;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 13;
+    color: black;
+}
+
+.lblpic {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+    color:black;
+}
+.shipbtncamera {
+    margin-left: 0;
+    margin-top: -20;
+    margin-right: 10;
+    margin-bottom: 0;
+    height: 25;
+    width: 25;
+}
+.shiplbltkpicno {
+    font-size: 12;
+    margin-left: 0;
+    margin-top: 15;
+    margin-right: 5;
+    margin-bottom: 0;
+}
+.actions {
+    margin-left: 10;
+    margin-top: 10;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+    color:black;
+}
+#imgactions {
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 8;
+    margin-bottom: 0;
+}
+.imgsign{
+    height:100;
+    width:100;
+}
+.arrowimg {
+    margin-left: 0;
+    margin-top: 8;
+    margin-right: 8;
+    margin-bottom: 0;
+}
+#Btnsign {
+    margin-left: 65;
+    margin-top: 0;
+    margin-right: 65;
+    margin-bottom: 0;
+    background-color: #EEEEEE;
+}
+#Btnmarkship {
+    background-color: #DDDDDD;
+    border-color: black;
+    color: black;
+    border-width: 2;
+    margin-left: 65;
+    margin-top: 5;
+    margin-right: 65;
+    margin-bottom: 10;
+    font-style: bold;
+    height:30;
+}
+.stckrow{
+    height:30;
+    background-color:white;
+}
+.bckbtn {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    height:30;
+}
+.bckcolor {
+    background-color: #EEEEEE;
+    margin-left: 0;
+    margin-top: -5;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.bckimg {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.backbtn {
+    height: 30;
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 20;
+    margin-bottom: 0;
+    font-style: bold;
+    background-color: #EEEEEE;
+    font-size:15;
+    color:black;
+}
+.spl_stack {
+    margin-left: 0;
+    margin-top: 8;
+    margin-right: 0;
+    margin-bottom: 0;
+    background-color: white;
+}
+.spl_button {
+    font-style: bold;
+    background-color: #EEEEEE;
+    color:black;
+}
+#lblspmsg {
+    margin-left: 10;
+    margin-top: 8;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 15;
+}
+.noteslbl {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+}
+.notesframe{
+    border-color:black;
+    height:100;
+}
+#notes {
+    margin-left: -15;
+    margin-top: -10;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.notesgrid {
+    margin-left: 0;
+    margin-top: 5;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.cargobtnsave {
+    color: black;
+    margin-left: 170;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 80;
+    background-color: #EEEEEE;
+}
+.cargobtnreset {
+    color: black;
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 15;
+    margin-bottom: 0;
+    background-color: #EEEEEE;
+}
+.gridcam {
+    background-color: #EEEEEE;
+    margin-left: 0;
+    margin-top: 20;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.lbltakepic {
+    margin-left: 10;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: 14;
+    background-color: #EEEEEE;
+    color: black;
+}
+.cargocam {
+    height: 25;
+    width: 25;
+    margin-left: 0;
+    margin-top: -20;
+    margin-right: 10;
+    margin-bottom: 0;
+}
+.cargopicno {
+    font-size: 12;
+    margin-left: 0;
+    margin-top: 30;
+    margin-right: 5;
+    margin-bottom: 0;
+}
+.actionlist {
+    margin-left: 0;
+    margin-top: 5;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.actbtnsave {
+    background-color: #EEEEEE;
+    width:100;
+    height:40;
+}
+.actbtnreset {
+    background-color: #EEEEEE;
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 10;
+    margin-bottom: 0;
+    width: 100;
+    height: 40;
+}
+.signature {
+    background-color: white;
+    width:150;
+    height:100;
+}
+.signgrid {
+    background-color: #DDDDDD;
+    height:100;
+    padding-left:0;
+    padding-top:25;
+    padding-right:0;
+    padding-bottom:0;
+       
+}
+.namelbl {
+    margin-left: 5;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    color:black;
+}
+.gridid {
+    height: 30;
+    margin-left: 30;
+    margin-top: 0;
+    margin-right: 5;
+    margin-bottom: 0;
+    color: black;
+}
+.emaillbl {
+    margin-left: 5;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    color: black;
 }

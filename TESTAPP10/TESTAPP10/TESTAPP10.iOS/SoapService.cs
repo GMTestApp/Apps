@@ -77,5 +77,43 @@ namespace TESTAPP10.iOS
             var res = obj.SendProgress(RefNo, HAWB, Lat, Long, UserId, COMPANYID, InviteCode, Status);
             return res;
         }
+        public string UpdateDCargo(string RefNo, string HAWB, string DamageCargo, string UserID, string CompanyID, string InviteCode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.UpdateDCargo(RefNo, HAWB, DamageCargo, UserID, CompanyID, InviteCode);
+            return res;
+        }
+        public string Uploadimgs(string RefNo, string HAWB, string StringImages, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.Uploadimgs(RefNo, HAWB, StringImages, UserId, COMPANYID, InviteCode);
+            return res;
+        }
+
+        public string UpdateDCargoNotes(string RefNo, string HAWB, string Notes, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.UpdateDCargoNotes(RefNo, HAWB, Notes, UserId, COMPANYID, InviteCode);
+            return res;
+        }
+
+        public string ShipmentActionUpdate(string RefNo, string HAWB, string Status, string MType, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.ShipmentActionUpdate(RefNo, HAWB, Status, MType, UserId, COMPANYID, InviteCode);
+            return res;
+        }
+
+        public string PostSignature(string RefNo, string HAWB, string Signature, string Name, string EmailId,  string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.PostSignature(RefNo, HAWB, Signature, Name, EmailId, UserId, COMPANYID, InviteCode);
+            return res;
+        }
     }
 }

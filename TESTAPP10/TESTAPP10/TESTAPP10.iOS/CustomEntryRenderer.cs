@@ -19,8 +19,8 @@ namespace TESTAPP10.iOS
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            Control.Layer.BorderWidth = 0;
-            Control.BorderStyle = UITextBorderStyle.None;
+            Control.Layer.BorderWidth = 1;
+            Control.BorderStyle = UITextBorderStyle.Line;
         }
 
     }

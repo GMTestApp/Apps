@@ -42,5 +42,30 @@ namespace TESTAPP10
         {
             return ISoapService.SendProgress(RefNo, HAWB, Lat, Long, UserId, COMPANYID, InviteCode, Status, Url);
         }
+
+        public string UpdateDCargo(string RefNo, string HAWB, string DamageCargo, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            return ISoapService.UpdateDCargo(RefNo, HAWB, DamageCargo, UserId, COMPANYID, InviteCode, Url);
+        }
+
+        public string Uploadimgs(string RefNo, string HAWB, string StringImages, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+           return ISoapService.Uploadimgs(RefNo, HAWB, StringImages, UserId, COMPANYID, InviteCode,Url);
+            
+        }
+        public string UpdateDCargoNotes(string RefNo, string HAWB, string Notes, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            return ISoapService.UpdateDCargoNotes(RefNo, HAWB, Notes, UserId, COMPANYID, InviteCode, Url);
+        }
+        public string ShipmentActionUpdate(string RefNo, string HAWB, string Status, string MType, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            return ISoapService.ShipmentActionUpdate( RefNo,  HAWB,  Status,  MType,  UserId,  COMPANYID,  InviteCode,  Url);
+        }
+
+        public string PostSignature(string RefNo, string HAWB, string Signature, string Name, string EmailId, string UserId, string COMPANYID, string InviteCode, string Url)
+        {
+            return ISoapService.PostSignature( RefNo,  HAWB,  Signature,  Name,  EmailId,  UserId,  COMPANYID,  InviteCode,  Url);
+
+        }
     }
 }

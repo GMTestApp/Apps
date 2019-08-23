@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Plugin.Media;
 
 namespace TESTAPP10.iOS
 {
@@ -20,17 +21,18 @@ namespace TESTAPP10.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public  override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-       
+
             App.SOAP_Request = new SOAP_Request(new SoapService());
 
             LoadApplication(new App());
 
-           
+            CrossMedia.Current.Initialize();
 
             return base.FinishedLaunching(app, options);
         }
+       
     }
 }

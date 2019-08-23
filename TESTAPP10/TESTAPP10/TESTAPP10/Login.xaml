@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:CustomControls="clr-namespace:xxx.CustomControls"
              x:Class="TESTAPP10.Login">
     <ScrollView>
     <StackLayout>
@@ -14,7 +13,25 @@
                    WidthRequest="50" HeightRequest="50" Source="TestAppLogo.png" Grid.Row="0" />
                 <Label FontSize="Medium" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"  Text="TEST APP" HeightRequest="150" Grid.Row="1"/>
             </Grid>
-        <Label Text="Reset Password" HorizontalOptions="Center" FontAttributes="Bold"/>
+        
+        
+        
+        
+        
+        
+           
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            <Label Text="Reset Password" HorizontalOptions="Center" FontAttributes="Bold"/>
         <BoxView HeightRequest="5"></BoxView>
 
         <StackLayout>
