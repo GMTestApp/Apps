@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://204.93.158.163/CustomerSolution/WTDriverTrak.asmx?disco" filename="WTDriverTrak.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://204.93.158.163/CustomerSolution/WTDriverTrak.asmx?wsdl" filename="WTDriverTrak.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

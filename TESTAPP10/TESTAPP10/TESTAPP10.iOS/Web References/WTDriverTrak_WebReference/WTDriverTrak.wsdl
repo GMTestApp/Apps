@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="UpdateDCargoNotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefNO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HAWB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDCargoNotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDCargoNotesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDCargo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefNO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HAWB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DamageCargo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDCargoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDCargoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachFileToShipment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Housebill" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileDataBase64" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachFileToShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AttachFileToShipmentResult" type="tns:AttachFileToShipmentResponseType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AttachFileToShipmentResponseType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendProgress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HAWB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LAT" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LON" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendProgressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendProgressResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HAWB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Uploadimgs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HAWB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileDataBase64" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadimgsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadimgsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShipmentActionUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="refno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hawb" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MoveType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="invitecode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShipmentActionUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ShipmentActionUpdateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostSignature">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HAWB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="signature" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="invitecode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostSignatureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostSignatureResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SBoardDataDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SBoardDataDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SBoardDataDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MBoardData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MBoardDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MBoardDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MBoardDataDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviteCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MBoardDataDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MBoardDataDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UpdateDCargoNotesSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDCargoNotes" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDCargoNotesSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDCargoNotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDCargoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDCargo" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDCargoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDCargoResponse" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:AttachFileToShipment" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:AttachFileToShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendProgressSoapIn">
+    <wsdl:part name="parameters" element="tns:SendProgress" />
+  </wsdl:message>
+  <wsdl:message name="SendProgressSoapOut">
+    <wsdl:part name="parameters" element="tns:SendProgressResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadDetails" />
+  </wsdl:message>
+  <wsdl:message name="LoadDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadimgsSoapIn">
+    <wsdl:part name="parameters" element="tns:Uploadimgs" />
+  </wsdl:message>
+  <wsdl:message name="UploadimgsSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadimgsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ShipmentActionUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:ShipmentActionUpdate" />
+  </wsdl:message>
+  <wsdl:message name="ShipmentActionUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:ShipmentActionUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostSignatureSoapIn">
+    <wsdl:part name="parameters" element="tns:PostSignature" />
+  </wsdl:message>
+  <wsdl:message name="PostSignatureSoapOut">
+    <wsdl:part name="parameters" element="tns:PostSignatureResponse" />
+  </wsdl:message>
+  <wsdl:message name="SBoardDataDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SBoardDataDetails" />
+  </wsdl:message>
+  <wsdl:message name="SBoardDataDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SBoardDataDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="MBoardDataSoapIn">
+    <wsdl:part name="parameters" element="tns:MBoardData" />
+  </wsdl:message>
+  <wsdl:message name="MBoardDataSoapOut">
+    <wsdl:part name="parameters" element="tns:MBoardDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="MBoardDataDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:MBoardDataDetails" />
+  </wsdl:message>
+  <wsdl:message name="MBoardDataDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:MBoardDataDetailsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WTDriverTrakSoap">
+    <wsdl:operation name="UpdateDCargoNotes">
+      <wsdl:input message="tns:UpdateDCargoNotesSoapIn" />
+      <wsdl:output message="tns:UpdateDCargoNotesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDCargo">
+      <wsdl:input message="tns:UpdateDCargoSoapIn" />
+      <wsdl:output message="tns:UpdateDCargoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToShipment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Attach a Document to a Particular Shipment.</wsdl:documentation>
+      <wsdl:input message="tns:AttachFileToShipmentSoapIn" />
+      <wsdl:output message="tns:AttachFileToShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendProgress">
+      <wsdl:input message="tns:SendProgressSoapIn" />
+      <wsdl:output message="tns:SendProgressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadDetails">
+      <wsdl:input message="tns:LoadDetailsSoapIn" />
+      <wsdl:output message="tns:LoadDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Uploadimgs">
+      <wsdl:input message="tns:UploadimgsSoapIn" />
+      <wsdl:output message="tns:UploadimgsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShipmentActionUpdate">
+      <wsdl:input message="tns:ShipmentActionUpdateSoapIn" />
+      <wsdl:output message="tns:ShipmentActionUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostSignature">
+      <wsdl:input message="tns:PostSignatureSoapIn" />
+      <wsdl:output message="tns:PostSignatureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SBoardDataDetails">
+      <wsdl:input message="tns:SBoardDataDetailsSoapIn" />
+      <wsdl:output message="tns:SBoardDataDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MBoardData">
+      <wsdl:input message="tns:MBoardDataSoapIn" />
+      <wsdl:output message="tns:MBoardDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MBoardDataDetails">
+      <wsdl:input message="tns:MBoardDataDetailsSoapIn" />
+      <wsdl:output message="tns:MBoardDataDetailsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WTDriverTrakSoap" type="tns:WTDriverTrakSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateDCargoNotes">
+      <soap:operation soapAction="http://tempuri.org/UpdateDCargoNotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDCargo">
+      <soap:operation soapAction="http://tempuri.org/UpdateDCargo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToShipment">
+      <soap:operation soapAction="http://tempuri.org/AttachFileToShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendProgress">
+      <soap:operation soapAction="http://tempuri.org/SendProgress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadDetails">
+      <soap:operation soapAction="http://tempuri.org/LoadDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Uploadimgs">
+      <soap:operation soapAction="http://tempuri.org/Uploadimgs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShipmentActionUpdate">
+      <soap:operation soapAction="http://tempuri.org/ShipmentActionUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostSignature">
+      <soap:operation soapAction="http://tempuri.org/PostSignature" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SBoardDataDetails">
+      <soap:operation soapAction="http://tempuri.org/SBoardDataDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MBoardData">
+      <soap:operation soapAction="http://tempuri.org/MBoardData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MBoardDataDetails">
+      <soap:operation soapAction="http://tempuri.org/MBoardDataDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WTDriverTrakSoap12" type="tns:WTDriverTrakSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateDCargoNotes">
+      <soap12:operation soapAction="http://tempuri.org/UpdateDCargoNotes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDCargo">
+      <soap12:operation soapAction="http://tempuri.org/UpdateDCargo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToShipment">
+      <soap12:operation soapAction="http://tempuri.org/AttachFileToShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendProgress">
+      <soap12:operation soapAction="http://tempuri.org/SendProgress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadDetails">
+      <soap12:operation soapAction="http://tempuri.org/LoadDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Uploadimgs">
+      <soap12:operation soapAction="http://tempuri.org/Uploadimgs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShipmentActionUpdate">
+      <soap12:operation soapAction="http://tempuri.org/ShipmentActionUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostSignature">
+      <soap12:operation soapAction="http://tempuri.org/PostSignature" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SBoardDataDetails">
+      <soap12:operation soapAction="http://tempuri.org/SBoardDataDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MBoardData">
+      <soap12:operation soapAction="http://tempuri.org/MBoardData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MBoardDataDetails">
+      <soap12:operation soapAction="http://tempuri.org/MBoardDataDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WTDriverTrak">
+    <wsdl:port name="WTDriverTrakSoap" binding="tns:WTDriverTrakSoap">
+      <soap:address location="http://204.93.158.163/CustomerSolution/WTDriverTrak.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WTDriverTrakSoap12" binding="tns:WTDriverTrakSoap12">
+      <soap12:address location="http://204.93.158.163/CustomerSolution/WTDriverTrak.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

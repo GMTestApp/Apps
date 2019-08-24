@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage NavigationPage.HasNavigationBar="false"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          
+             x:Class="TESTAPP10.Actions">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout StyleClass="stack">
+                <Frame HasShadow="False" StyleClass="mboardframe">
+                    <Grid>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid HorizontalOptions="Start" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="TestAppLogo.png" StyleClass="mboardlogo" Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="mboardtest" HorizontalOptions="Start" Text="TESTAPP"  Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="lblwlcm"  HorizontalOptions="Start" StyleClass="mboardlbl"   Grid.Row="0" Grid.Column="1" />
+                        </Grid>
+                        <Grid HorizontalOptions="End" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton BackgroundColor="#8eadc1" x:Name="sigout" Source="signoutimg.png" Clicked="Sigout_Clicked" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <Grid StyleClass="shipmentgrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" StyleClass="shipsignout"   Text="Sign In">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="signin" Tapped="Signin_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Text="-" StyleClass="subsign"   Grid.Row="0" Grid.Column="1" />
+
+                    <Label x:Name="lblmanif" Text="Manifests" StyleClass="shipmanifest" Grid.Row="0"  Grid.Column="2" IsVisible="False" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="manifests" Tapped="Manifests_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label x:Name="lblship" Text="Shipment" StyleClass="shipmanifest" Grid.Row="0"  Grid.Column="2" IsVisible="False">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="TGlblship" Tapped="TGlblship_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Text="-" StyleClass="subsign"  Grid.Row="0" Grid.Column="3" />
+                    <Label Text="Shipment Details" StyleClass="shipdetails"   Grid.Row="0" Grid.Column="4" />
+                </Grid>
+                <Label x:Name="date" StyleClass="shipdate"  IsEnabled="False" HorizontalOptions="End"/>
+                <Label x:Name="lblhawb" Text="hawb"  VerticalOptions="Center"  HorizontalOptions="Center" />
+                <Grid StyleClass="bckbtn">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"  StyleClass="bckcolor"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ImageButton StyleClass="bckimg" Clicked="ImageButton_Clicked"  Source="icons8_left.png" Grid.Row="0" Grid.Column="0" />
+                        <Button StyleClass="backbtn"  Clicked="Button_Clicked" Text="Back"  Grid.Row="0" Grid.Column="1"  VerticalOptions="Center"/>
+                    </Grid>
+                </Grid>
+
+                <Grid>
+                    <Label x:Name="lblmovetype"/>
+                    <Label x:Name="lblservicedate" HorizontalOptions="End" />
+                </Grid>
+
+                <StackLayout VerticalOptions="StartAndExpand" StyleClass="spl_stack">
+                    <Button  Text="DRIVER ACTIONS" StyleClass="spl_button"/>
+                    
+                    <ListView x:Name="lvaclist" StyleClass="actionlist"  SelectionMode="None" ItemsSource="{Binding ActionList}" SeparatorVisibility="None" RowHeight="30">
+                        <ListView.ItemTemplate >
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid RowSpacing="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer   Tapped="TapGestureRecognizer_Action_Tapped_1"/>
+                                        </Grid.GestureRecognizers>
+                                        <Image Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start" x:Name="radioButton" Source="{Binding ImageName}"/>
+
+
+
+                                        <Label x:Name="lvlact" Text="{Binding Action}" StyleClass="fontsize"  Grid.Row="0" Grid.Column="1"  />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Grid HorizontalOptions="End" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnsave"  StyleClass="actbtnsave" Grid.Row="0" Grid.Column="0" Text="Save" Clicked="Btnsave_Clicked"/>
+                        <Button x:Name="btnreset" StyleClass="actbtnreset"  Grid.Row="0" Grid.Column="1"  Text="Reset" Clicked="Btnreset_Clicked"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

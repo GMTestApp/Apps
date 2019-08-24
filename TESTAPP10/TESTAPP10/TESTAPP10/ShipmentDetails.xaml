@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage NavigationPage.HasNavigationBar="false"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TESTAPP10.ShipmentDetails">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="White">
+                <Frame HasShadow="False" StyleClass="mboardframe">
+                    <Grid>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid HorizontalOptions="Start" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="TestAppLogo.png" StyleClass="mboardlogo" Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="mboardtest" HorizontalOptions="Start" Text="TESTAPP"  Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="lblwlcm"  HorizontalOptions="Start" StyleClass="mboardlbl"   Grid.Row="0" Grid.Column="1" />
+                        </Grid>
+                        <Grid HorizontalOptions="End" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton BackgroundColor="#8eadc1" x:Name="sigout" Source="signoutimg.png" Clicked="Sigout_Clicked" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </Grid>
+                </Frame>
+             
+                <Grid StyleClass="shipmentgrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" StyleClass="shipsignout"   Text="Sign In">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="signin" Tapped="Signin_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Text="-" StyleClass="subsign"   Grid.Row="0" Grid.Column="1" />
+
+                    <Label x:Name="lblmanif" Text="Manifests" StyleClass="shipmanifest" Grid.Row="0"  Grid.Column="2" IsVisible="False" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="manifests" Tapped="Manifests_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label x:Name="lblship" Text="Shipment" StyleClass="shipmanifest" Grid.Row="0"  Grid.Column="2" IsVisible="False">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="TGlblship" Tapped="TGlblship_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Text="-" StyleClass="subsign"  Grid.Row="0" Grid.Column="3" />
+                    <Label Text="Shipment Details" StyleClass="shipdetails"   Grid.Row="0" Grid.Column="4" />
+                </Grid>
+                <Label x:Name="date" StyleClass="shipdate"  IsEnabled="False" HorizontalOptions="End"/>
+                <Label x:Name="lblhawb"    VerticalOptions="Center"  HorizontalOptions="Center" />
+                
+                <Button x:Name="btnship" Text="I am working on this shipment" Clicked="Btnship_Clicked"   CornerRadius="4" />
+               
+                <Grid>
+                    <Label x:Name="lblmovetype"  />
+                    <Label x:Name="lblservicedate"  HorizontalOptions="End"/>
+                </Grid>
+
+               
+
+
+                <ListView x:Name="shipdetails"  SelectionMode="None" ItemsSource="{Binding response.Details}" RowHeight="550" SeparatorVisibility="None" >
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout StyleClass="listcolor">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                           
+                                          
+                                        </Grid.RowDefinitions>
+                                        <Grid StyleClass="listcolor"  Grid.Row="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="0" StyleClass="leftalign" Text="Number of Pieces" HorizontalOptions="Start"/>
+                                            <Label Grid.Row="0" Text="{Binding NoPieces}" StyleClass="rightalign"  HorizontalOptions="End" VerticalOptions="End"/>
+                                            <Label Grid.Row="1"  StyleClass="gridalign" Text="Total Weight"  HorizontalOptions="Start"/>
+                                            <Label Grid.Row="1" Text="{Binding Wgt}" StyleClass="rightalign"  HorizontalOptions="End" VerticalOptions="End"/>
+                                            <Label Grid.Row="2"  StyleClass="gridalign"  Text="Hazardous Material"  HorizontalOptions="Start"/>
+                                            <Label Grid.Row="2" Text="{Binding Haz}" StyleClass="rightalign" HorizontalOptions="End" VerticalOptions="End"/>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" HorizontalOptions="Fill">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid StyleClass="mapcolor"  Grid.Row="0"  Grid.ColumnSpan="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer x:Name="Pickup" Tapped="Pickup_Tapped"/>
+                                                </Grid.GestureRecognizers>
+
+
+                                                <Grid StyleClass="mapcolor"  VerticalOptions="Center">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding SLine2}" IsVisible="False" />
+                                                    <Label Text="PICK UP" Grid.Row="0" StyleClass="leftalign"  Grid.Column="0" />
+                                                    <Grid Grid.Column="4" HorizontalOptions="EndAndExpand" ColumnSpacing="-2">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Text="Start Driving Directions" StyleClass="directions" HorizontalTextAlignment="End"  Grid.Row="0" FontSize="14"  Grid.Column="0"/>
+                                                        <Image Source="car.png" Grid.Row="0" StyleClass="carimg" HorizontalOptions="End"  Grid.Column="2"  />
+
+                                                    </Grid>
+                                                </Grid>
+
+                                            </Grid>
+                                          
+                                            <Grid Grid.Row="1"   Grid.Column="0" >
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <StackLayout StyleClass="listcolor" >
+                                                    <Label  Grid.Row="0"  StyleClass="address1" Text="{Binding SLine1}"  HorizontalOptions="Start"/>
+                                                    <Label StyleClass="address2"  Text="{Binding SLine2}" Grid.Row="1"  HorizontalOptions="Start" />
+                                                </StackLayout>
+                                            </Grid>
+                                          
+                                        </Grid>
+
+                                        
+                                        
+                                        <Grid Grid.Row="2" HorizontalOptions="Fill">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid StyleClass="mapcolor"   Grid.Row="0"  Grid.ColumnSpan="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer x:Name="Destination" Tapped="Destination_Tapped"/>
+                                                </Grid.GestureRecognizers>
+
+
+                                                <Grid StyleClass="mapcolor" VerticalOptions="Center">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding CLine2}" IsVisible="False" />
+                                                    <Label Text="DESTINATION" Grid.Row="0" StyleClass="leftalign" Grid.Column="0" />
+                                                    <Grid Grid.Column="4" HorizontalOptions="EndAndExpand" ColumnSpacing="-2">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Text="Start Driving Directions" StyleClass="directions" HorizontalTextAlignment="End"  Grid.Row="0"   Grid.Column="0" />
+                                                        <Image Source="car.png" Grid.Row="0" StyleClass="carimg"  HorizontalOptions="End"  Grid.Column="2"  />
+
+                                                    </Grid>
+                                                </Grid>
+
+                                            </Grid>
+
+                                            <Grid Grid.Row="1"   Grid.Column="0" >
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <StackLayout StyleClass="listcolor" >
+                                                    <Label Grid.Row="0" StyleClass="address1" Text="{Binding CLine1}" HorizontalOptions="Start"/>
+                                                    <Label  StyleClass="address2" Text="{Binding CLine2}" Grid.Row="1" HorizontalOptions="Start" />
+                                                </StackLayout>
+                                            </Grid>
+                                        </Grid>
+                                
+                                        <Frame Grid.Row="3" BackgroundColor="{Binding SPBtnClr}" StyleClass="border" HasShadow="False">
+                                            <Grid  x:Name="grdsplins">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer   Tapped="Spl_ins_Tapped"/>
+                                                </Grid.GestureRecognizers>
+                                                <Label x:Name="lblSPI"  Text="SPECIAL INSTRUCTIONS" Grid.Column="0" Grid.Row="0" HorizontalTextAlignment="Start" BackgroundColor="{Binding SPBtnClr}" VerticalTextAlignment="Center" />
+                                                <ImageButton x:Name="arrow"  VerticalOptions="Center"  Source="icons8_right.png" Grid.Column="1" HorizontalOptions="End"  Grid.Row="0" Clicked="Arrow_Clicked"/>
+                                            </Grid>
+                                        </Frame>
+
+
+                                        <Grid StyleClass="Bcolor" Grid.Row="4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="auto"/>
+
+                                            </Grid.ColumnDefinitions>
+                                            <Label  StyleClass="lblDcargo" Text="DAMAGED CARGO" Grid.Column="0"  Grid.Row="0"  HorizontalTextAlignment="Start"  VerticalTextAlignment="Center" />
+                                            <Grid Grid.Column="2" HorizontalOptions="End" VerticalOptions="End">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label x:Name="dd" Text="Yes" VerticalOptions="Center" HorizontalOptions="End" Grid.Row="0" Grid.Column="0"/>
+                                                <Switch x:Name="xamlSwitch" IsToggled="{Binding DCargo}" HorizontalOptions="EndAndExpand" Toggled="XamlSwitch_Toggled"  OnColor="#6AA84F" Grid.Column="1"  Grid.Row="0"/>
+                                                <Label StyleClass="lblNo" Text="No"  Grid.Row="0" VerticalOptions="Center" Grid.Column="2" HorizontalOptions="EndAndExpand"/>
+
+                                            </Grid>
+                                        </Grid>
+                                        <BoxView StyleClass="shipline" Grid.Row="5" HorizontalOptions="FillAndExpand" />
+                                  
+                                        <Grid StyleClass="shipnotesgrid"  Grid.Row="6">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer  x:Name="notes" Tapped="Notes_Tapped"/>
+                                            </Grid.GestureRecognizers>
+                                            <Label StyleClass="shiplblnotes"   Text="NOTES" Grid.Column="0"   Grid.Row="0"   HorizontalTextAlignment="Start"  VerticalTextAlignment="Center" />
+                                            <ImageButton x:Name="notesarrow" StyleClass="arrowimg" Source="icons8_right.png" Grid.Column="1" HorizontalOptions="End"  Grid.Row="0" Clicked="Notesarrow_Clicked"/>
+                                        </Grid>
+                                        <BoxView StyleClass="shipline" Grid.Row="7" HorizontalOptions="FillAndExpand" />
+                                      
+                                        <Grid StyleClass="Bcolor"  Grid.Row="8">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer  x:Name="imgpic" Tapped="Imgpic_Tapped" />
+                                            </Grid.GestureRecognizers>
+
+                                            <Label StyleClass="lblpic"  Grid.Column="0" Grid.Row="0" Text="TAKE PICTURES" VerticalOptions="Center" TextColor="Black"/>
+                                            <ImageButton x:Name="btncamera" StyleClass="shipbtncamera"  Clicked="Btncamera_Clicked" Source="camera.png" Grid.Column="1" Grid.Row="0" HorizontalOptions="End"/>
+                                            <Label x:Name="lbltkpicno" StyleClass="shiplbltkpicno" Text="{Binding Pic,StringFormat='Total Files Uploaded ({0})'}"  Grid.Column="1" Grid.Row="0" HorizontalOptions="End"/>
+                                            <Image x:Name="image" />
+
+                                        </Grid>
+                                        <BoxView StyleClass="shipline" Grid.Row="9" HorizontalOptions="FillAndExpand" />
+                                        <Grid StyleClass="Bcolor" Grid.Row="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer  x:Name="actions" Tapped="Actions_Tapped" />
+                                            </Grid.GestureRecognizers>
+                                            <Label  Grid.Column="0" Grid.Row="0" StyleClass="actions" Text="ACTIONS"/>
+                                            <ImageButton x:Name="imgactions" Clicked="Imgactions_Clicked" Grid.Column="1" Grid.Row="0" Source="icons8_right.png" HorizontalOptions="End" />
+
+                                        </Grid>
+                                       
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Image  x:Name="imgsign"   IsVisible="False" />
+                <Button x:Name="Btnsign"  Clicked="Btnsign_Clicked" Text="CAPTURE SIGNATURE" />
+
+                <Button x:Name="Btnmarkship"  Text="Mark Shipment Complete" Clicked="Btnmarkship_Clicked"  CornerRadius="4" />
+                <StackLayout StyleClass="stckrow" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

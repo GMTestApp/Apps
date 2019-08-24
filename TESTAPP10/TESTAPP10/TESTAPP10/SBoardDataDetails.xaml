@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage NavigationPage.HasNavigationBar="false"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TESTAPP10.SBoardDataDetails">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout StyleClass="stack">
+                <Frame HasShadow="False" StyleClass="mboardframe">
+                    <Grid>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid HorizontalOptions="Start" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="TestAppLogo.png" StyleClass="mboardlogo" Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="mboardtest" HorizontalOptions="Start" Text="TESTAPP"  Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="lblwlcm" HorizontalOptions="Start" StyleClass="mboardlbl"   Grid.Row="0" Grid.Column="1" />
+                        </Grid>
+                        <Grid HorizontalOptions="End" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton BackgroundColor="#8eadc1" x:Name="sigout" Source="signoutimg.png" Clicked="Sigout_Clicked" StyleClass="signout"  Grid.Row="0" Grid.Column="0"/>
+                            <Label StyleClass="signoutlbl" HorizontalOptions="Center" Text="Sign Out"  Grid.Row="1" Grid.Column="0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="signout" Tapped="Signout_Tapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </Grid>
+                </Frame>
+                <Grid StyleClass="lbl">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0"   HeightRequest="50" Text="Sign In" TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="Home" Tapped="Home_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                           
+                    <Label Text="-" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" />
+                    <Label Text="Shipments" Grid.Row="0" Grid.Column="2" />
+                </Grid>
+             
+                <Label x:Name="date" StyleClass="sdate" IsEnabled="False" HorizontalOptions="End"/>
+                <Label Text="Shipments" StyleClass="manifestlbl" HorizontalOptions="Center" />
+               
+                <ListView x:Name="ListSBoard"  SelectionMode="None" StyleClass="listview"  ItemsSource="{Binding response.Shipment}" RowHeight="173" SeparatorVisibility="None">
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell >
+                                <StackLayout StyleClass="liststack">
+                                    <BoxView StyleClass="listboxview" HorizontalOptions="FillAndExpand" />
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0" StyleClass="gridData" HorizontalOptions="FillAndExpand">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="235" />
+                                                    <ColumnDefinition Width="100" />
+
+                                                </Grid.ColumnDefinitions>
+                                            <Label x:Name="Hawb" Grid.Row="0"  Grid.Column="0" Font="14" Text="{Binding ID,StringFormat='Shipment #{0}'}"/>
+                                            <Label x:Name="serDate"  Grid.Row="1"  StyleClass="servicedate" Grid.ColumnSpan="2"   Grid.Column="0" Font="14"  Text="{Binding Date,StringFormat='Service Date : {0}'}" />
+                                            <!--<Label x:Name="status" IsVisible="False" Grid.Row="2" Margin="0,-3,0,0"  Grid.Column="0" StyleClass="font" Text="{Binding Status,StringFormat='Status : {0}'}"/>-->
+                      
+
+                                                <Frame  HasShadow="False" Grid.RowSpan="2" StyleClass="framelbl" BackgroundColor="{Binding MtypeColor}" Grid.ColumnSpan="2" HorizontalOptions="End" Grid.Column="1">
+                                                    <Label x:Name="pdd" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Mtype}"/>
+                                                </Frame>
+                                         
+                                            <Label x:Name="sline" TextColor="#336699" Grid.Row="3" HorizontalOptions="Start" StyleClass="slineclass"  Grid.Column="0"  Text="{Binding SLine1}"/>
+                                            <Label x:Name="lbl" Grid.ColumnSpan="2"  Grid.Row="4"  Grid.Column="0" StyleClass="slineclass"  Text="{Binding SLine2}" />
+                                            <Label  Grid.Row="5"  TextColor="#336699" Grid.Column="0"  StyleClass="font" Text="{Binding CLine1}" />
+                                            <Label x:Name="cline" Grid.Row="6"  Grid.ColumnSpan="2" StyleClass="slineclass"  Grid.Column="0"  Text="{Binding CLine2}"/>
+
+                                        </Grid>
+                                      
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
