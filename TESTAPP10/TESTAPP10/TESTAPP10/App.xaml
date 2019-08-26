@@ -4,5 +4,10 @@
              x:Class="TESTAPP10.App">
     <Application.Resources>
         <StyleSheet Source="UserStyles.css"/>
+        <OnPlatform x:TypeArguments="x:String" x:Key="PlatformBaseFontFamily" >
+            <On Platform="iOS" Value="San Francisco"/>
+            <On Platform="Android" Value="Roboto"/>
+        </OnPlatform>
+                   
     </Application.Resources>
 </Application>

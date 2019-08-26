@@ -283,4 +283,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\radio.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cameraicon.png" />
+  </ItemGroup>
 </Project>

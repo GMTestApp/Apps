@@ -77,7 +77,8 @@
                 </Grid>
                 <Label x:Name="date" StyleClass="shipdate"  IsEnabled="False" HorizontalOptions="End"/>
                 <Label x:Name="lblhawb" Text="hawb"  VerticalOptions="Center"  HorizontalOptions="Center" />
-                <Grid StyleClass="bckbtn">
+                <Grid StyleClass="bckbtn" >
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
@@ -85,7 +86,8 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" StyleClass="bckcolor">
+                    <Grid Grid.Column="0" StyleClass="bckcolor" >
+                       
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>

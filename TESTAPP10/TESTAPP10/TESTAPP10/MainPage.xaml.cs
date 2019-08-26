@@ -17,8 +17,8 @@ namespace TESTAPP10
         public MainPage()
         {
             InitializeComponent();
-            UsernameEntrylogin.Text = "David";
-            PasswordEntrylogin.Text = "1234567";
+            //UsernameEntrylogin.Text = "David";
+            //PasswordEntrylogin.Text = "1234567";
 
             loginvisibility();
         }

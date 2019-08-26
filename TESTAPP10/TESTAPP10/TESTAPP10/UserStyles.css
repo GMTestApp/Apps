@@ -384,12 +384,12 @@ boxview {
     border-color: black;
     color: black;
     border-width: 2;
-    margin-left: 65;
+    margin-left: 0;
     margin-top: -5;
-    margin-right: 65;
+    margin-right: 0;
     margin-bottom: 10;
     font-style: bold;   
-    height:30;
+    height:37;
 }
 #lblmovetype {
     margin-left: 10;
@@ -529,7 +529,7 @@ boxview {
 }
 .shiplblnotes {
     margin-left: 10;
-    margin-top: 8;
+    margin-top: 10;
     margin-right: 0;
     margin-bottom: 0;
     font-size: 13;
@@ -546,7 +546,7 @@ boxview {
 }
 .shipbtncamera {
     margin-left: 0;
-    margin-top: -20;
+    margin-top: -15;
     margin-right: 10;
     margin-bottom: 0;
     height: 25;
@@ -579,15 +579,11 @@ boxview {
 }
 .arrowimg {
     margin-left: 0;
-    margin-top: 8;
+    margin-top: 10;
     margin-right: 8;
     margin-bottom: 0;
 }
 #Btnsign {
-    margin-left: 65;
-    margin-top: 0;
-    margin-right: 65;
-    margin-bottom: 0;
     background-color: #EEEEEE;
 }
 #Btnmarkship {
@@ -595,12 +591,12 @@ boxview {
     border-color: black;
     color: black;
     border-width: 2;
-    margin-left: 65;
+    margin-left: 0;
     margin-top: 5;
-    margin-right: 65;
+    margin-right: 0;
     margin-bottom: 10;
     font-style: bold;
-    height:30;
+    height:37;
 }
 .stckrow{
     height:30;
@@ -625,12 +621,13 @@ boxview {
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
+    background-color: #EEEEEE;
 }
 .backbtn {
-    height: 30;
+    height: 40;
     margin-left: 0;
     margin-top: 0;
-    margin-right: 20;
+    margin-right: 10;
     margin-bottom: 0;
     font-style: bold;
     background-color: #EEEEEE;
@@ -678,6 +675,7 @@ boxview {
     margin-top: 5;
     margin-right: 0;
     margin-bottom: 0;
+
 }
 .cargobtnsave {
     color: black;
@@ -686,6 +684,7 @@ boxview {
     margin-right: 0;
     margin-bottom: 0;
     width: 80;
+  
     background-color: #EEEEEE;
 }
 .cargobtnreset {
@@ -694,6 +693,7 @@ boxview {
     margin-top: 0;
     margin-right: 15;
     margin-bottom: 0;
+  
     background-color: #EEEEEE;
 }
 .gridcam {
@@ -716,14 +716,14 @@ boxview {
     height: 25;
     width: 25;
     margin-left: 0;
-    margin-top: -20;
+    margin-top: 0;
     margin-right: 10;
     margin-bottom: 0;
 }
 .cargopicno {
     font-size: 12;
     margin-left: 0;
-    margin-top: 30;
+    margin-top: 0;
     margin-right: 5;
     margin-bottom: 0;
 }
@@ -769,7 +769,7 @@ boxview {
     color:black;
 }
 .gridid {
-    height: 30;
+    height: 40;
     margin-left: 30;
     margin-top: 0;
     margin-right: 5;

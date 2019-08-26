@@ -77,9 +77,10 @@
                 </Grid>
                 <Label x:Name="date" StyleClass="shipdate"  IsEnabled="False" HorizontalOptions="End"/>
                 <Label x:Name="lblhawb"    VerticalOptions="Center"  HorizontalOptions="Center" />
-                
-                <Button x:Name="btnship" Text="I am working on this shipment" Clicked="Btnship_Clicked"   CornerRadius="4" />
-               
+
+        
+                <Button x:Name="btnship" Text="  I am working on this shipment  " HorizontalOptions="Center" Clicked="Btnship_Clicked"  />
+
                 <Grid>
                     <Label x:Name="lblmovetype"  />
                     <Label x:Name="lblservicedate"  HorizontalOptions="End"/>
@@ -88,7 +89,13 @@
                
 
 
-                <ListView x:Name="shipdetails"  SelectionMode="None" ItemsSource="{Binding response.Details}" RowHeight="550" SeparatorVisibility="None" >
+                <ListView x:Name="shipdetails"  SelectionMode="None" ItemsSource="{Binding response.Details}" SeparatorVisibility="None" >
+                    <ListView.RowHeight>
+                        <OnPlatform x:TypeArguments="x:Int32">
+                            <On Platform="iOS">553</On>
+                            <On Platform="Android">570</On>
+                        </OnPlatform>
+                    </ListView.RowHeight>
                     <ListView.ItemTemplate >
                         <DataTemplate>
                             <ViewCell>
@@ -264,7 +271,7 @@
                                                     <TapGestureRecognizer   Tapped="Spl_ins_Tapped"/>
                                                 </Grid.GestureRecognizers>
                                                 <Label x:Name="lblSPI"  Text="SPECIAL INSTRUCTIONS" Grid.Column="0" Grid.Row="0" HorizontalTextAlignment="Start" BackgroundColor="{Binding SPBtnClr}" VerticalTextAlignment="Center" />
-                                                <ImageButton x:Name="arrow"  VerticalOptions="Center"  Source="icons8_right.png" Grid.Column="1" HorizontalOptions="End"  Grid.Row="0" Clicked="Arrow_Clicked"/>
+                                                <ImageButton x:Name="arrow"  VerticalOptions="Center"  Source="icons8_right.png" BackgroundColor="#B6D7A8" Grid.Column="1" HorizontalOptions="End"  Grid.Row="0" Clicked="Arrow_Clicked"/>
                                             </Grid>
                                         </Frame>
 
@@ -311,6 +318,7 @@
                                         </Grid>
                                         <BoxView StyleClass="shipline" Grid.Row="7" HorizontalOptions="FillAndExpand" />
                                       
+                                        
                                         <Grid StyleClass="Bcolor"  Grid.Row="8">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto"/>
@@ -350,10 +358,10 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Image  x:Name="imgsign"   IsVisible="False" />
-                <Button x:Name="Btnsign"  Clicked="Btnsign_Clicked" Text="CAPTURE SIGNATURE" />
+                <Image  x:Name="imgsign" BackgroundColor="White"  IsVisible="False" />
+                <Button x:Name="Btnsign"  Clicked="Btnsign_Clicked" Text="          CAPTURE SIGNATURE          " HorizontalOptions="Center" />
 
-                <Button x:Name="Btnmarkship"  Text="Mark Shipment Complete" Clicked="Btnmarkship_Clicked"  CornerRadius="4" />
+                <Button x:Name="Btnmarkship"   Text="      Mark Shipment Complete      " Clicked="Btnmarkship_Clicked"  CornerRadius="4"   HorizontalOptions="Center" />
                 <StackLayout StyleClass="stckrow" />
             </StackLayout>
         </ScrollView>
