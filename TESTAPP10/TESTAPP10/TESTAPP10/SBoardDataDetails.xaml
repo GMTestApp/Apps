@@ -65,7 +65,7 @@
                 <ListView x:Name="ListSBoard"  SelectionMode="None" StyleClass="listview"  ItemsSource="{Binding response.Shipment}"  SeparatorVisibility="None">
                     <ListView.RowHeight>
                         <OnPlatform x:TypeArguments="x:Int32">
-                            <On Platform="iOS">173</On>
+                            <On Platform="iOS">178</On>
                             <On Platform="Android">184</On>
                         </OnPlatform>
                     </ListView.RowHeight>

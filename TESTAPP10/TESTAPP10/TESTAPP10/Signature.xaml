@@ -108,7 +108,7 @@
 
                     <Button FontAttributes="Bold" Text="SIGNATURE" StyleClass="spl_button" />
                    
-                    <forms:SignaturePadView  x:Name="signature1" StyleClass="signature"  SignatureLineColor="White" CaptionText="Sign Here"  CaptionFontSize="10" PromptText=""  ClearTextColor="Black" PromptTextColor="Transparent" StrokeColor="Black"  />
+                    <forms:SignaturePadView BackgroundColor="White" x:Name="signature1" StyleClass="signature"  SignatureLineColor="Black" CaptionText="Sign Here"  CaptionFontSize="10" PromptText=""  ClearTextColor="Black" PromptTextColor="Transparent" StrokeColor="Black"  />
 
                     <Grid StyleClass="signgrid">
                         <Grid.RowDefinitions>

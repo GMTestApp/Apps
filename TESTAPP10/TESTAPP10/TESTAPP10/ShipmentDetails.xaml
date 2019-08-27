@@ -271,7 +271,7 @@
                                                     <TapGestureRecognizer   Tapped="Spl_ins_Tapped"/>
                                                 </Grid.GestureRecognizers>
                                                 <Label x:Name="lblSPI"  Text="SPECIAL INSTRUCTIONS" Grid.Column="0" Grid.Row="0" HorizontalTextAlignment="Start" BackgroundColor="{Binding SPBtnClr}" VerticalTextAlignment="Center" />
-                                                <ImageButton x:Name="arrow"  VerticalOptions="Center"  Source="icons8_right.png" BackgroundColor="#B6D7A8" Grid.Column="1" HorizontalOptions="End"  Grid.Row="0" Clicked="Arrow_Clicked"/>
+                                                <ImageButton x:Name="arrow"  VerticalOptions="Center"  Source="icons8_right.png" BackgroundColor="{Binding SPBtnClr}" Grid.Column="1" HorizontalOptions="End"  Grid.Row="0" Clicked="Arrow_Clicked"/>
                                             </Grid>
                                         </Frame>
 

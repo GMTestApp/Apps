@@ -1,15 +1,9 @@
-﻿contentpage {
+﻿.bgcolor {
     background-color: #8eadc1;
 }
-
-stacklayout {
-    background-color: #8eadc1;
-}
-
 label {
     color: black;
     font-family: Tahoma;
-    
 }
 
 Entry {
@@ -555,7 +549,7 @@ boxview {
 .shiplbltkpicno {
     font-size: 12;
     margin-left: 0;
-    margin-top: 15;
+    margin-top: 19;
     margin-right: 5;
     margin-bottom: 0;
 }

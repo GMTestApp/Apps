@@ -370,6 +370,11 @@ namespace TESTAPP10
                         lattitude = locationd.Latitude.ToString();
                         longtitude = locationd.Longitude.ToString();
                     }
+                    else
+                    {
+                        await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
+                        return;
+                    }
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
@@ -775,6 +780,11 @@ namespace TESTAPP10
                         Lat = locationd.Latitude.ToString();
                         Long = locationd.Longitude.ToString();
                     }
+                    else
+                    {
+                        await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
+                        return;
+                    }
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
@@ -825,6 +835,7 @@ namespace TESTAPP10
             catch (Exception ex)
             {
                 await DisplayAlert("", ex.Message, "OK");
+                return;
             }
 
 

@@ -98,7 +98,8 @@ namespace TESTAPP10
             try
             {
 
-                Stream image = await signature1.GetImageStreamAsync(SignaturePad.Forms.SignatureImageFormat.Jpeg);
+                Stream image = await signature1.GetImageStreamAsync(SignaturePad.Forms.SignatureImageFormat.Jpeg, strokeColor: Color.Black,fillColor: Color.White);
+
 
                 if((image==null)|| (string.IsNullOrEmpty(NAMEid.Text)))
                 {
