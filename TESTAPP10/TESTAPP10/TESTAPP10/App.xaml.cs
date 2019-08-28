@@ -23,7 +23,10 @@ namespace TESTAPP10
         protected override void OnStart()
         {
             // Handle when your app starts
+
+            Application.Current.Properties.Clear();
         }
+
 
         protected override void OnSleep()
         {

@@ -198,6 +198,8 @@ namespace TESTAPP10
                     lattitude = locationd.Latitude.ToString();
                     longtitude = locationd.Longitude.ToString();
                 }
+                else
+                    return;
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -365,6 +367,8 @@ namespace TESTAPP10
                 {
                     var locationd = await Geolocation.GetLastKnownLocationAsync();
 
+                    //locationd = await Geolocation.GetLocationAsync();
+
                     if (locationd != null)
                     {
                         lattitude = locationd.Latitude.ToString();
@@ -373,24 +377,26 @@ namespace TESTAPP10
                     else
                     {
                         await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
-                        return;
+                        lattitude = "0";
+                        longtitude = "0";
+
                     }
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
-                    // Handle not supported on device exception
+                    await DisplayAlert("", fnsEx.Message, "OK");
                 }
                 catch (FeatureNotEnabledException fneEx)
                 {
-                    // Handle not enabled on device exception
+                    await DisplayAlert("", fneEx.Message, "OK");
                 }
                 catch (PermissionException pEx)
                 {
-                    // Handle permission exception
+                    await DisplayAlert("", pEx.Message, "OK");
                 }
                 catch (Exception ex)
                 {
-                    // Unable to get location
+                    await DisplayAlert("", ex.Message, "OK");
                 }
 
                 var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode, "I", Url);
@@ -541,11 +547,11 @@ namespace TESTAPP10
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     Directory = "uploadImage",
-                    // SaveToAlbum = true,
+                    SaveToAlbum = false,
                     CompressionQuality = 75,
                     CustomPhotoSize = 50,
                     PhotoSize = PhotoSize.MaxWidthHeight,
-
+                    SaveMetaData = false,
                     MaxWidthHeight = 2000,
                     DefaultCamera = CameraDevice.Rear
                 });
@@ -556,6 +562,22 @@ namespace TESTAPP10
 
 
                 string imgBase64String = GetBase64StringForImage(file.Path);
+
+                try
+                {
+                    string OriginalFilePath = file.Path;
+                    file.Dispose();
+                    if (File.Exists(OriginalFilePath))
+                    {
+                        System.IO.File.Delete(OriginalFilePath);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("", ex.Message, "OK");
+                }
+
 
 
                 var HAWB = Application.Current.Properties.ContainsKey("ShipHawb") ? Application.Current.Properties["ShipHawb"] as string : "";
@@ -783,24 +805,25 @@ namespace TESTAPP10
                     else
                     {
                         await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
-                        return;
+                        Lat = "0";
+                        Long = "0";
                     }
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
-                    // Handle not supported on device exception
+                    await DisplayAlert("", fnsEx.Message, "OK");
                 }
                 catch (FeatureNotEnabledException fneEx)
                 {
-                    // Handle not enabled on device exception
+                    await DisplayAlert("", fneEx.Message, "OK");
                 }
                 catch (PermissionException pEx)
                 {
-                    // Handle permission exception
+                    await DisplayAlert("", pEx.Message, "OK");
                 }
                 catch (Exception ex)
                 {
-                    // Unable to get location
+                    await DisplayAlert("", ex.Message, "OK");
                 }
 
 

@@ -210,11 +210,15 @@ namespace TESTAPP10
                             lbltkpicno.Text = "Total Files Uploaded (" + Btnshipresp.Details[0].Count + ")";
                     }
                 }
+
+                Application.Current.Properties.Remove("ImageStramList");
+
             }
             catch (Exception ex)
             {
                 await DisplayAlert("", ex.Message, "OK");
             }
+            
 
         }
 
@@ -232,6 +236,8 @@ namespace TESTAPP10
         }
         public async void loadimg()
         {
+
+
             try
             {
 
@@ -258,22 +264,36 @@ namespace TESTAPP10
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     Directory = "uploadImage",
-                    // SaveToAlbum = true,
+                    SaveToAlbum = false,
                     CompressionQuality = 75,
                     CustomPhotoSize = 50,
                     PhotoSize = PhotoSize.MaxWidthHeight,
-
+                    SaveMetaData = false,
                     MaxWidthHeight = 2000,
                     DefaultCamera = CameraDevice.Rear
                 });
-
+              
                 if (file == null)
                     return;
 
-                
-
 
                 string imgBase64String = GetBase64StringForImage(file.Path);
+
+                try
+                {
+                    string OriginalFilePath = file.Path;
+                    file.Dispose();
+                    if (File.Exists(OriginalFilePath))
+                    {
+                        System.IO.File.Delete(OriginalFilePath);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("", ex.Message, "OK");
+                }
+
 
 
                 List<string> ISL = new List<string>();
@@ -292,7 +312,7 @@ namespace TESTAPP10
                 await DisplayAlert("", ex.Message, "OK");
 
             }
-
+          
         }
         protected string GetBase64StringForImage(string imgPath)
         {
