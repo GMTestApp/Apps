@@ -784,12 +784,14 @@ namespace TESTAPP10
                 var Long = "0";
                 var Status = "";
                 var RefNo = "";
+                var Type = "";
                 foreach (var c in customer)
                 {
                     username = c.UserId;
                     InviteCode = c.XCode;
                     CompanyId = c.CompanyID;
                     Url = c.TransactURL;
+                    Type = c.Type;
                     break;
                 }
 
@@ -863,6 +865,21 @@ namespace TESTAPP10
                             Application.Current.Properties["LoadResponse"] = resp2;
 
                         }
+
+
+
+
+
+
+
+                        await DisplayAlert("","Mark Shipment Completed", "OK");
+
+                        if(Type.ToLower()=="m")
+                            await Navigation.PushAsync(new MBoardItemDetails());
+                        else
+                            await Navigation.PushAsync(new SBoardDataDetails());
+
+
                     }
                 }
 
