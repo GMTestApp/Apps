@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.Geolocator;
 using Xamarin.Essentials;
+using System.Threading;
 
 namespace TESTAPP10
 {
@@ -26,9 +27,9 @@ namespace TESTAPP10
             var Mtype = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
             var Date = Application.Current.Properties.ContainsKey("ShipDate") ? Application.Current.Properties["ShipDate"] as string : "";
 
-            
 
-            
+
+
             Loadvalues(Hawb, Mtype, Date);
             date.Text = DateTime.Now.ToString("MMM dd yyyy");
 
@@ -197,6 +198,18 @@ namespace TESTAPP10
                 {
                     lattitude = locationd.Latitude.ToString();
                     longtitude = locationd.Longitude.ToString();
+
+
+                    var Sendresponse = App.SOAP_Request.SendProgress(RefNo, HAWB, lattitude, longtitude, UserId.Trim(), COMPANYID, InviteCode, Status, Url);
+                    Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
+                    foreach (var re in Btnshipresponse.Details)
+                    {
+                        if (re.Message.ToLower() == "ok")
+                        {
+                            await Task.Delay(60000);
+                            goto start;
+                        }
+                    }
                 }
                 else
                     return;
@@ -216,18 +229,6 @@ namespace TESTAPP10
             catch (Exception ex)
             {
                 // Unable to get location
-            }
-
-            var Sendresponse = App.SOAP_Request.SendProgress(RefNo, HAWB, lattitude, longtitude, UserId.Trim(), COMPANYID, InviteCode, Status, Url);
-            Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
-            foreach (var re in Btnshipresponse.Details)
-            {
-                if (re.Message.ToLower() == "ok")
-                {
-                    await Task.Delay(60000);
-                    goto start;
-                }
-                
             }
         }
         private async void Signout_Tapped(object sender, EventArgs e)
@@ -359,10 +360,10 @@ namespace TESTAPP10
                 //TimeSpan ts = TimeSpan.FromTicks(10000);
                 //var position = await locator.GetPositionAsync(ts);
 
-                string lattitude = string.Empty;
-                string longtitude = string.Empty;
+                string lattitude = "0";
+                string longtitude = "0";
 
-                
+
                 try
                 {
                     var locationd = await Geolocation.GetLastKnownLocationAsync();
@@ -375,28 +376,23 @@ namespace TESTAPP10
                         longtitude = locationd.Longitude.ToString();
                     }
                     else
-                    {
-                        await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
-                        lattitude = "0";
-                        longtitude = "0";
-
-                    }
+                        await DisplayAlert("", "Cannot access Location. Please enable the location.", "OK");
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
-                    await DisplayAlert("", fnsEx.Message, "OK");
+                    await DisplayAlert("", "Cannot access Location.", "OK");
                 }
                 catch (FeatureNotEnabledException fneEx)
                 {
-                    await DisplayAlert("", fneEx.Message, "OK");
+                    await DisplayAlert("", "Cannot access Location.", "OK");
                 }
                 catch (PermissionException pEx)
                 {
-                    await DisplayAlert("", pEx.Message, "OK");
+                    await DisplayAlert("", "Cannot access Location.", "OK");
                 }
                 catch (Exception ex)
                 {
-                    await DisplayAlert("", ex.Message, "OK");
+                    await DisplayAlert("", "Cannot access Location.", "OK");
                 }
 
                 var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode, "I", Url);
@@ -422,7 +418,24 @@ namespace TESTAPP10
 
                 if ((inProgress.ToLower() == "y") && (TrackUser.ToLower() == "y"))
                 {
-                    await Task.Run(() => SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url)); //does not block UI
+
+                    //await Task.Run(() => SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url)); //does not block UI
+
+                    Thread t = new Thread(() =>
+                    {
+                        Console.WriteLine("executing ThreadProc");
+                        try
+                        {
+                            SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url);
+                        }
+                        finally
+                        {
+                            // Console.WriteLine("finished executing ThreadProc");
+                        }
+                    });
+                    t.IsBackground = true;
+                    t.Start();
+
                 }
 
             }
@@ -462,7 +475,7 @@ namespace TESTAPP10
                 var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
                 var ServiceDate = Application.Current.Properties.ContainsKey("ShipDate") ? Application.Current.Properties["ShipDate"] as string : "";
 
-              
+
                 var username = "";
                 var CompanyId = "";
                 var InviteCode = "";
@@ -470,7 +483,7 @@ namespace TESTAPP10
                 var RefNo = "";
 
                 var DGargo = swtich.IsToggled ? "Y" : "N";
-               
+
                 var resp = Application.Current.Properties.ContainsKey("LoadResponse") ? Application.Current.Properties["LoadResponse"] as string : "";
 
                 SD_RootObject response = JsonConvert.DeserializeObject<SD_RootObject>(resp);
@@ -496,21 +509,21 @@ namespace TESTAPP10
                     break;
                 }
 
-               
+
                 var UCresp = App.SOAP_Request.UpdateDCargo(RefNo, HAWB, DGargo, username.Trim(), CompanyId, InviteCode, Url);
 
                 Cargo_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Cargo_RootObject>(UCresp);
 
                 if (Btnshipresponse.Details[0].Message.ToLower().Contains("ok"))
                 {
-                   // await DisplayAlert("", "Notes Updated.", "OK");
+                    // await DisplayAlert("", "Notes Updated.", "OK");
                     var updresp = App.SOAP_Request.LoadDetails(HAWB, username.Trim(), MoveType, InviteCode, CompanyId, Url);
 
                     Application.Current.Properties["LoadResponse"] = updresp;
                 }
                 else
                 {
-                   // await DisplayAlert("", "Notes could not be Updated.", "OK");
+                    // await DisplayAlert("", "Notes could not be Updated.", "OK");
 
                     if (swtich.IsToggled)
                         swtich.IsToggled = false;
@@ -526,7 +539,7 @@ namespace TESTAPP10
         }
 
 
-        private  void Btncamera_Clicked(object sender, EventArgs e)
+        private void Btncamera_Clicked(object sender, EventArgs e)
         {
             loadimg();
 
@@ -691,7 +704,7 @@ namespace TESTAPP10
         }
         private async void Actions_Tapped(object sender, EventArgs e)
         {
-           // string HAWB = lblhawb.Text, MoveType = lblmovetype.Text, ServiceDate = lblservicedate.Text;
+            // string HAWB = lblhawb.Text, MoveType = lblmovetype.Text, ServiceDate = lblservicedate.Text;
 
 
             var HAWB = Application.Current.Properties.ContainsKey("ShipHawb") ? Application.Current.Properties["ShipHawb"] as string : "";
@@ -767,8 +780,8 @@ namespace TESTAPP10
                 var InviteCode = "";
                 var Url = "";
 
-                var Lat = "";
-                var Long = "";
+                var Lat = "0";
+                var Long = "0";
                 var Status = "";
                 var RefNo = "";
                 foreach (var c in customer)
@@ -786,7 +799,7 @@ namespace TESTAPP10
 
                 foreach (var a in response.Details)
                 {
-                   // Lat = a.SLine2;
+                    // Lat = a.SLine2;
                     //Long = a.CLine2;
                     Status = a.Status;
                     RefNo = a.RefNo;
@@ -805,8 +818,7 @@ namespace TESTAPP10
                     else
                     {
                         await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
-                        Lat = "0";
-                        Long = "0";
+
                     }
                 }
                 catch (FeatureNotSupportedException fnsEx)
@@ -843,13 +855,13 @@ namespace TESTAPP10
                             SD_RootObject response2 = JsonConvert.DeserializeObject<SD_RootObject>(resp2);
                             foreach (var a in response2.Details)
                             {
-                                
+
                                 if ((!string.IsNullOrEmpty(a.inProgress)) && (a.inProgress.ToLower() != "y"))
                                     Application.Current.Properties["StopSend"] = "true";
                             }
 
                             Application.Current.Properties["LoadResponse"] = resp2;
-                           
+
                         }
                     }
                 }

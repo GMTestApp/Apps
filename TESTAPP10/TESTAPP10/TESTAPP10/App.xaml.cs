@@ -23,8 +23,12 @@ namespace TESTAPP10
         protected override void OnStart()
         {
             // Handle when your app starts
-
+            var StopSend = Application.Current.Properties.ContainsKey("StopSend") ? Application.Current.Properties["StopSend"] as string : "";
             Application.Current.Properties.Clear();
+            if (!string.IsNullOrEmpty(StopSend))
+                Application.Current.Properties["StopSend"] = StopSend;
+
+
         }
 
 
