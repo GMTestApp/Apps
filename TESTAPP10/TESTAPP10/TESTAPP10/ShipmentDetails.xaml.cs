@@ -13,6 +13,7 @@ using Xamarin.Forms.Xaml;
 using Plugin.Geolocator;
 using Xamarin.Essentials;
 using System.Threading;
+using TESTAPP10.TESTAPP10;
 
 namespace TESTAPP10
 {
@@ -180,24 +181,58 @@ namespace TESTAPP10
             }
 
 
-            //var locator = CrossGeolocator.Current;
-            //locator.DesiredAccuracy = 50;
-            //TimeSpan ts = TimeSpan.FromTicks(10000);
-            //var position = await locator.GetPositionAsync(ts);
+            
 
-            //if (position != null)
-            //    lattitude = position.Latitude.ToString();
-            //if (position != null)
-            //    longtitude = position.Longitude.ToString();
+            //var TA = from s in App.SqlLiteCon().Table<ThreadAbortList>() select s;
+
+            //foreach (var t in TA)
+            //{
+
+            //    if (t.ShipmentId.ToLower() == HAWB.ToLower())
+            //    {
+            //        App.SqlLiteCon().Execute($"delete from ThreadAbortList where ShipmentId = '{HAWB}'");
+            //        return;
+            //    }
+            //}
 
             try
             {
-                var locationd = await Geolocation.GetLastKnownLocationAsync();
 
-                if (locationd != null)
+
+                try
                 {
-                    lattitude = locationd.Latitude.ToString();
-                    longtitude = locationd.Longitude.ToString();
+                    var requestsss = new GeolocationRequest(GeolocationAccuracy.Medium);
+                    var locationsss = await Geolocation.GetLocationAsync(requestsss);
+
+
+                    if (locationsss != null)
+                    {
+                        lattitude = locationsss.Latitude.ToString();
+                        longtitude = locationsss.Longitude.ToString();
+                    }
+
+                }
+                catch
+                {
+                    var locationd = await Geolocation.GetLastKnownLocationAsync();
+
+                    if (locationd != null)
+                    {
+                        lattitude = locationd.Latitude.ToString();
+                        longtitude = locationd.Longitude.ToString();
+                    }
+                    
+                }
+
+
+
+
+                //var locationd = await Geolocation.GetLastKnownLocationAsync();
+
+                if ((lattitude!="0")&& (longtitude != "0"))
+                {
+                    //lattitude = locationd.Latitude.ToString();
+                    //longtitude = locationd.Longitude.ToString();
 
 
                     var Sendresponse = App.SOAP_Request.SendProgress(RefNo, HAWB, lattitude, longtitude, UserId.Trim(), COMPANYID, InviteCode, Status, Url);
@@ -366,17 +401,33 @@ namespace TESTAPP10
 
                 try
                 {
-                    var locationd = await Geolocation.GetLastKnownLocationAsync();
-
-                    //locationd = await Geolocation.GetLocationAsync();
-
-                    if (locationd != null)
+                    try
                     {
-                        lattitude = locationd.Latitude.ToString();
-                        longtitude = locationd.Longitude.ToString();
+                        var requestsss = new GeolocationRequest(GeolocationAccuracy.Medium);
+                        var locationsss = await Geolocation.GetLocationAsync(requestsss);
+
+
+                        if(locationsss!=null)
+                        {
+                            lattitude = locationsss.Latitude.ToString();
+                            longtitude = locationsss.Longitude.ToString();
+                        }
+                        else
+                            await DisplayAlert("", "Cannot access Location. Please enable the location.", "OK");
+
                     }
-                    else
-                        await DisplayAlert("", "Cannot access Location. Please enable the location.", "OK");
+                    catch
+                    {
+                        var locationd = await Geolocation.GetLastKnownLocationAsync();
+
+                        if (locationd != null)
+                        {
+                            lattitude = locationd.Latitude.ToString();
+                            longtitude = locationd.Longitude.ToString();
+                        }
+                        else
+                            await DisplayAlert("", "Cannot access Location. Please enable the location.", "OK");
+                    }
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
@@ -810,18 +861,46 @@ namespace TESTAPP10
 
                 try
                 {
-                    var locationd = await Geolocation.GetLastKnownLocationAsync();
+                    //var locationd = await Geolocation.GetLastKnownLocationAsync();
 
-                    if (locationd != null)
-                    {
-                        Lat = locationd.Latitude.ToString();
-                        Long = locationd.Longitude.ToString();
-                    }
-                    else
-                    {
-                        await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
+                    //if (locationd != null)
+                    //{
+                    //    Lat = locationd.Latitude.ToString();
+                    //    Long = locationd.Longitude.ToString();
+                    //}
+                    //else
+                    //{
+                    //    await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
 
+                    //}
+
+                    try
+                    {
+                        var requestsss = new GeolocationRequest(GeolocationAccuracy.Medium);
+                        var locationsss = await Geolocation.GetLocationAsync(requestsss);
+
+
+                        if (locationsss != null)
+                        {
+                            Lat = locationsss.Latitude.ToString();
+                            Long = locationsss.Longitude.ToString();
+                        }
+                        else
+                            await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
                     }
+                    catch
+                    {
+                        var locationd = await Geolocation.GetLastKnownLocationAsync();
+
+                        if (locationd != null)
+                        {
+                            Lat = locationd.Latitude.ToString();
+                            Long = locationd.Longitude.ToString();
+                        }
+                        else
+                            await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
+                    }
+
                 }
                 catch (FeatureNotSupportedException fnsEx)
                 {
@@ -859,17 +938,19 @@ namespace TESTAPP10
                             {
 
                                 if ((!string.IsNullOrEmpty(a.inProgress)) && (a.inProgress.ToLower() != "y"))
+                                {
                                     Application.Current.Properties["StopSend"] = "true";
+
+                                    //ThreadAbortList TAs = new ThreadAbortList();
+                                    //TAs.ShipmentId = Hawb;
+
+                                    //App.SqlLiteCon().Insert(TAs);
+                                }
                             }
 
                             Application.Current.Properties["LoadResponse"] = resp2;
 
                         }
-
-
-
-
-
 
 
                         await DisplayAlert("","Mark Shipment Completed", "OK");

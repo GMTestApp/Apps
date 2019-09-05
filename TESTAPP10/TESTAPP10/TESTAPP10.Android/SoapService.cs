@@ -38,7 +38,7 @@ namespace TESTAPP10.Droid
             //ValidateLogin ValidateLogin = new ValidateLogin();
             //var res = ValidateLogin.MBoardData(uid, invite, Type, CompanyId);
 
-            TESTAPP10.Droid.WTDriverTrak_WebReference.WTDriverTrak obj = new Droid.WTDriverTrak_WebReference.WTDriverTrak();
+            WTDriverTrak_WebReference.WTDriverTrak obj = new Droid.WTDriverTrak_WebReference.WTDriverTrak();
             obj.Url = Url;
             var res = obj.MBoardData(uid, invite, Type, CompanyId);
 
