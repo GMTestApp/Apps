@@ -13,7 +13,6 @@ using Xamarin.Forms.Xaml;
 using Plugin.Geolocator;
 using Xamarin.Essentials;
 using System.Threading;
-using TESTAPP10.TESTAPP10;
 
 namespace TESTAPP10
 {
