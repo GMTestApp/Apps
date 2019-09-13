@@ -149,6 +149,7 @@ namespace TESTAPP10
                 var HAWB = Application.Current.Properties.ContainsKey("carHAWB") ? Application.Current.Properties["carHAWB"] as string : "";
                 var MoveType = Application.Current.Properties.ContainsKey("carMoveType") ? Application.Current.Properties["carMoveType"] as string : "";
                 var ServiceDate = Application.Current.Properties.ContainsKey("carManifestNo") ? Application.Current.Properties["carManifestNo"] as string : "";
+                var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
 
                 var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
 
@@ -160,6 +161,7 @@ namespace TESTAPP10
 
                 var DGargo = "";
                 var RefNo = "";
+                
                 foreach (var c in customer)
                 {
                     username = c.UserId;
@@ -177,8 +179,13 @@ namespace TESTAPP10
                 {
                     DGargo = a.DCargo;
                     RefNo = a.RefNo;
+                   
                 }
-
+                if (inprogress.ToLower() != "y")
+                {
+                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    return;
+                }
                 if (!String.IsNullOrEmpty(note))
                 {
                     var UCresp = App.SOAP_Request.UpdateDCargoNotes(RefNo, HAWB, note, username.Trim(), CompanyId, InviteCode, Url);
@@ -240,6 +247,15 @@ namespace TESTAPP10
 
             try
             {
+
+                var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
+                if (inprogress.ToLower() != "y")
+                {
+                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    return;
+                }
+
+
 
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
 

@@ -121,31 +121,7 @@
                         <Button x:Name="btnsave" StyleClass="cargobtnsave" Clicked="Btnsave_Clicked" Grid.Row="0"  Grid.Column="0"  Text="Save" />
                         <Button x:Name="btnreset" StyleClass="cargobtnreset" Clicked="Btnreset_Clicked" Grid.Row="0"  Grid.Column="1"  Text="Reset"  />
                     </Grid>
-                    <!--<Grid StyleClass="gridcam">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer  x:Name="imgpic" Tapped="Imgpic_Tapped" />
-                        </Grid.GestureRecognizers>
-
-                        <Label StyleClass="lbltakepic" Grid.Column="0" Grid.Row="0" Text="TAKE PICTURES" VerticalOptions="Center"/>
-                        <Grid Grid.Column="1">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                            </Grid>
-                            <ImageButton x:Name="btncamera" HeightRequest="25" WidthRequest="25" Margin="0,0,0,0" StyleClass="cargocam" BackgroundColor="#EEEEEE" Clicked="Btncamera_Clicked"  Source="cameraicon.png"  Grid.Row="0" HorizontalOptions="End"/>
-                            <Label x:Name="lbltkpicno" StyleClass="cargopicno" Text="{Binding Pic,StringFormat='Total Files Uploaded ({0})'}"    Grid.Row="1" HorizontalOptions="End"/>
-                            <Image x:Name="image" />
-
-                        </Grid>
-                    </Grid>-->
+                 
 
 
 

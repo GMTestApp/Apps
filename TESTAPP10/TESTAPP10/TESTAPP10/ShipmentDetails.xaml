@@ -283,7 +283,6 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"/>
                                                 <ColumnDefinition Width="auto"/>
-
                                             </Grid.ColumnDefinitions>
                                             <Label  StyleClass="lblDcargo" Text="DAMAGED CARGO" Grid.Column="0"  Grid.Row="0"  HorizontalTextAlignment="Start"  VerticalTextAlignment="Center" />
                                             <Grid Grid.Column="2" HorizontalOptions="End" VerticalOptions="End">
@@ -296,7 +295,9 @@
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Label x:Name="dd" Text="Yes" VerticalOptions="Center" HorizontalOptions="End" Grid.Row="0" Grid.Column="0"/>
-                                                <Switch x:Name="xamlSwitch" IsToggled="{Binding DCargo}" HorizontalOptions="EndAndExpand" Toggled="XamlSwitch_Toggled"  OnColor="#6AA84F" Grid.Column="1"  Grid.Row="0"/>
+                                                <Switch x:Name="xamlswtich"   IsToggled="{Binding DCargo}" HorizontalOptions="EndAndExpand" Toggled="XamlSwitch_Toggled"  OnColor="#6AA84F" Grid.Column="1"  Grid.Row="0"/>
+                                               
+
                                                 <Label StyleClass="lblNo" Text="No"  Grid.Row="0" VerticalOptions="Center" Grid.Column="2" HorizontalOptions="EndAndExpand"/>
 
                                             </Grid>

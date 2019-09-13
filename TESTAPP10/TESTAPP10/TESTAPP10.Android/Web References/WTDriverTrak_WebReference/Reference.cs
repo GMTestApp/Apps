@@ -35,7 +35,11 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
         
         private System.Threading.SendOrPostCallback AttachFileToShipmentOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ChangeShipmentOperationCompleted;
+        
         private System.Threading.SendOrPostCallback SendProgressOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ReadSendProgressOperationCompleted;
         
         private System.Threading.SendOrPostCallback LoadDetailsOperationCompleted;
         
@@ -99,7 +103,13 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
         public event AttachFileToShipmentCompletedEventHandler AttachFileToShipmentCompleted;
         
         /// <remarks/>
+        public event ChangeShipmentCompletedEventHandler ChangeShipmentCompleted;
+        
+        /// <remarks/>
         public event SendProgressCompletedEventHandler SendProgressCompleted;
+        
+        /// <remarks/>
+        public event ReadSendProgressCompletedEventHandler ReadSendProgressCompleted;
         
         /// <remarks/>
         public event LoadDetailsCompletedEventHandler LoadDetailsCompleted;
@@ -236,8 +246,51 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ChangeShipment", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string ChangeShipment(string OldRefNo, string NewRefNo, string UserId, string CompanyId, string Status, string OldRefNoStatus, string DDate, string InviteCode) {
+            object[] results = this.Invoke("ChangeShipment", new object[] {
+                        OldRefNo,
+                        NewRefNo,
+                        UserId,
+                        CompanyId,
+                        Status,
+                        OldRefNoStatus,
+                        DDate,
+                        InviteCode});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ChangeShipmentAsync(string OldRefNo, string NewRefNo, string UserId, string CompanyId, string Status, string OldRefNoStatus, string DDate, string InviteCode) {
+            this.ChangeShipmentAsync(OldRefNo, NewRefNo, UserId, CompanyId, Status, OldRefNoStatus, DDate, InviteCode, null);
+        }
+        
+        /// <remarks/>
+        public void ChangeShipmentAsync(string OldRefNo, string NewRefNo, string UserId, string CompanyId, string Status, string OldRefNoStatus, string DDate, string InviteCode, object userState) {
+            if ((this.ChangeShipmentOperationCompleted == null)) {
+                this.ChangeShipmentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnChangeShipmentOperationCompleted);
+            }
+            this.InvokeAsync("ChangeShipment", new object[] {
+                        OldRefNo,
+                        NewRefNo,
+                        UserId,
+                        CompanyId,
+                        Status,
+                        OldRefNoStatus,
+                        DDate,
+                        InviteCode}, this.ChangeShipmentOperationCompleted, userState);
+        }
+        
+        private void OnChangeShipmentOperationCompleted(object arg) {
+            if ((this.ChangeShipmentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ChangeShipmentCompleted(this, new ChangeShipmentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SendProgress", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string SendProgress(string RefNo, string HAWB, string LAT, string LON, string UserId, string companyID, string InviteCode, string Status) {
+        public string SendProgress(string RefNo, string HAWB, string LAT, string LON, string UserId, string companyID, string InviteCode, string Status, string TrackDateTime) {
             object[] results = this.Invoke("SendProgress", new object[] {
                         RefNo,
                         HAWB,
@@ -246,17 +299,18 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
                         UserId,
                         companyID,
                         InviteCode,
-                        Status});
+                        Status,
+                        TrackDateTime});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void SendProgressAsync(string RefNo, string HAWB, string LAT, string LON, string UserId, string companyID, string InviteCode, string Status) {
-            this.SendProgressAsync(RefNo, HAWB, LAT, LON, UserId, companyID, InviteCode, Status, null);
+        public void SendProgressAsync(string RefNo, string HAWB, string LAT, string LON, string UserId, string companyID, string InviteCode, string Status, string TrackDateTime) {
+            this.SendProgressAsync(RefNo, HAWB, LAT, LON, UserId, companyID, InviteCode, Status, TrackDateTime, null);
         }
         
         /// <remarks/>
-        public void SendProgressAsync(string RefNo, string HAWB, string LAT, string LON, string UserId, string companyID, string InviteCode, string Status, object userState) {
+        public void SendProgressAsync(string RefNo, string HAWB, string LAT, string LON, string UserId, string companyID, string InviteCode, string Status, string TrackDateTime, object userState) {
             if ((this.SendProgressOperationCompleted == null)) {
                 this.SendProgressOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSendProgressOperationCompleted);
             }
@@ -268,13 +322,43 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
                         UserId,
                         companyID,
                         InviteCode,
-                        Status}, this.SendProgressOperationCompleted, userState);
+                        Status,
+                        TrackDateTime}, this.SendProgressOperationCompleted, userState);
         }
         
         private void OnSendProgressOperationCompleted(object arg) {
             if ((this.SendProgressCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.SendProgressCompleted(this, new SendProgressCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ReadSendProgress", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string ReadSendProgress(string RefNo) {
+            object[] results = this.Invoke("ReadSendProgress", new object[] {
+                        RefNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ReadSendProgressAsync(string RefNo) {
+            this.ReadSendProgressAsync(RefNo, null);
+        }
+        
+        /// <remarks/>
+        public void ReadSendProgressAsync(string RefNo, object userState) {
+            if ((this.ReadSendProgressOperationCompleted == null)) {
+                this.ReadSendProgressOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReadSendProgressOperationCompleted);
+            }
+            this.InvokeAsync("ReadSendProgress", new object[] {
+                        RefNo}, this.ReadSendProgressOperationCompleted, userState);
+        }
+        
+        private void OnReadSendProgressOperationCompleted(object arg) {
+            if ((this.ReadSendProgressCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ReadSendProgressCompleted(this, new ReadSendProgressCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -685,6 +769,32 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    public delegate void ChangeShipmentCompletedEventHandler(object sender, ChangeShipmentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ChangeShipmentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ChangeShipmentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void SendProgressCompletedEventHandler(object sender, SendProgressCompletedEventArgs e);
     
     /// <remarks/>
@@ -696,6 +806,32 @@ namespace TESTAPP10.Droid.WTDriverTrak_WebReference {
         private object[] results;
         
         internal SendProgressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    public delegate void ReadSendProgressCompletedEventHandler(object sender, ReadSendProgressCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ReadSendProgressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ReadSendProgressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

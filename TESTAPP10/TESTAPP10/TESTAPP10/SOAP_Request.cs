@@ -38,9 +38,9 @@ namespace TESTAPP10
         {
             return ISoapService.LoadDetails( HAWB,  USERID,  MTYPE,  INVITECODE,  COMPANYID,  Url);
         }
-        public string SendProgress(string RefNo, string HAWB, string Lat, string Long, string UserId, string COMPANYID, string InviteCode, string Status, string Url)
+        public string SendProgress(string RefNo, string HAWB, string Lat, string Long, string UserId, string COMPANYID, string InviteCode, string Status, string Url,string TrackDateTime)
         {
-            return ISoapService.SendProgress(RefNo, HAWB, Lat, Long, UserId, COMPANYID, InviteCode, Status, Url);
+            return ISoapService.SendProgress(RefNo, HAWB, Lat, Long, UserId, COMPANYID, InviteCode, Status, Url, TrackDateTime);
         }
 
         public string UpdateDCargo(string RefNo, string HAWB, string DamageCargo, string UserId, string COMPANYID, string InviteCode, string Url)

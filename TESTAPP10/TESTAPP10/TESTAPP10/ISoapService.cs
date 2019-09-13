@@ -14,7 +14,7 @@ namespace TESTAPP10
         string SBoardDataDetails(string uid, string invite, string CompanyId, string Url);
         string LoadDetails(string HAWB, string USERID, string MTYPE, string INVITECODE, string COMPANYID, string Url);
 
-        string SendProgress(string RefNo, string HAWB, string Lat, string Long, string UserId, string COMPANYID, string InviteCode, string Status, string Url);
+        string SendProgress(string RefNo, string HAWB, string Lat, string TrackDateTime, string Long, string UserId, string COMPANYID, string InviteCode, string Status, string Url);
         string UpdateDCargo(string RefNo, string HAWB, string DamageCargo, string UserId, string COMPANYID, string InviteCode, string Url);
         string Uploadimgs(string RefNo, string HAWB, string StringImages, string UserId, string COMPANYID, string InviteCode, string Url);
         string UpdateDCargoNotes(string RefNo, string HAWB, string Notes, string UserId, string COMPANYID, string InviteCode, string Url);

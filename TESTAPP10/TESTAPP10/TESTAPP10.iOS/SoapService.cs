@@ -70,11 +70,11 @@ namespace TESTAPP10.iOS
             var res = obj.LoadDetails(HAWB, USERID, MTYPE, INVITECODE, COMPANYID);
             return res;
         }
-        public string SendProgress(string RefNo, string HAWB, string Lat, string Long, string UserId, string COMPANYID, string InviteCode, string Status, string Url)
+        public string SendProgress(string RefNo, string HAWB, string Lat, string Long, string UserId, string COMPANYID, string InviteCode, string Status, string Url, string TrackDateTime)
         {
             WTDriverTrak obj = new WTDriverTrak();
             obj.Url = Url;
-            var res = obj.SendProgress(RefNo, HAWB, Lat, Long, UserId, COMPANYID, InviteCode, Status);
+            var res = obj.SendProgress(RefNo, HAWB, Lat, Long, UserId, COMPANYID, InviteCode, Status, TrackDateTime);
             return res;
         }
         public string UpdateDCargo(string RefNo, string HAWB, string DamageCargo, string UserID, string CompanyID, string InviteCode, string Url)

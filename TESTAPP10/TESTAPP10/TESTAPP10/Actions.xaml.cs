@@ -249,7 +249,9 @@ namespace TESTAPP10
                 }
 
                 var resp = Application.Current.Properties.ContainsKey("AcLoadResponse") ? Application.Current.Properties["AcLoadResponse"] as string : "";
+                var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
 
+               
                 SD_RootObject response = JsonConvert.DeserializeObject<SD_RootObject>(resp);
 
                 foreach (var a in response.Details)
@@ -259,7 +261,11 @@ namespace TESTAPP10
                     if (string.IsNullOrEmpty(ActionClicked))
                         ActionClicked = a.Status.Trim().TrimStart();
                 }
-
+                if (inprogress.ToLower() != "y")
+                {
+                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    return;
+                }
 
                 var ACresp = App.SOAP_Request.ShipmentActionUpdate(RefNo, HAWB, ActionClicked, MoveType, username.Trim(), CompanyId, InviteCode, Url);
 

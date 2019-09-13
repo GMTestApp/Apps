@@ -13,6 +13,7 @@ using Xamarin.Forms.Xaml;
 using Plugin.Geolocator;
 using Xamarin.Essentials;
 using System.Threading;
+using System.ComponentModel;
 
 namespace TESTAPP10
 {
@@ -28,18 +29,21 @@ namespace TESTAPP10
             var Date = Application.Current.Properties.ContainsKey("ShipDate") ? Application.Current.Properties["ShipDate"] as string : "";
 
 
-
+           
 
             Loadvalues(Hawb, Mtype, Date);
             date.Text = DateTime.Now.ToString("MMM dd yyyy");
 
+            
         }
         public ShipmentDetails(string hawb, string Mtype, string Date)
         {
             InitializeComponent();
             Loadvalues(hawb, Mtype, Date);
             date.Text = DateTime.Now.ToString("MMM dd yyyy");
+            
         }
+        
         private async void Loadvalues(string hawb, string Mtype, string Date)
         {
 
@@ -67,6 +71,7 @@ namespace TESTAPP10
                 var Long = "";
                 var Status = "";
                 var RefNo = "";
+               
 
                 foreach (var c in customer)
                 {
@@ -93,6 +98,7 @@ namespace TESTAPP10
                     bool isdataexist = true;
                     foreach (var a in response.Details)
                     {
+                       
                         if (a.Message.ToLower() != "ok")
                         {
                             isdataexist = false;
@@ -127,6 +133,7 @@ namespace TESTAPP10
                         else
                             a.SPBtnClr = "#DDDDDD";
 
+                        Application.Current.Properties["inProgess"] = a.inProgress;
                         Application.Current.Properties["SP"] = a.SP;
                         Application.Current.Properties["ShipDCargoNotes"] = a.DCargoNotes;
                         if (!string.IsNullOrEmpty(a.Sign))
@@ -167,7 +174,7 @@ namespace TESTAPP10
         }
 
 
-        public async void SendProgressCall(string RefNo, string HAWB, string lattitude, string longtitude, string UserId, string COMPANYID, string InviteCode, string Status, string Url)
+        public async void SendProgressCall(string RefNo, string HAWB, string lattitude, string longtitude, string UserId, string COMPANYID, string InviteCode, string Status, string Url, string TrackDateTime)
         {
 
         start:
@@ -232,9 +239,9 @@ namespace TESTAPP10
                 {
                     //lattitude = locationd.Latitude.ToString();
                     //longtitude = locationd.Longitude.ToString();
+                    TrackDateTime = DateTime.Now.ToString();
 
-
-                    var Sendresponse = App.SOAP_Request.SendProgress(RefNo, HAWB, lattitude, longtitude, UserId.Trim(), COMPANYID, InviteCode, Status, Url);
+                    var Sendresponse = App.SOAP_Request.SendProgress(RefNo, HAWB, lattitude, longtitude, UserId.Trim(), COMPANYID, InviteCode, Status, Url, TrackDateTime);
                     Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
                     foreach (var re in Btnshipresponse.Details)
                     {
@@ -388,12 +395,12 @@ namespace TESTAPP10
                     RefNo = a.RefNo;
                 }
 
-
+               
                 //var locator = CrossGeolocator.Current;
                 //locator.DesiredAccuracy = 50;
                 //TimeSpan ts = TimeSpan.FromTicks(10000);
                 //var position = await locator.GetPositionAsync(ts);
-
+                string TrackDateTime = DateTime.Now.ToString();
                 string lattitude = "0";
                 string longtitude = "0";
 
@@ -402,6 +409,7 @@ namespace TESTAPP10
                 {
                     try
                     {
+                     
                         var requestsss = new GeolocationRequest(GeolocationAccuracy.Medium);
                         var locationsss = await Geolocation.GetLocationAsync(requestsss);
 
@@ -445,7 +453,7 @@ namespace TESTAPP10
                     await DisplayAlert("", "Cannot access Location.", "OK");
                 }
 
-                var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode, "I", Url);
+                var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode, "I", Url,TrackDateTime);
                 Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
                 foreach (var re in Btnshipresponse.Details)
                 {
@@ -465,7 +473,7 @@ namespace TESTAPP10
                     inProgress = a.inProgress;
                     TrackUser = a.TrackUser;
                 }
-
+                Application.Current.Properties["inProgess"] = inProgress;
                 if ((inProgress.ToLower() == "y") && (TrackUser.ToLower() == "y"))
                 {
 
@@ -476,7 +484,7 @@ namespace TESTAPP10
                         Console.WriteLine("executing ThreadProc");
                         try
                         {
-                            SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url);
+                            SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url,TrackDateTime);
                         }
                         finally
                         {
@@ -513,73 +521,98 @@ namespace TESTAPP10
 
             await Navigation.PushAsync(new Spl_Instruction(HAWB, MoveType, ServiceDate, SP));
         }
-
+        private bool HasBeenProgrammaticallyToggled = false;
+        public void ThisIsAProgrammaticToggle(object sender, ToggledEventArgs e)
+        {
+            HasBeenProgrammaticallyToggled = true;
+            var swtich = sender as Switch;
+            swtich.IsToggled = true;
+        }
         private async void XamlSwitch_Toggled(object sender, ToggledEventArgs e)
         {
 
             try
             {
+               
                 var swtich = sender as Switch;
 
+              
+                var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
+               
+           
+
                 var HAWB = Application.Current.Properties.ContainsKey("ShipHawb") ? Application.Current.Properties["ShipHawb"] as string : "";
-                var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
-                var ServiceDate = Application.Current.Properties.ContainsKey("ShipDate") ? Application.Current.Properties["ShipDate"] as string : "";
+                    var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
+                    var ServiceDate = Application.Current.Properties.ContainsKey("ShipDate") ? Application.Current.Properties["ShipDate"] as string : "";
+                  
+                    var username = "";
+                    var CompanyId = "";
+                    var InviteCode = "";
+                    var Url = "";
+                    var RefNo = "";
 
+                    var DGargo = swtich.IsToggled ? "Y" : "N";
 
-                var username = "";
-                var CompanyId = "";
-                var InviteCode = "";
-                var Url = "";
-                var RefNo = "";
+                    var resp = Application.Current.Properties.ContainsKey("LoadResponse") ? Application.Current.Properties["LoadResponse"] as string : "";
 
-                var DGargo = swtich.IsToggled ? "Y" : "N";
+                    SD_RootObject response = JsonConvert.DeserializeObject<SD_RootObject>(resp);
 
-                var resp = Application.Current.Properties.ContainsKey("LoadResponse") ? Application.Current.Properties["LoadResponse"] as string : "";
-
-                SD_RootObject response = JsonConvert.DeserializeObject<SD_RootObject>(resp);
-
-                string RDGargo = "";
-                foreach (var a in response.Details)
+                    string RDGargo = "";
+                
+                    foreach (var a in response.Details)
+                    {
+                        RDGargo = a.DCargo;
+                        RefNo = a.RefNo;
+                      
+                    }
+                   
+                    if (DGargo.ToLower() == RDGargo.ToLower())
+                        return;
+                if (inprogress.ToLower() != "y")
                 {
-                    RDGargo = a.DCargo;
-                    RefNo = a.RefNo;
-                }
-
-                if (DGargo.ToLower() == RDGargo.ToLower())
-                    return;
-
-
-                var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
-                foreach (var c in customer)
-                {
-                    username = c.UserId;
-                    InviteCode = c.XCode;
-                    CompanyId = c.CompanyID;
-                    Url = c.TransactURL;
-                    break;
-                }
-
-
-                var UCresp = App.SOAP_Request.UpdateDCargo(RefNo, HAWB, DGargo, username.Trim(), CompanyId, InviteCode, Url);
-
-                Cargo_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Cargo_RootObject>(UCresp);
-
-                if (Btnshipresponse.Details[0].Message.ToLower().Contains("ok"))
-                {
-                    // await DisplayAlert("", "Notes Updated.", "OK");
-                    var updresp = App.SOAP_Request.LoadDetails(HAWB, username.Trim(), MoveType, InviteCode, CompanyId, Url);
-
-                    Application.Current.Properties["LoadResponse"] = updresp;
-                }
-                else
-                {
-                    // await DisplayAlert("", "Notes could not be Updated.", "OK");
 
                     if (swtich.IsToggled)
                         swtich.IsToggled = false;
                     else
                         swtich.IsToggled = true;
+
+
+                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    return;
                 }
+
+                var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
+                    foreach (var c in customer)
+                    {
+                        username = c.UserId;
+                        InviteCode = c.XCode;
+                        CompanyId = c.CompanyID;
+                        Url = c.TransactURL;
+                        break;
+                    }
+
+
+                    var UCresp = App.SOAP_Request.UpdateDCargo(RefNo, HAWB, DGargo, username.Trim(), CompanyId, InviteCode, Url);
+
+                    Cargo_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Cargo_RootObject>(UCresp);
+
+                    if (Btnshipresponse.Details[0].Message.ToLower().Contains("ok"))
+                    {
+                        // await DisplayAlert("", "Notes Updated.", "OK");
+                        var updresp = App.SOAP_Request.LoadDetails(HAWB, username.Trim(), MoveType, InviteCode, CompanyId, Url);
+
+                        Application.Current.Properties["LoadResponse"] = updresp;
+                    }
+                    else
+                    {
+                        // await DisplayAlert("", "Notes could not be Updated.", "OK");
+
+                        if (swtich.IsToggled)
+                            swtich.IsToggled = false;
+                        else
+                            swtich.IsToggled = true;
+                    }
+                
             }
             catch (Exception ex)
             {
@@ -600,6 +633,12 @@ namespace TESTAPP10
 
             try
             {
+                var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
+                if (inprogress.ToLower() != "y")
+                {
+                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    return;
+                }
                 await CrossMedia.Current.Initialize();
                 if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
                 {
@@ -658,6 +697,7 @@ namespace TESTAPP10
 
                 var DGargo = "";
                 var RefNo = "";
+                
                 foreach (var c in customer)
                 {
                     username = c.UserId;
@@ -675,8 +715,9 @@ namespace TESTAPP10
                 {
                     DGargo = a.DCargo;
                     RefNo = a.RefNo;
+                   
                 }
-
+               
 
                 var UCIresp = App.SOAP_Request.Uploadimgs(RefNo, HAWB, imgBase64String, username.Trim(), CompanyId, InviteCode, Url);
 
@@ -699,6 +740,8 @@ namespace TESTAPP10
                 await DisplayAlert("", ex.Message, "OK");
             }
         }
+
+       
         protected string GetBase64StringForImage(string imgPath)
         {
             byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
@@ -721,7 +764,9 @@ namespace TESTAPP10
             public string CLine1 { get; set; }
             public string CLine2 { get; set; }
             public string SP { get; set; }
+
             public string DCargo { get; set; }
+            
             public string Pic { get; set; }
             public string Status { get; set; }
             public string Sign { get; set; }
@@ -730,6 +775,8 @@ namespace TESTAPP10
             public string SPBtnClr { get; set; }
             public string DCargoNotes { get; set; }
             public string TrackUser { get; set; }
+
+           
 
         }
 
@@ -789,7 +836,9 @@ namespace TESTAPP10
 
             await Navigation.PushAsync(new Cargo(HAWB, MoveType, ServiceDate));
         }
+      
 
+      
         private async void Notes_Tapped(object sender, EventArgs e)
         {
 
@@ -807,6 +856,12 @@ namespace TESTAPP10
             var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
             var ServiceDate = Application.Current.Properties.ContainsKey("ShipDate") ? Application.Current.Properties["ShipDate"] as string : "";
             var ShipRef = Application.Current.Properties.ContainsKey("ShipRef") ? Application.Current.Properties["ShipRef"] as string : "";
+            var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
+            if (inprogress.ToLower() != "y")
+            {
+                await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                return;
+            }
 
             await Navigation.PushAsync(new Signature(HAWB, MoveType, ServiceDate, ShipRef));
         }
@@ -824,17 +879,23 @@ namespace TESTAPP10
                 var Hawb = Application.Current.Properties.ContainsKey("ShipHawb") ? Application.Current.Properties["ShipHawb"] as string : "";
                 var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
                 var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
-
+                var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
+                if (inprogress.ToLower() != "y")
+                {
+                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    return;
+                }
                 var username = "";
                 var CompanyId = "";
                 var InviteCode = "";
                 var Url = "";
-
+                string TrackDateTime = DateTime.Now.ToString();
                 var Lat = "0";
                 var Long = "0";
                 var Status = "";
                 var RefNo = "";
                 var Type = "";
+               
                 foreach (var c in customer)
                 {
                     username = c.UserId;
@@ -855,8 +916,9 @@ namespace TESTAPP10
                     //Long = a.CLine2;
                     Status = a.Status;
                     RefNo = a.RefNo;
+                  
                 }
-
+               
 
                 try
                 {
@@ -919,7 +981,7 @@ namespace TESTAPP10
                 }
 
 
-                var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, Lat, Long, username.Trim(), CompanyId, InviteCode, "C", Url);
+                var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, Lat, Long, username.Trim(), CompanyId, InviteCode, "C", Url,TrackDateTime);
 
 
                 Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
@@ -935,7 +997,7 @@ namespace TESTAPP10
                             SD_RootObject response2 = JsonConvert.DeserializeObject<SD_RootObject>(resp2);
                             foreach (var a in response2.Details)
                             {
-
+                                Application.Current.Properties["inProgess"] = a.inProgress;
                                 if ((!string.IsNullOrEmpty(a.inProgress)) && (a.inProgress.ToLower() != "y"))
                                 {
                                     Application.Current.Properties["StopSend"] = "true";
@@ -972,5 +1034,7 @@ namespace TESTAPP10
 
 
         }
+
+       
     }
 }

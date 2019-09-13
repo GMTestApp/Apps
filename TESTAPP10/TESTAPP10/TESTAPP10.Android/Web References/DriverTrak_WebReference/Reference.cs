@@ -29,10 +29,6 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
     [System.Web.Services.WebServiceBindingAttribute(Name="ValidateLoginSoap", Namespace="http://tempuri.org/")]
     public partial class ValidateLogin : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback MBoardDataDetailsOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback MBoardDataOperationCompleted;
-        
         private System.Threading.SendOrPostCallback NewRegistrationOperationCompleted;
         
         private System.Threading.SendOrPostCallback ForgotPasswordOperationCompleted;
@@ -80,12 +76,6 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
         }
         
         /// <remarks/>
-        public event MBoardDataDetailsCompletedEventHandler MBoardDataDetailsCompleted;
-        
-        /// <remarks/>
-        public event MBoardDataCompletedEventHandler MBoardDataCompleted;
-        
-        /// <remarks/>
         public event NewRegistrationCompletedEventHandler NewRegistrationCompleted;
         
         /// <remarks/>
@@ -96,78 +86,6 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
         
         /// <remarks/>
         public event CodeExistCompletedEventHandler CodeExistCompleted;
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/MBoardDataDetails", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string MBoardDataDetails(string UserId, string InviteCode, string MNo, string CompanyId) {
-            object[] results = this.Invoke("MBoardDataDetails", new object[] {
-                        UserId,
-                        InviteCode,
-                        MNo,
-                        CompanyId});
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void MBoardDataDetailsAsync(string UserId, string InviteCode, string MNo, string CompanyId) {
-            this.MBoardDataDetailsAsync(UserId, InviteCode, MNo, CompanyId, null);
-        }
-        
-        /// <remarks/>
-        public void MBoardDataDetailsAsync(string UserId, string InviteCode, string MNo, string CompanyId, object userState) {
-            if ((this.MBoardDataDetailsOperationCompleted == null)) {
-                this.MBoardDataDetailsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMBoardDataDetailsOperationCompleted);
-            }
-            this.InvokeAsync("MBoardDataDetails", new object[] {
-                        UserId,
-                        InviteCode,
-                        MNo,
-                        CompanyId}, this.MBoardDataDetailsOperationCompleted, userState);
-        }
-        
-        private void OnMBoardDataDetailsOperationCompleted(object arg) {
-            if ((this.MBoardDataDetailsCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.MBoardDataDetailsCompleted(this, new MBoardDataDetailsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/MBoardData", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string MBoardData(string UserId, string InviteCode, string Type, string CompanyId, string url) {
-            object[] results = this.Invoke("MBoardData", new object[] {
-                        UserId,
-                        InviteCode,
-                        Type,
-                        CompanyId,
-                        url});
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void MBoardDataAsync(string UserId, string InviteCode, string Type, string CompanyId, string url) {
-            this.MBoardDataAsync(UserId, InviteCode, Type, CompanyId, url, null);
-        }
-        
-        /// <remarks/>
-        public void MBoardDataAsync(string UserId, string InviteCode, string Type, string CompanyId, string url, object userState) {
-            if ((this.MBoardDataOperationCompleted == null)) {
-                this.MBoardDataOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMBoardDataOperationCompleted);
-            }
-            this.InvokeAsync("MBoardData", new object[] {
-                        UserId,
-                        InviteCode,
-                        Type,
-                        CompanyId,
-                        url}, this.MBoardDataOperationCompleted, userState);
-        }
-        
-        private void OnMBoardDataOperationCompleted(object arg) {
-            if ((this.MBoardDataCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.MBoardDataCompleted(this, new MBoardDataCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/NewRegistration", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -237,23 +155,24 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/NewDriverEntry", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool NewDriverEntry(string DriverID, string InviteCode, string CompanyId, string Type, string URL) {
+        public bool NewDriverEntry(string DriverID, string InviteCode, string CompanyId, string Type, string URL, string BackgroundLocationUpdate) {
             object[] results = this.Invoke("NewDriverEntry", new object[] {
                         DriverID,
                         InviteCode,
                         CompanyId,
                         Type,
-                        URL});
+                        URL,
+                        BackgroundLocationUpdate});
             return ((bool)(results[0]));
         }
         
         /// <remarks/>
-        public void NewDriverEntryAsync(string DriverID, string InviteCode, string CompanyId, string Type, string URL) {
-            this.NewDriverEntryAsync(DriverID, InviteCode, CompanyId, Type, URL, null);
+        public void NewDriverEntryAsync(string DriverID, string InviteCode, string CompanyId, string Type, string URL, string BackgroundLocationUpdate) {
+            this.NewDriverEntryAsync(DriverID, InviteCode, CompanyId, Type, URL, BackgroundLocationUpdate, null);
         }
         
         /// <remarks/>
-        public void NewDriverEntryAsync(string DriverID, string InviteCode, string CompanyId, string Type, string URL, object userState) {
+        public void NewDriverEntryAsync(string DriverID, string InviteCode, string CompanyId, string Type, string URL, string BackgroundLocationUpdate, object userState) {
             if ((this.NewDriverEntryOperationCompleted == null)) {
                 this.NewDriverEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnNewDriverEntryOperationCompleted);
             }
@@ -262,7 +181,8 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
                         InviteCode,
                         CompanyId,
                         Type,
-                        URL}, this.NewDriverEntryOperationCompleted, userState);
+                        URL,
+                        BackgroundLocationUpdate}, this.NewDriverEntryOperationCompleted, userState);
         }
         
         private void OnNewDriverEntryOperationCompleted(object arg) {
@@ -319,58 +239,6 @@ namespace TESTAPP10.Droid.DriverTrak_WebReference {
                 return true;
             }
             return false;
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
-    public delegate void MBoardDataDetailsCompletedEventHandler(object sender, MBoardDataDetailsCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class MBoardDataDetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal MBoardDataDetailsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
-    public delegate void MBoardDataCompletedEventHandler(object sender, MBoardDataCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class MBoardDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal MBoardDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
         }
     }
     
