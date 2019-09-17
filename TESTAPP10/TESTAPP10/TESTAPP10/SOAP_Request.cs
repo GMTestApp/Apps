@@ -12,9 +12,9 @@ namespace TESTAPP10
         {
             ISoapService = service;
         }
-        public string NewRegistration(string uid, string pass, string invitecode)
+        public string NewRegistration(string uid, string pass, string invitecode,string BackgroundLocationUpdate)
         {
-            return ISoapService.NewRegistration(uid, pass, invitecode);
+            return ISoapService.NewRegistration(uid, pass, invitecode, BackgroundLocationUpdate);
         }
         public string ForgotPassword(string uid, string pass, string invitecode)
         {
@@ -67,5 +67,16 @@ namespace TESTAPP10
             return ISoapService.PostSignature( RefNo,  HAWB,  Signature,  Name,  EmailId,  UserId,  COMPANYID,  InviteCode,  Url);
 
         }
+        public string ChangeShipment(string OldRefNo, string NewRefNo, string UserID, string CompanyID,string status, string OldRefnoStatus, string DDate, string invitecode, string Url)
+        {
+            return ISoapService.ChangeShipment(OldRefNo, NewRefNo, UserID, CompanyID, status, OldRefnoStatus, DDate, invitecode, Url);
+
+        }
+        public string ReceiveLocationUpdate(string UserId, string CompanyId, string Lat, string Lon, string DDate, string XCode, string Url)
+        {
+            return ISoapService.ReceiveLocationUpdate(UserId, CompanyId, Lat, Lon, DDate, XCode, Url);
+
+        }
+
     }
 }

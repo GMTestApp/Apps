@@ -112,7 +112,9 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Web References\DriverTrak_WebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -285,5 +287,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\cameraicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ximg.png" />
   </ItemGroup>
 </Project>

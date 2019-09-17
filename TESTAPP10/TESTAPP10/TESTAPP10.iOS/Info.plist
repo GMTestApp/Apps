@@ -6,6 +6,16 @@
   <array>
     <string>English</string>
   </array>
+  <key>NSCalendarsUsageDescription</key>
+  <string>calender usage</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Location usage</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>location when in use</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Need to send driver location to the server.</string>
+  <key>NSLocationUsageDescription</key>
+  <string>Need to send driver location to the server.</string>
   <key>NSCameraUsageDescription</key>
   <string>This app needs access to the camera to take photos.</string>
   <key>NSPhotoLibraryUsageDescription</key>

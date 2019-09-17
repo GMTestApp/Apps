@@ -29,6 +29,8 @@ namespace TESTAPP10.iOS.WTDriverTrak_WebReference {
     [System.Web.Services.WebServiceBindingAttribute(Name="WTDriverTrakSoap", Namespace="http://tempuri.org/")]
     public partial class WTDriverTrak : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback ReceiveLocationUpdateOperationCompleted;
+        
         private System.Threading.SendOrPostCallback UpdateDCargoNotesOperationCompleted;
         
         private System.Threading.SendOrPostCallback UpdateDCargoOperationCompleted;
@@ -94,6 +96,9 @@ namespace TESTAPP10.iOS.WTDriverTrak_WebReference {
         }
         
         /// <remarks/>
+        public event ReceiveLocationUpdateCompletedEventHandler ReceiveLocationUpdateCompleted;
+        
+        /// <remarks/>
         public event UpdateDCargoNotesCompletedEventHandler UpdateDCargoNotesCompleted;
         
         /// <remarks/>
@@ -131,6 +136,45 @@ namespace TESTAPP10.iOS.WTDriverTrak_WebReference {
         
         /// <remarks/>
         public event MBoardDataDetailsCompletedEventHandler MBoardDataDetailsCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ReceiveLocationUpdate", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public object ReceiveLocationUpdate(string UserID, string CompanyID, string Lat, string Lon, string DDate, string XCode) {
+            object[] results = this.Invoke("ReceiveLocationUpdate", new object[] {
+                        UserID,
+                        CompanyID,
+                        Lat,
+                        Lon,
+                        DDate,
+                        XCode});
+            return ((object)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ReceiveLocationUpdateAsync(string UserID, string CompanyID, string Lat, string Lon, string DDate, string XCode) {
+            this.ReceiveLocationUpdateAsync(UserID, CompanyID, Lat, Lon, DDate, XCode, null);
+        }
+        
+        /// <remarks/>
+        public void ReceiveLocationUpdateAsync(string UserID, string CompanyID, string Lat, string Lon, string DDate, string XCode, object userState) {
+            if ((this.ReceiveLocationUpdateOperationCompleted == null)) {
+                this.ReceiveLocationUpdateOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReceiveLocationUpdateOperationCompleted);
+            }
+            this.InvokeAsync("ReceiveLocationUpdate", new object[] {
+                        UserID,
+                        CompanyID,
+                        Lat,
+                        Lon,
+                        DDate,
+                        XCode}, this.ReceiveLocationUpdateOperationCompleted, userState);
+        }
+        
+        private void OnReceiveLocationUpdateOperationCompleted(object arg) {
+            if ((this.ReceiveLocationUpdateCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ReceiveLocationUpdateCompleted(this, new ReceiveLocationUpdateCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateDCargoNotes", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -685,6 +729,32 @@ namespace TESTAPP10.iOS.WTDriverTrak_WebReference {
             }
             set {
                 this.orderNoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    public delegate void ReceiveLocationUpdateCompletedEventHandler(object sender, ReceiveLocationUpdateCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ReceiveLocationUpdateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ReceiveLocationUpdateCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public object Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((object)(this.results[0]));
             }
         }
     }

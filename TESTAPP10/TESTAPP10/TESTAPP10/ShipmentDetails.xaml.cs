@@ -174,32 +174,32 @@ namespace TESTAPP10
         }
 
 
-        public async void SendProgressCall(string RefNo, string HAWB, string lattitude, string longtitude, string UserId, string COMPANYID, string InviteCode, string Status, string Url, string TrackDateTime)
+        public async void SendProgressCall(string RefNo, string HAWB, string lattitude, string longtitude, string UserId, string COMPANYID, string InviteCode, string Status, string Url, string TrackDateTime,string Seconds)
         {
 
+         
         start:
-            var StopSend = Application.Current.Properties.ContainsKey("StopSend") ? Application.Current.Properties["StopSend"] as string : "";
+            //var StopSend = Application.Current.Properties.ContainsKey("StopSend") ? Application.Current.Properties["StopSend"] as string : "";
 
-            if (StopSend.ToLower() == "true")
+            //if (StopSend.ToLower() == "true")
+            //{
+            //    Application.Current.Properties["StopSend"] = "";
+            //    return;
+            //}
+
+            string shipmentid = "";
+            var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s => s.UserId == UserId) select s;
+
+            foreach (var v in customer)
             {
-                Application.Current.Properties["StopSend"] = "";
-                return;
+                shipmentid = v.ActiveShipmentNo;
             }
 
-
-            
-
-            //var TA = from s in App.SqlLiteCon().Table<ThreadAbortList>() select s;
-
-            //foreach (var t in TA)
-            //{
-
-            //    if (t.ShipmentId.ToLower() == HAWB.ToLower())
-            //    {
-            //        App.SqlLiteCon().Execute($"delete from ThreadAbortList where ShipmentId = '{HAWB}'");
-            //        return;
-            //    }
-            //}
+            if(HAWB.Trim()!= shipmentid.Trim())
+            {
+                return;
+            }
+         
 
             try
             {
@@ -239,7 +239,11 @@ namespace TESTAPP10
                 {
                     //lattitude = locationd.Latitude.ToString();
                     //longtitude = locationd.Longitude.ToString();
-                    TrackDateTime = DateTime.Now.ToString();
+
+
+                 
+
+                     TrackDateTime = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
 
                     var Sendresponse = App.SOAP_Request.SendProgress(RefNo, HAWB, lattitude, longtitude, UserId.Trim(), COMPANYID, InviteCode, Status, Url, TrackDateTime);
                     Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
@@ -247,7 +251,8 @@ namespace TESTAPP10
                     {
                         if (re.Message.ToLower() == "ok")
                         {
-                            await Task.Delay(60000);
+                            //await Task.Delay(60000);
+                            await Task.Delay(Convert.ToInt32(!String.IsNullOrEmpty(Seconds)?Seconds: "60000"));
                             goto start;
                         }
                     }
@@ -274,11 +279,15 @@ namespace TESTAPP10
         }
         private async void Signout_Tapped(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
 
+       
+
         private async void Sigout_Clicked(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
 
@@ -357,31 +366,25 @@ namespace TESTAPP10
         private async void Btnship_Clicked(object sender, EventArgs e)
         {
 
-
             try
             {
                 var Hawb = Application.Current.Properties.ContainsKey("ShipHawb") ? Application.Current.Properties["ShipHawb"] as string : "";
                 var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
-
+                
                 var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
-
                 var username = "";
                 var CompanyId = "";
                 var InviteCode = "";
                 var Url = "";
+                var ActiveShipmentNo = "";
+                var ActiveShipmentStatus = "";
 
                 //var Lat = "";
                 //var Long = "";
                 var Status = "";
                 var RefNo = "";
-                foreach (var c in customer)
-                {
-                    username = c.UserId;
-                    InviteCode = c.XCode;
-                    CompanyId = c.CompanyID;
-                    Url = c.TransactURL;
-                    break;
-                }
+                var Seconds = "";
+               
 
                 var resp = Application.Current.Properties.ContainsKey("LoadResponse") ? Application.Current.Properties["LoadResponse"] as string : "";
 
@@ -393,14 +396,68 @@ namespace TESTAPP10
                     //Long = a.CLine2;
                     Status = a.Status;
                     RefNo = a.RefNo;
+                    ActiveShipmentNo = a.ID;
+                    ActiveShipmentStatus = a.Status;
+                    Seconds = a.Seconds;
                 }
 
-               
+                foreach (var c in customer)
+                {
+                    username = c.UserId;
+                    InviteCode = c.XCode;
+                    CompanyId = c.CompanyID;
+                    Url = c.TransactURL;
+                    if ((string.IsNullOrEmpty(c.ActiveShipmentNo)) && (string.IsNullOrEmpty(c.ActiveShipmentStatus)))
+                    {
+
+                        //c.ActiveShipmentNo = ActiveShipmentNo;
+                        //c.ActiveShipmentStatus = ActiveShipmentStatus;
+                        //App.SqlLiteCon().Update(c);
+
+                        //var announcementToUpdate = App.SqlLiteCon().Query<Customer>($"SELECT * FROM Announcement WHERE Id = '{originalId}'").
+
+                             App.SqlLiteCon().Execute("update Customer set ActiveShipmentNo='" + ActiveShipmentNo.Trim() + "' ,ActiveShipmentStatus='" + ActiveShipmentStatus.Trim() + "' where ActiveShipmentNo = ?", c.ActiveShipmentNo);
+
+
+                    }
+                    else if ((!string.IsNullOrEmpty(c.ActiveShipmentNo)) && (!string.IsNullOrEmpty(c.ActiveShipmentStatus)))
+                    {
+                        if (c.ActiveShipmentNo.Trim() != ActiveShipmentNo.Trim())
+                        {
+                            var action = await DisplayAlert("", "You are currently working on shipment #" + c.ActiveShipmentNo + ". Would you like to stop working on that shipment and start working on this one?", "Yes", "No");
+                            if (action)
+                            {
+                                var TrackDateTimes = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
+                                var ChangeShipment = App.SOAP_Request.ChangeShipment(c.ActiveShipmentNo, ActiveShipmentNo, username.Trim(), CompanyId, "Y", c.ActiveShipmentStatus, TrackDateTimes, InviteCode, Url);
+                                Btnship_RootObject ChngShipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(ChangeShipment);
+                                foreach (var m in ChngShipresponse.Details)
+                                {
+                                    if(m.Message.ToLower()=="ok")
+                                    {
+                                        //c.ActiveShipmentNo = ActiveShipmentNo;
+                                        //c.ActiveShipmentStatus = ActiveShipmentStatus;
+                                        //App.SqlLiteCon().Update(c);
+                                        App.SqlLiteCon().Execute("update Customer set ActiveShipmentNo='" + ActiveShipmentNo.Trim() + "' ,ActiveShipmentStatus='" + ActiveShipmentStatus.Trim() + "' where ActiveShipmentNo = ?", c.ActiveShipmentNo);
+
+                                    }
+                                }
+
+                            }
+                            else
+                                return;
+                        }
+                    }
+                    break;
+                }
+
+                
                 //var locator = CrossGeolocator.Current;
                 //locator.DesiredAccuracy = 50;
                 //TimeSpan ts = TimeSpan.FromTicks(10000);
                 //var position = await locator.GetPositionAsync(ts);
-                string TrackDateTime = DateTime.Now.ToString();
+
+            
+                
                 string lattitude = "0";
                 string longtitude = "0";
 
@@ -452,7 +509,7 @@ namespace TESTAPP10
                 {
                     await DisplayAlert("", "Cannot access Location.", "OK");
                 }
-
+                var TrackDateTime = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
                 var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode, "I", Url,TrackDateTime);
                 Btnship_RootObject Btnshipresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(Sendresponse);
                 foreach (var re in Btnshipresponse.Details)
@@ -474,6 +531,7 @@ namespace TESTAPP10
                     TrackUser = a.TrackUser;
                 }
                 Application.Current.Properties["inProgess"] = inProgress;
+
                 if ((inProgress.ToLower() == "y") && (TrackUser.ToLower() == "y"))
                 {
 
@@ -484,7 +542,8 @@ namespace TESTAPP10
                         Console.WriteLine("executing ThreadProc");
                         try
                         {
-                            SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url,TrackDateTime);
+                            TrackDateTime = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
+                            SendProgressCall(RefNo, Hawb, lattitude, longtitude, username.Trim(), CompanyId, InviteCode.Trim(), "I", Url,TrackDateTime, Seconds);
                         }
                         finally
                         {
@@ -521,13 +580,11 @@ namespace TESTAPP10
 
             await Navigation.PushAsync(new Spl_Instruction(HAWB, MoveType, ServiceDate, SP));
         }
-        private bool HasBeenProgrammaticallyToggled = false;
-        public void ThisIsAProgrammaticToggle(object sender, ToggledEventArgs e)
-        {
-            HasBeenProgrammaticallyToggled = true;
-            var swtich = sender as Switch;
-            swtich.IsToggled = true;
-        }
+     
+        private DateTime timeUtc;
+      
+
+
         private async void XamlSwitch_Toggled(object sender, ToggledEventArgs e)
         {
 
@@ -577,7 +634,7 @@ namespace TESTAPP10
                         swtich.IsToggled = true;
 
 
-                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                     return;
                 }
 
@@ -636,7 +693,7 @@ namespace TESTAPP10
                 var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
                 if (inprogress.ToLower() != "y")
                 {
-                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                     return;
                 }
                 await CrossMedia.Current.Initialize();
@@ -776,7 +833,7 @@ namespace TESTAPP10
             public string DCargoNotes { get; set; }
             public string TrackUser { get; set; }
 
-           
+            public string Seconds { get; set; }
 
         }
 
@@ -859,7 +916,7 @@ namespace TESTAPP10
             var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
             if (inprogress.ToLower() != "y")
             {
-                await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                 return;
             }
 
@@ -882,20 +939,21 @@ namespace TESTAPP10
                 var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
                 if (inprogress.ToLower() != "y")
                 {
-                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                     return;
                 }
                 var username = "";
                 var CompanyId = "";
                 var InviteCode = "";
                 var Url = "";
-                string TrackDateTime = DateTime.Now.ToString();
+             
                 var Lat = "0";
                 var Long = "0";
                 var Status = "";
                 var RefNo = "";
                 var Type = "";
                
+
                 foreach (var c in customer)
                 {
                     username = c.UserId;
@@ -903,6 +961,12 @@ namespace TESTAPP10
                     CompanyId = c.CompanyID;
                     Url = c.TransactURL;
                     Type = c.Type;
+                    //if ((!string.IsNullOrEmpty(c.ActiveShipmentNo)) && (!string.IsNullOrEmpty(c.ActiveShipmentStatus)))
+                    //{
+                    //    c.ActiveShipmentNo = "";
+                    //    c.ActiveShipmentStatus = "";
+                    //    App.SqlLiteCon().Update(c);
+                    //}
                     break;
                 }
 
@@ -979,7 +1043,7 @@ namespace TESTAPP10
                 {
                     await DisplayAlert("", ex.Message, "OK");
                 }
-
+                string TrackDateTime = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
 
                 var Sendresponse = App.SOAP_Request.SendProgress(RefNo, Hawb, Lat, Long, username.Trim(), CompanyId, InviteCode, "C", Url,TrackDateTime);
 
@@ -1001,6 +1065,8 @@ namespace TESTAPP10
                                 if ((!string.IsNullOrEmpty(a.inProgress)) && (a.inProgress.ToLower() != "y"))
                                 {
                                     Application.Current.Properties["StopSend"] = "true";
+
+                                    App.SqlLiteCon().Execute("update Customer set ActiveShipmentNo='' ,ActiveShipmentStatus='' where ActiveShipmentNo = ?", Hawb);
 
                                     //ThreadAbortList TAs = new ThreadAbortList();
                                     //TAs.ShipmentId = Hawb;
@@ -1035,6 +1101,87 @@ namespace TESTAPP10
 
         }
 
-       
+      
+
+        private async void Ximage_Tapped(object sender, EventArgs e)
+        {
+            try
+            {
+                var Hawb = Application.Current.Properties.ContainsKey("ShipHawb") ? Application.Current.Properties["ShipHawb"] as string : "";
+                var MoveType = Application.Current.Properties.ContainsKey("ShipMtype") ? Application.Current.Properties["ShipMtype"] as string : "";
+             
+
+                var customer = from s in App.SqlLiteCon().Table<Customer>() select s;
+                var ActiveShipmentStatus = "";
+            
+                var username = "";
+                var CompanyId = "";
+                var InviteCode = "";
+                var Url = "";
+                var Type = "";
+                var newrefno = "0";
+                var Status = "";
+                var RefNo = "";
+
+
+
+                var resp = Application.Current.Properties.ContainsKey("LoadResponse") ? Application.Current.Properties["LoadResponse"] as string : "";
+
+                SD_RootObject response = JsonConvert.DeserializeObject<SD_RootObject>(resp);
+
+                foreach (var a in response.Details)
+                {
+
+                    Status = a.Status;
+                    RefNo = a.RefNo;
+
+                }
+
+                foreach (var c in customer)
+                {
+                    username = c.UserId;
+                    InviteCode = c.XCode;
+                    CompanyId = c.CompanyID;
+                    Url = c.TransactURL;
+                    ActiveShipmentStatus = c.ActiveShipmentStatus;
+                  
+                    Type = c.Type;
+
+
+                    break;
+                }
+                var ddate = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
+
+                var ChangeShipment = App.SOAP_Request.ChangeShipment(RefNo, newrefno, username.Trim(), CompanyId, "Y", ActiveShipmentStatus, ddate, InviteCode, Url);
+                Btnship_RootObject Xresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(ChangeShipment);
+                foreach (var re in Xresponse.Details)
+                {
+                    if (re.Message.ToLower() == "ok")
+                    {
+                        foreach (var c in customer)
+                        {
+                            //c.ActiveShipmentNo = "";
+                            //c.ActiveShipmentStatus = "";
+                            //App.SqlLiteCon().Update(c);
+                            App.SqlLiteCon().Execute("update Customer set ActiveShipmentNo='' ,ActiveShipmentStatus='' where ActiveShipmentNo = ?", Hawb);
+
+                        }
+                        if (Type.ToLower() == "m")
+                            await Navigation.PushAsync(new MBoardItemDetails());
+                        else
+                            await Navigation.PushAsync(new SBoardDataDetails());
+
+                    }
+                    else
+                        await DisplayAlert("", re.Message, "OK");
+                }
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("", ex.Message, "OK");
+                return;
+            }
+
+        }
     }
 }

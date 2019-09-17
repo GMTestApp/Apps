@@ -16,6 +16,7 @@ namespace TESTAPP10
         public string Type { get; set; }
         public string CompanyID { get; set; }
         public string URL { get; set; }
+        public string BackgroundLocationUpdate { get; set; }
     }
 
 }

@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
-
+using static TESTAPP10.ShipmentDetails;
 
 namespace TESTAPP10
 {
@@ -19,6 +21,9 @@ namespace TESTAPP10
             InitializeComponent();
             //UsernameEntrylogin.Text = "David";
             //PasswordEntrylogin.Text = "1234567";
+            //txtuname.Text = "David";
+            //txtpass.Text = "1234567";
+            //txtinvitecode.Text = "H9i86f";
 
             loginvisibility();
         }
@@ -46,13 +51,13 @@ namespace TESTAPP10
                 }
                 else
                 {
-                   
+
                     login.IsVisible = false;
                     registration.IsVisible = true;
                     loginscreen.Text = "New User Registration";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -64,6 +69,7 @@ namespace TESTAPP10
                 var userid = txtuname.Text.Trim();
                 var password = txtpass.Text.Trim();
                 var InviteCode = txtinvitecode.Text.Trim();
+                var BackgroundLocationUpdate = "";
 
                 if ((string.IsNullOrEmpty(txtuname.Text)) || (string.IsNullOrEmpty(txtpass.Text)) || (string.IsNullOrEmpty(txtinvitecode.Text)))
                 {
@@ -79,7 +85,15 @@ namespace TESTAPP10
                     errorframe.IsVisible = true;
                     return;
                 }
-                var rsds = App.SOAP_Request.NewRegistration(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim());
+
+
+
+                var rsds = App.SOAP_Request.NewRegistration(userid.Trim(), TripleDES.Encrypt(password.Trim()), InviteCode.Trim(), BackgroundLocationUpdate);
+
+
+
+
+
                 if (!rsds.Contains("\"CompanyID\":"))
                 {
                     lblmsg2.Text = rsds;
@@ -91,8 +105,9 @@ namespace TESTAPP10
                 try
                 {
                     response = JsonConvert.DeserializeObject<Re_Type>(rsds);
+                    BackgroundLocationUpdate = response.BackgroundLocationUpdate;
                 }
-                catch(Exception f)
+                catch (Exception f)
                 {
                     lblmsg2.Text = f.Message;
                     lblmsg2.IsVisible = true;
@@ -110,7 +125,10 @@ namespace TESTAPP10
                     custom.Type = response.Type != null ? response.Type : "";
                     custom.CompanyID = response.Type != null ? response.CompanyID : "";
                     custom.TransactURL = response.Type != null ? response.URL : "";
-
+                    custom.ActiveShipmentNo = "";
+                    custom.ActiveShipmentStatus = "";
+                    custom.LocationUpdate = BackgroundLocationUpdate;
+                    custom.IsBackgroundLocationUpdate="";
                     App.SqlLiteCon().CreateTable<Customer>();
 
                     App.SqlLiteCon().Insert(custom);
@@ -148,7 +166,7 @@ namespace TESTAPP10
                 var userid = UsernameEntrylogin.Text;
                 var password = PasswordEntrylogin.Text;
 
-                if ((string.IsNullOrEmpty(userid)) || (string.IsNullOrEmpty(password)) )
+                if ((string.IsNullOrEmpty(userid)) || (string.IsNullOrEmpty(password)))
                 {
                     lblmsg2.Text = "Please fill all the fields.";
                     errorframe.IsVisible = true;
@@ -166,16 +184,108 @@ namespace TESTAPP10
                 }
 
                 var type = "";
+                string LocationUpdate = "0";
+                var UserId = "";
+                var CompanyId = "";
+                var XCode = "";
+                var lattitude = "0";
+                var longtitude = "0";
+              
+                try
+                {
+
+                    try
+                    {
+                        var requestsss = new GeolocationRequest(GeolocationAccuracy.Medium);
+                        var locationsss = await Geolocation.GetLocationAsync(requestsss);
+
+
+                        if (locationsss != null)
+                        {
+                            lattitude = locationsss.Latitude.ToString();
+                            longtitude = locationsss.Longitude.ToString();
+                        }
+                        else
+                        {
+                            await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
+                            return;
+                        }
+                        
+                    }
+                    catch
+                    {
+                        var locationd = await Geolocation.GetLastKnownLocationAsync();
+
+                        if (locationd != null)
+                        {
+                            lattitude = locationd.Latitude.ToString();
+                            longtitude = locationd.Longitude.ToString();
+                        }
+                        else
+                        {
+                            await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
+                            return;
+                        }
+                    }
+
+                }
+                catch (FeatureNotSupportedException fnsEx)
+                {
+                    await DisplayAlert("", fnsEx.Message, "OK");
+                }
+                catch (FeatureNotEnabledException fneEx)
+                {
+                    await DisplayAlert("", fneEx.Message, "OK");
+                }
+                catch (PermissionException pEx)
+                {
+                    await DisplayAlert("", pEx.Message, "OK");
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("", ex.Message, "OK");
+                }
                 foreach (var v in customer)
                 {
                     type = v.Type;
+                    UserId = v.UserId;
+                    CompanyId = v.CompanyID;
+                    XCode = v.XCode;
+                    LocationUpdate = v.LocationUpdate;
+
+                   // v.IsBackgroundLocationUpdate = "true";
+                    //App.SqlLiteCon().Update(v);
                 }
-                if(type.ToLower()=="m")
-                    await Navigation.PushAsync(new MBoard( userid,password));
+                App.SqlLiteCon().Execute("update Customer set IsBackgroundLocationUpdate='true'");
+
+                if ((!string.IsNullOrEmpty(LocationUpdate)) && (Convert.ToInt32(LocationUpdate) >= 20000))
+                {
+
+
+
+                    Thread t = new Thread(() =>
+                    {
+                        Console.WriteLine("executing ThreadProc");
+                        try
+                        {
+                            var DDate = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
+                            ReceiveLocationUpdate(UserId, CompanyId, lattitude, longtitude, DDate, XCode);
+                        }
+                        finally
+                        {
+                            // Console.WriteLine("finished executing ThreadProc");
+                        }
+                    });
+                    // t.IsBackground = true;
+                    t.Start();
+                }
+
+                if (type.ToLower() == "m")
+                    await Navigation.PushAsync(new MBoard(userid, password));
                 else
                     await Navigation.PushAsync(new SBoardDataDetails());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 lblmsg2.Text = ex.Message.ToString();
@@ -183,6 +293,57 @@ namespace TESTAPP10
                 errorframe.IsVisible = true;
             }
         }
+
+        private async void ReceiveLocationUpdate(string UserId, string CompanyId, string lattitude, string longtitude, string DDate, string XCode)
+        {
+            try
+            {
+            start:
+
+
+                string shipmentid = "";
+                var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s => s.UserId == UserId) select s;
+                var BackgroundLocationUpdate = "";
+                var url = "";
+                bool IsContinue = true;
+                if ((lattitude != "0") && (longtitude != "0"))
+                {
+
+                    foreach (var c in customer)
+                    {
+                        BackgroundLocationUpdate = c.LocationUpdate;
+                        url = c.TransactURL;
+                        IsContinue = !string.IsNullOrEmpty(c.IsBackgroundLocationUpdate) ? Convert.ToBoolean(c.IsBackgroundLocationUpdate) : true;
+                    }
+
+                    if (!IsContinue)
+                        return;
+                    DDate = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-","/");
+                    var ChangeShipment = App.SOAP_Request.ReceiveLocationUpdate(UserId, CompanyId, lattitude, longtitude, DDate, XCode, url);
+                    Btnship_RootObject ChngShipLogin = JsonConvert.DeserializeObject<Btnship_RootObject>(ChangeShipment);
+                    foreach (var re in ChngShipLogin.Details)
+                    {
+                        if (re.Message.ToLower() != "ok")
+                        {
+                            return;
+                        }
+                        //await Task.Delay(60000);
+                        await Task.Delay(Convert.ToInt32(!String.IsNullOrEmpty(BackgroundLocationUpdate) ? BackgroundLocationUpdate : ""));
+                        goto start;
+                    }
+
+                }
+                else
+                    return;
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("", ex.Message, "OK");
+                return;
+            }
+        }
+    
+        
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {

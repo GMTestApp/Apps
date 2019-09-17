@@ -43,14 +43,18 @@ namespace TESTAPP10
 
         private async void Signout_Tapped(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
 
        
         private async void Sigout_Clicked(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
+
+      
 
         private async void Signin_Tapped(object sender, EventArgs e)
         {

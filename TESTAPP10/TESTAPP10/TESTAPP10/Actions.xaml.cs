@@ -134,13 +134,17 @@ namespace TESTAPP10
 
         private async void Sigout_Clicked(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
 
         private async void Signout_Tapped(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
+
+     
 
         private async void Signin_Tapped(object sender, EventArgs e)
         {
@@ -263,7 +267,7 @@ namespace TESTAPP10
                 }
                 if (inprogress.ToLower() != "y")
                 {
-                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                     return;
                 }
 
@@ -278,7 +282,7 @@ namespace TESTAPP10
                     Application.Current.Properties["AcLoadResponse"] = Acresp;
                 }
                 else
-                    await DisplayAlert("", "Driver Actions could not be Updated.", "OK");
+                    await DisplayAlert("", Btnshipresponse.Details[0].Message, "OK");
 
                    
             }

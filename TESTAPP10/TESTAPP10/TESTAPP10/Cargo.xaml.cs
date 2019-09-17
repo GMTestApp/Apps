@@ -105,13 +105,17 @@ namespace TESTAPP10
 
         private async void Sigout_Clicked(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
 
         private async void Signout_Tapped(object sender, EventArgs e)
         {
+            App.CloseLoginBackThread();
             await Navigation.PushAsync(new MainPage());
         }
+
+  
 
         private async void Signin_Tapped(object sender, EventArgs e)
         {
@@ -183,7 +187,7 @@ namespace TESTAPP10
                 }
                 if (inprogress.ToLower() != "y")
                 {
-                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                     return;
                 }
                 if (!String.IsNullOrEmpty(note))
@@ -251,7 +255,7 @@ namespace TESTAPP10
                 var inprogress = Application.Current.Properties.ContainsKey("inProgess") ? Application.Current.Properties["inProgess"] as string : "";
                 if (inprogress.ToLower() != "y")
                 {
-                    await DisplayAlert("", "This shipment is not ‘In-progress’, cannot save any updates.", "OK");
+                    await DisplayAlert("", "This shipment is not In-progress, cannot save any updates.", "OK");
                     return;
                 }
 

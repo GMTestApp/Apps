@@ -77,11 +77,61 @@
                 </Grid>
                 <Label x:Name="date" StyleClass="shipdate"  IsEnabled="False" HorizontalOptions="End"/>
                 <Label x:Name="lblhawb"    VerticalOptions="Center"  HorizontalOptions="Center" />
-
-        
-                <Button x:Name="btnship" Text="  I am working on this shipment  " HorizontalOptions="Center" Clicked="Btnship_Clicked"  />
-
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    
+                    
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnship" Text="  I am working on this shipment  " HorizontalOptions="Center" Clicked="Btnship_Clicked" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                  
+                  </Grid>
+                    
+                    
+                    
+                    <Grid Grid.Row="0" Grid.Column="2" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="ximg.png" Grid.Column="1" Margin="0,-15,20,0" HorizontalOptions="Start" VerticalOptions="Center"  HeightRequest="35" WidthRequest="35">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="ximage" Tapped="Ximage_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                    
+                    
+                    
+                </Grid>
+                <!--<Grid BackgroundColor="LightBlue"  Grid.Column="1"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image BackgroundColor="LightCyan"  Source="ximg.png" Grid.Column="1" Margin="0,-15,20,0"  VerticalOptions="Center"  HeightRequest="35" WidthRequest="35">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="ximage" Tapped="Ximage_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>-->
+
+
+
+                  
+
+
+
+                    <Grid>
                     <Label x:Name="lblmovetype"  />
                     <Label x:Name="lblservicedate"  HorizontalOptions="End"/>
                 </Grid>

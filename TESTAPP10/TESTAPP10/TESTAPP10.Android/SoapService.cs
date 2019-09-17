@@ -17,7 +17,7 @@ namespace TESTAPP10.Droid
         //    //return res;
         //    return "";
         //}
-        public string NewRegistration(string uid, string pass, string invitecode)
+        public string NewRegistration(string uid, string pass, string invitecode,string BackgroundLocationUpdate)
         {
             ValidateLogin ValidateLogin = new ValidateLogin();
             var res = ValidateLogin.NewRegistration(uid, pass, invitecode);
@@ -113,6 +113,21 @@ namespace TESTAPP10.Droid
             var res = obj.PostSignature(RefNo, HAWB, Signature, Name, EmailId, UserId, COMPANYID, InviteCode);
             return res;
         }
+        public string ChangeShipment(string OldRefNo, string NewRefNo, string UserID, string CompanyID, string status, string OldRefnoStatus, string DDate, string invitecode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.ChangeShipment(OldRefNo, NewRefNo, UserID, CompanyID, status, OldRefnoStatus, DDate, invitecode);
+            return res;
+        }
+        public string ReceiveLocationUpdate(string UserId, string CompanyId, string Lat, string Lon, string DDate, string XCode, string Url)
+        {
+            WTDriverTrak obj = new WTDriverTrak();
+            obj.Url = Url;
+            var res = obj.ReceiveLocationUpdate(UserId, CompanyId, Lat, Lon, DDate, XCode).ToString();
+            return res;
+        }
+
 
     }
 }

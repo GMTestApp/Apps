@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.IO;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,6 +28,7 @@ namespace TESTAPP10
             Application.Current.Properties.Clear();
             if (!string.IsNullOrEmpty(StopSend))
                 Application.Current.Properties["StopSend"] = StopSend;
+           
 
 
         }
@@ -34,6 +36,8 @@ namespace TESTAPP10
 
         protected override void OnSleep()
         {
+            CloseLoginBackThread();
+           
             // Handle when your app sleeps
         }
 
@@ -41,5 +45,23 @@ namespace TESTAPP10
         {
             // Handle when your app resumes
         }
+    
+
+        public static void CloseLoginBackThread()
+        {
+
+            App.SqlLiteCon().Execute("update Customer set IsBackgroundLocationUpdate='false'");
+
+            //var customer = from s in SqlLiteCon().Table<Customer>() select s;
+
+            //foreach (var v in customer)
+            //{ 
+            //    v.IsBackgroundLocationUpdate = "false";
+            //    App.SqlLiteCon().Update(v);
+            //}
+        }
+      
+      
+
     }
 }

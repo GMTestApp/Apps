@@ -15,5 +15,9 @@ namespace TESTAPP10
         public string XCode { get; set; }
         public string CompanyID { get; set; }
         public string TransactURL { get; set; }
+        public string ActiveShipmentNo { get; set; }
+        public string ActiveShipmentStatus { get; set; }
+        public string LocationUpdate { get; set; }
+        public string IsBackgroundLocationUpdate { get; set; }
     }
 }
