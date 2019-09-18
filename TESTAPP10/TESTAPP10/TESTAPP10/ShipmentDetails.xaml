@@ -83,7 +83,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
                     
                     
@@ -92,7 +92,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnship" Text="  I am working on this shipment  " HorizontalOptions="Center" Clicked="Btnship_Clicked" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                    <Button x:Name="btnship"  Text="  I am working on this shipment  " HorizontalOptions="Center" Clicked="Btnship_Clicked" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
                   
                   </Grid>
                     
@@ -103,10 +103,13 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Image Source="ximg.png" Grid.Column="1" Margin="0,-15,20,0" HorizontalOptions="Start" VerticalOptions="Center"  HeightRequest="35" WidthRequest="35">
+                        <Image Source="ximg.png" Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center"  HeightRequest="30" WidthRequest="30">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer x:Name="ximage" Tapped="Ximage_Tapped"/>
                             </Image.GestureRecognizers>
+                            <Image.Margin>
+                                <OnPlatform  Android="8,-15,20,0" iOS="-5,-15,20,0"/>
+                            </Image.Margin>
                         </Image>
                     </Grid>
                     

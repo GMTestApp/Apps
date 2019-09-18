@@ -28,7 +28,8 @@ namespace TESTAPP10
             Application.Current.Properties.Clear();
             if (!string.IsNullOrEmpty(StopSend))
                 Application.Current.Properties["StopSend"] = StopSend;
-           
+            //App.SqlLiteCon().Execute("update Customer set IsBackgroundLocationUpdate='true'");
+
 
 
         }
@@ -36,7 +37,7 @@ namespace TESTAPP10
 
         protected override void OnSleep()
         {
-            CloseLoginBackThread();
+            
            
             // Handle when your app sleeps
         }

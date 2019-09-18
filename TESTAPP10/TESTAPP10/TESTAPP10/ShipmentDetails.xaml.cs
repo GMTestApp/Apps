@@ -189,17 +189,20 @@ namespace TESTAPP10
 
             string shipmentid = "";
             var customer = from s in App.SqlLiteCon().Table<Customer>().Where(s => s.UserId == UserId) select s;
+            bool IsContinue = true;
 
             foreach (var v in customer)
             {
                 shipmentid = v.ActiveShipmentNo;
+                IsContinue = !string.IsNullOrEmpty(v.IsBackgroundLocationUpdate) ? Convert.ToBoolean(v.IsBackgroundLocationUpdate) : true;
             }
 
             if(HAWB.Trim()!= shipmentid.Trim())
             {
                 return;
             }
-         
+            if (!IsContinue)
+                return;
 
             try
             {
@@ -251,8 +254,7 @@ namespace TESTAPP10
                     {
                         if (re.Message.ToLower() == "ok")
                         {
-                            //await Task.Delay(60000);
-                            await Task.Delay(Convert.ToInt32(!String.IsNullOrEmpty(Seconds)?Seconds: "60000"));
+                            await Task.Delay((Convert.ToInt32(!String.IsNullOrEmpty(Seconds) && (Convert.ToInt32(Seconds) >= 3000) ? Seconds : "60000")));
                             goto start;
                         }
                     }
@@ -410,11 +412,7 @@ namespace TESTAPP10
                     if ((string.IsNullOrEmpty(c.ActiveShipmentNo)) && (string.IsNullOrEmpty(c.ActiveShipmentStatus)))
                     {
 
-                        //c.ActiveShipmentNo = ActiveShipmentNo;
-                        //c.ActiveShipmentStatus = ActiveShipmentStatus;
-                        //App.SqlLiteCon().Update(c);
-
-                        //var announcementToUpdate = App.SqlLiteCon().Query<Customer>($"SELECT * FROM Announcement WHERE Id = '{originalId}'").
+                        
 
                              App.SqlLiteCon().Execute("update Customer set ActiveShipmentNo='" + ActiveShipmentNo.Trim() + "' ,ActiveShipmentStatus='" + ActiveShipmentStatus.Trim() + "' where ActiveShipmentNo = ?", c.ActiveShipmentNo);
 
@@ -451,10 +449,7 @@ namespace TESTAPP10
                 }
 
                 
-                //var locator = CrossGeolocator.Current;
-                //locator.DesiredAccuracy = 50;
-                //TimeSpan ts = TimeSpan.FromTicks(10000);
-                //var position = await locator.GetPositionAsync(ts);
+         
 
             
                 
@@ -581,7 +576,7 @@ namespace TESTAPP10
             await Navigation.PushAsync(new Spl_Instruction(HAWB, MoveType, ServiceDate, SP));
         }
      
-        private DateTime timeUtc;
+      
       
 
 
@@ -1122,7 +1117,7 @@ namespace TESTAPP10
                 var newrefno = "0";
                 var Status = "";
                 var RefNo = "";
-
+                var ActiveShipmentNo = "";
 
 
                 var resp = Application.Current.Properties.ContainsKey("LoadResponse") ? Application.Current.Properties["LoadResponse"] as string : "";
@@ -1144,15 +1139,15 @@ namespace TESTAPP10
                     CompanyId = c.CompanyID;
                     Url = c.TransactURL;
                     ActiveShipmentStatus = c.ActiveShipmentStatus;
-                  
-                    Type = c.Type;
+                    ActiveShipmentNo = c.ActiveShipmentNo;
+                      Type = c.Type;
 
 
                     break;
                 }
                 var ddate = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm:ss tt").Replace("-", "/");
 
-                var ChangeShipment = App.SOAP_Request.ChangeShipment(RefNo, newrefno, username.Trim(), CompanyId, "Y", ActiveShipmentStatus, ddate, InviteCode, Url);
+                var ChangeShipment = App.SOAP_Request.ChangeShipment(ActiveShipmentNo, newrefno, username.Trim(), CompanyId, "Y", ActiveShipmentStatus, ddate, InviteCode, Url);
                 Btnship_RootObject Xresponse = JsonConvert.DeserializeObject<Btnship_RootObject>(ChangeShipment);
                 foreach (var re in Xresponse.Details)
                 {

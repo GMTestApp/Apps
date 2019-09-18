@@ -190,7 +190,7 @@ namespace TESTAPP10
                 var XCode = "";
                 var lattitude = "0";
                 var longtitude = "0";
-              
+
                 try
                 {
 
@@ -210,7 +210,7 @@ namespace TESTAPP10
                             await DisplayAlert("", "Cannot access Location ? Please enable the location.", "OK");
                             return;
                         }
-                        
+
                     }
                     catch
                     {
@@ -253,7 +253,7 @@ namespace TESTAPP10
                     XCode = v.XCode;
                     LocationUpdate = v.LocationUpdate;
 
-                   // v.IsBackgroundLocationUpdate = "true";
+                    // v.IsBackgroundLocationUpdate = "true";
                     //App.SqlLiteCon().Update(v);
                 }
                 App.SqlLiteCon().Execute("update Customer set IsBackgroundLocationUpdate='true'");
